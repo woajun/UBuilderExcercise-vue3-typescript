@@ -6,6 +6,12 @@ interface ICondition {
     size?:string;
 }
 
+interface Label extends ICondition {
+    kind: 'label',
+    value?: string,
+    placeholder?: string,
+}
+
 interface Code extends ICondition{
     kind: 'code',
     val?: string,
@@ -46,4 +52,4 @@ interface RadioOption {
     description: string,
 }
 
-export {ICondition, Code, Select, Radio};
+export {ICondition, Code, Select, Radio, Label};

@@ -1,12 +1,19 @@
-import {ICondition, Code, Select, Radio} from "@/components/search/Conditions"
+import {ICondition, Code, Select, Radio, Label} from '@/components/search/Conditions'
+const contractName: Label = {
+  kind: 'label',
+  field: 'contractName',
+  label: '계약명',
+  placeholder: '계약'
+}
+
 const usePurpose: Radio = {
-  kind: "radio",
-  field: "usePurpose",
-  label: "사용구분",
+  kind: 'radio',
+  field: 'usePurpose',
+  label: '사용구분',
   options: [
-    {description:"전체", value:"0"},
-    {description:"사업용", value:"1"},
-    {description:"사무용", value:"2"}
+    {description:'전체', value:'0'},
+    {description:'사업용', value:'1'},
+    {description:'사무용', value:'2'}
   ]
 }
 
@@ -36,7 +43,7 @@ const bunRyu: Select = {
         {description:'중식', value:'cn'},
         {description:'양식', value:'uk'},
       ],
-      endLabel: "에서 ",
+      endLabel: '에서 ',
       width: '100px'
     },
     {
@@ -46,12 +53,12 @@ const bunRyu: Select = {
           {description:'된장찌개', value:'2', parent:'kr'},
           {description:'감자탕', value:'3', parent:'kr'},
       ],
-      endLabel:"를 먹어야징~"
+      endLabel:'를 먹어야징~'
     }
   ]
 }
 
 const conditions: Array<ICondition> = [
-  usePurpose, dept, bunRyu
+  usePurpose, dept, bunRyu, contractName
 ]
 export {conditions};

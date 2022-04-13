@@ -5,16 +5,18 @@
         <cCode v-if="condition.kind == 'code'" :code="(condition as Code)" />
         <cSelect v-if="condition.kind == 'select'" :select="(condition as Select)" />
         <cRadio v-if="condition.kind == 'radio'" :radio="(condition as Radio)" />
+        <cLabel v-if="condition.kind == 'label'" :label="(condition as Label)" />
       </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
 import { defineProps } from 'vue';
-import { ICondition, Code, Select, Radio } from './Conditions';
+import { ICondition, Code, Select, Radio, Label } from './Conditions';
 import cCode from './conditions/CCode.vue'
 import cSelect from './conditions/CSelect.vue'
 import cRadio from './conditions/CRadio.vue'
+import cLabel from './conditions/CLabel.vue'
 
 interface Props {
   conditions: Array<ICondition>
