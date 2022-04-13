@@ -6,20 +6,34 @@ interface ICondition {
     size?:string;
 }
 
-//TODO default값
-//TODO 모든 타입의 검색파라미터 제작
 interface Code extends ICondition{
     kind: 'code',
     val?: string,
     valWidth?: string
     active?: boolean //default true
-    result?: Array<Result>
+    result?: Array<CodeResult>
 }
-interface Result {
+interface CodeResult {
     val: string,
     width: string,
     editable?: boolean //default false
 }
 
+interface Select extends ICondition{
+    kind: 'select',
+    optionBox: Array<OptionBox>,
+}
 
-export {ICondition, Code};
+interface OptionBox {
+    options: Array<Option>,
+    endLabel?: string,
+}
+interface Option {
+    value: string|null,
+    label: string,
+    selected?:boolean, //default false
+    parent?: string,
+}
+
+
+export {ICondition, Code, Select};
