@@ -1,4 +1,15 @@
-import {ICondition, Code, Select} from "@/components/search/Conditions"
+import {ICondition, Code, Select, Radio} from "@/components/search/Conditions"
+const usePurpose: Radio = {
+  kind: "radio",
+  field: "usePurpose",
+  label: "사용구분",
+  options: [
+    {description:"전체", value:"0"},
+    {description:"사업용", value:"1"},
+    {description:"사무용", value:"2"}
+  ]
+}
+
 const dept: Code = {
   kind: 'code',
   field: 'dept',
@@ -20,19 +31,20 @@ const bunRyu: Select = {
   optionBox: [
     {
       options: [
-        {label:'-대분류-',value:null,selected:true},
-        {label:'한식',value:'kr'}, 
-        {label:'중식',value:'cn'},
-        {label:'양식',value:'uk'},
+        {description:'-대분류-', value:null,selected:true},
+        {description:'한식', value:'kr'}, 
+        {description:'중식', value:'cn'},
+        {description:'양식', value:'uk'},
       ],
-      endLabel: "에서 "
+      endLabel: "에서 ",
+      width: '100px'
     },
     {
       options: [
-          {label:'-중분류-',value:null, selected:true},
-          {label:'김치찌개',value:'1', parent:'kr'},
-          {label:'된장찌개',value:'2', parent:'kr'},
-          {label:'감자탕',value:'3', parent:'kr'},
+          {description:'-중분류-', value:null, selected:true},
+          {description:'김치찌개', value:'1', parent:'kr'},
+          {description:'된장찌개', value:'2', parent:'kr'},
+          {description:'감자탕', value:'3', parent:'kr'},
       ],
       endLabel:"를 먹어야징~"
     }
@@ -40,6 +52,6 @@ const bunRyu: Select = {
 }
 
 const conditions: Array<ICondition> = [
-  dept, bunRyu
+  usePurpose, dept, bunRyu
 ]
 export {conditions};

@@ -21,19 +21,29 @@ interface CodeResult {
 
 interface Select extends ICondition{
     kind: 'select',
-    optionBox: Array<OptionBox>,
+    optionBox: Array<SelectOptionBox>,
 }
 
-interface OptionBox {
-    options: Array<Option>,
+interface SelectOptionBox {
+    options: Array<SelectOption>,
     endLabel?: string,
+    width?: string,
 }
-interface Option {
+interface SelectOption {
     value: string|null,
-    label: string,
+    description: string,
     selected?:boolean, //default false
     parent?: string,
 }
 
+interface Radio extends ICondition {
+    kind: 'radio',
+    options: Array<RadioOption>,
+}
 
-export {ICondition, Code, Select};
+interface RadioOption {
+    value: string,
+    description: string,
+}
+
+export {ICondition, Code, Select, Radio};
