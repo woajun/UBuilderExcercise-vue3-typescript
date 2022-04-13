@@ -1,9 +1,19 @@
 interface ICondition {
-    kind: 'code'|'radio'|'label'|'select'|'date',
+    kind: 'code'|'radio'|'label'|'select'|'singleDate'|'duration',
     field:string;
     label:string;
     labelWidth?:string;
     size?:string;
+}
+
+interface SingleDate extends ICondition{
+    kind: 'singleDate'
+    date?: Date
+}
+interface Duration extends ICondition{
+    kind: 'duration'
+    from?: Date
+    to?: Date
 }
 
 interface Label extends ICondition {
@@ -52,4 +62,4 @@ interface RadioOption {
     description: string,
 }
 
-export {ICondition, Code, Select, Radio, Label};
+export {ICondition, Code, Select, Radio, Label, SingleDate, Duration};

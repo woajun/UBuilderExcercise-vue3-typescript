@@ -1,4 +1,21 @@
-import {ICondition, Code, Select, Radio, Label} from '@/components/search/Conditions'
+import {ICondition, Code, Select, Radio, Label, SingleDate, Duration} from '@/components/search/Conditions'
+
+
+const inputDate: SingleDate = {
+  kind: 'singleDate',
+  field: 'inputDate',
+  label: '기준일자',
+  date: new Date(),
+}
+
+const period: Duration = {
+  kind: 'duration',
+  field: 'period',
+  label: '기간',
+  from: new Date(),
+  to: new Date()
+}
+
 const contractName: Label = {
   kind: 'label',
   field: 'contractName',
@@ -59,6 +76,6 @@ const bunRyu: Select = {
 }
 
 const conditions: Array<ICondition> = [
-  usePurpose, dept, bunRyu, contractName
+  usePurpose, dept, bunRyu, contractName, period, inputDate
 ]
 export {conditions};
