@@ -1,6 +1,6 @@
 <template>
     <div>
-        {{ props }}
+        <!-- {{ props }} -->
     </div>
 </template>
 
@@ -9,7 +9,7 @@ import { defineProps } from 'vue';
 import { Radio } from '../Conditions';
 
 interface Props {
-    radio: Radio
+    arg: Radio
 }
 const props = defineProps<Props>();
 </script>

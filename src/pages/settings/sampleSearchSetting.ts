@@ -45,7 +45,36 @@ const dept: Code = {
   result: [
     {val: '차량지원팀-일상파트', width: '100px'},
     {val: '78AB531-DS241ST', width: '150px'}
-  ]
+  ],
+  event(val){
+    alert('검색값:'+val);
+    return ['아큐라지원팀','아큐라코드'];
+  }
+}
+const dept1: Code = {
+  kind: 'code',
+  field: 'dept2',
+  label: '부서2',
+  val: '  -     -    ',
+  valWidth: '100px',
+  result: [
+    {val: '타입2-일상파트'},
+  ],
+  event(val){
+    alert('검색값:'+val);
+    return ['검색결과'];
+  }
+}
+
+const dept2: Code = {
+  kind: 'code',
+  field: 'dept3',
+  label: '부서3',
+  val: '기본값',
+  event(val){
+    alert('검색값:'+val);
+    return [];
+  }
 }
 
 const bunRyu: Select = {
@@ -76,6 +105,6 @@ const bunRyu: Select = {
 }
 
 const conditions: Array<ICondition> = [
-  usePurpose, dept, bunRyu, contractName, period, inputDate
+  usePurpose, dept, dept1, dept2, bunRyu, contractName, period, inputDate
 ]
 export {conditions};

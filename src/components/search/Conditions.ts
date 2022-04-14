@@ -28,10 +28,11 @@ interface Code extends ICondition{
     valWidth?: string
     active?: boolean //default true
     result?: Array<CodeResult>
+    event(v?: string): Array<string>
 }
 interface CodeResult {
     val: string,
-    width: string,
+    width?: string,
     editable?: boolean //default false
 }
 

@@ -1,6 +1,6 @@
 <template>
     <div>
-        {{ props }}
+        <!-- {{ props }} -->
     </div>
 </template>
 
@@ -9,7 +9,7 @@ import { defineProps } from 'vue';
 import { SingleDate } from '../Conditions';
 
 interface Props {
-    singleDate: SingleDate
+    arg: SingleDate
 }
 const props = defineProps<Props>();
 </script>

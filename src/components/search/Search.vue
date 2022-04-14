@@ -2,12 +2,12 @@
   <div>
     <div v-for="condition in conditions" :key="condition.field">
       <div :class="[condition.size ? condition.size : 'col-12']">
-        <cCode v-if="condition.kind == 'code'" :code="(condition as Code)" />
-        <cSelect v-if="condition.kind == 'select'" :select="(condition as Select)" />
-        <cRadio v-if="condition.kind == 'radio'" :radio="(condition as Radio)" />
-        <cLabel v-if="condition.kind == 'label'" :label="(condition as Label)" />
-        <cSingleDate v-if="condition.kind == 'singleDate'" :singleDate="(condition as SingleDate)" />
-        <cDuration v-if="condition.kind == 'duration'" :duration="(condition as Duration)" />
+        <cCode v-if="condition.kind == 'code'" :arg="(condition as Code)" />
+        <cSelect v-if="condition.kind == 'select'" :arg="(condition as Select)" />
+        <cRadio v-if="condition.kind == 'radio'" :arg="(condition as Radio)" />
+        <cLabel v-if="condition.kind == 'label'" :arg="(condition as Label)" />
+        <cSingleDate v-if="condition.kind == 'singleDate'" :arg="(condition as SingleDate)" />
+        <cDuration v-if="condition.kind == 'duration'" :arg="(condition as Duration)" />
       </div>
     </div>
   </div>
