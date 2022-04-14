@@ -7,9 +7,9 @@
         <cCode v-if="condition.kind == 'code'" :arg="(condition as Code)" />
         <cSelect v-if="condition.kind == 'select'" :arg="(condition as Select)" />
         <cRadio v-if="condition.kind == 'radio'" :arg="(condition as Radio)" />
-        <cLabel v-if="condition.kind == 'text'" :arg="(condition as Text)" />
-        <cSingleDate v-if="condition.kind == 'date'" :arg="(condition as CDate)" />
-        <cDuration v-if="condition.kind == 'period'" :arg="(condition as Period)" />
+        <cText v-if="condition.kind == 'text'" :arg="(condition as Text)" />
+        <cDate v-if="condition.kind == 'date'" :arg="(condition as CDate)" />
+        <cPeriod v-if="condition.kind == 'period'" :arg="(condition as Period)" />
       </div>
     </div>
   </div>
@@ -20,9 +20,9 @@ import { ICondition, Code, Select, Radio, Text, CDate, Period } from './Conditio
 import cCode from './conditions/CCode.vue'
 import cSelect from './conditions/CSelect.vue'
 import cRadio from './conditions/CRadio.vue'
-import cLabel from './conditions/CLabel.vue'
-import cSingleDate from './conditions/CSingleDate.vue'
-import cDuration from './conditions/CDuration.vue'
+import cText from './conditions/CText.vue'
+import cDate from './conditions/CDate.vue'
+import cPeriod from './conditions/CPeriod.vue'
 
 interface Props {
   conditions: Array<ICondition>
