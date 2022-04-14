@@ -1,23 +1,23 @@
-import {ICondition, Code, Select, Radio, Label, SingleDate, Duration} from '@/components/search/Conditions'
+import {ICondition, Code, Select, Radio, Text, CDate, Period} from '@/components/search/Conditions'
 
 
-const inputDate: SingleDate = {
-  kind: 'singleDate',
+const inputDate: CDate = {
+  kind: 'date',
   field: 'inputDate',
   label: '기준일자',
   date: new Date(),
 }
 
-const period: Duration = {
-  kind: 'duration',
+const period: Period = {
+  kind: 'period',
   field: 'period',
   label: '기간',
   from: new Date(),
   to: new Date()
 }
 
-const contractName: Label = {
-  kind: 'label',
+const contractName: Text = {
+  kind: 'text',
   field: 'contractName',
   label: '계약명',
   placeholder: '계약명 입력'
@@ -61,12 +61,12 @@ const dept1: Code = {
   field: 'dept1',
   label: '부서1',
   labelWidth: '40px',
-  size:'col-12',
-  val: '  -     -    ',
-  valWidth: '100px',
+  fullWidth:'col-12',
+  value: '  -     -    ',
+  valueWidth: '100px',
   result: [
-    {val: '차량지원팀-일상파트', width: '100px'},
-    {val: '78AB531-DS241ST', width: '150px'}
+    {value: '차량지원팀-일상파트', width: '100px'},
+    {value: '78AB531-DS241ST', width: '150px'}
   ],
   //여기서 구현하면 코드가 장황해지고 js파일에 import할 게 많아짐
   event(val){
@@ -87,13 +87,13 @@ const dept2: Code = {
   kind: 'code',
   field: 'dept2',
   label: '부서2',
-  val: '  -     -    ',
-  valWidth: '100px',
+  value: '  -     -    ',
+  valueWidth: '100px',
   result: [
-    {val: '타입2-일상파트'},
+    {value: '타입2-일상파트'},
   ],
-  event(val){
-    alert('검색값:'+val);
+  event(value){
+    alert('검색값:'+value);
     return ['검색결과'];
   }
 }
@@ -102,9 +102,9 @@ const dept3: Code = {
   kind: 'code',
   field: 'dept3',
   label: '부서3',
-  val: '기본값',
-  event(val){
-    alert('검색값:'+val);
+  value: '기본값',
+  event(value){
+    alert('검색값:'+value);
     return [];
   }
 }

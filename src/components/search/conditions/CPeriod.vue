@@ -6,10 +6,10 @@
 
 <script setup lang="ts">
 import { defineProps } from 'vue';
-import { Duration } from '../Conditions';
+import { Period } from '../Conditions';
 
 interface Props {
-    arg: Duration
+    arg: Period
 }
 const props = defineProps<Props>();
 </script>

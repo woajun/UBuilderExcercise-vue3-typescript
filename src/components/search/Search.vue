@@ -1,22 +1,22 @@
 <template>
   <div>
     <div v-for="condition in conditions" :key="condition.field">
-      <div :class="[condition.size ? condition.size : 'col-12']">
+      <div :class="[condition.fullWidth ? condition.fullWidth : 'col-12']">
         <br />
         <label for="">{{ condition.label }}</label><span>:</span>
         <cCode v-if="condition.kind == 'code'" :arg="(condition as Code)" />
         <cSelect v-if="condition.kind == 'select'" :arg="(condition as Select)" />
         <cRadio v-if="condition.kind == 'radio'" :arg="(condition as Radio)" />
-        <cLabel v-if="condition.kind == 'label'" :arg="(condition as Label)" />
-        <cSingleDate v-if="condition.kind == 'singleDate'" :arg="(condition as SingleDate)" />
-        <cDuration v-if="condition.kind == 'duration'" :arg="(condition as Duration)" />
+        <cLabel v-if="condition.kind == 'text'" :arg="(condition as Text)" />
+        <cSingleDate v-if="condition.kind == 'date'" :arg="(condition as CDate)" />
+        <cDuration v-if="condition.kind == 'period'" :arg="(condition as Period)" />
       </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
 import { defineProps } from 'vue';
-import { ICondition, Code, Select, Radio, Label, SingleDate, Duration } from './Conditions';
+import { ICondition, Code, Select, Radio, Text, CDate, Period } from './Conditions';
 import cCode from './conditions/CCode.vue'
 import cSelect from './conditions/CSelect.vue'
 import cRadio from './conditions/CRadio.vue'

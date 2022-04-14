@@ -1,39 +1,43 @@
 interface ICondition {
-    kind: 'code'|'radio'|'label'|'select'|'singleDate'|'duration',
-    field:string;
-    label:string;
-    labelWidth?:string;
-    size?:string;
+    kind: 'code'|'radio'|'text'|'select'|'date'|'period'
+    field:string
+    label:string
+    labelWidth?:string
+    fullWidth?:string
 }
 
-interface SingleDate extends ICondition{
-    kind: 'singleDate'
+interface CDate extends ICondition{
+    kind: 'date'
     date?: Date
+    placeholder?: string
 }
-interface Duration extends ICondition{
-    kind: 'duration'
+interface Period extends ICondition{
+    kind: 'period'
     from?: Date
+    fromPlaceholder?: string
     to?: Date
+    toPlaceholder?: string
 }
 
-interface Label extends ICondition {
-    kind: 'label',
+interface Text extends ICondition {
+    kind: 'text',
     value?: string,
     placeholder?: string,
 }
 
 interface Code extends ICondition{
     kind: 'code',
-    val: string,
-    valWidth?: string
-    active?: boolean //default true
+    value: string,
+    valueWidth?: string
+    valueClickEvent?: boolean
+    disabled?: boolean
     result?: Array<CodeResult>
     event(v: string): Array<string>
 }
 interface CodeResult {
-    val: string,
+    value: string,
     width?: string,
-    editable?: boolean //default false
+    editable?: boolean
 }
 
 interface Select extends ICondition{
@@ -66,4 +70,4 @@ interface RadioOption {
     disabled?: boolean
 }
 
-export {ICondition, Code, Select, Radio, Label, SingleDate, Duration};
+export {ICondition, Code, Select, Radio, Text, CDate, Period};

@@ -12,9 +12,4 @@ import { listSetting } from './settings/sampleListSetting';
 import sl from '../layouts/SL.vue';
 import list from '@/components/list/List.vue';
 
-// console.log('aa', conditions[1]);
-// conditions[dept].event(){
-
-// };
-
 </script>

@@ -1,5 +1,6 @@
 <template>
   <div class="sl">
+    <!-- 조회버튼 -->
     <slot></slot>
   </div>
 </template>
