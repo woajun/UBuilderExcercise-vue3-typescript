@@ -24,7 +24,7 @@ interface Label extends ICondition {
 
 interface Code extends ICondition{
     kind: 'code',
-    val?: string,
+    val: string,
     valWidth?: string
     active?: boolean //default true
     result?: Array<CodeResult>
@@ -50,7 +50,7 @@ interface SelectOptionBox {
 interface SelectOption {
     value: string,
     description: string,
-    disabled?:boolean, //default false
+    disabled?:boolean,
     parent?: string,
 }
 
@@ -62,6 +62,8 @@ interface Radio extends ICondition {
 interface RadioOption {
     value: string,
     description: string,
+    checked?: boolean,
+    disabled?: boolean
 }
 
 export {ICondition, Code, Select, Radio, Label, SingleDate, Duration};

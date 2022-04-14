@@ -2,6 +2,8 @@
   <div>
     <div v-for="condition in conditions" :key="condition.field">
       <div :class="[condition.size ? condition.size : 'col-12']">
+        <br />
+        <label for="">{{ condition.label }}</label><span>:</span>
         <cCode v-if="condition.kind == 'code'" :arg="(condition as Code)" />
         <cSelect v-if="condition.kind == 'select'" :arg="(condition as Select)" />
         <cRadio v-if="condition.kind == 'radio'" :arg="(condition as Radio)" />

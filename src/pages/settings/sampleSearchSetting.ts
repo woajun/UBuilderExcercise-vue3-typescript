@@ -20,17 +20,39 @@ const contractName: Label = {
   kind: 'label',
   field: 'contractName',
   label: '계약명',
-  placeholder: '계약'
+  placeholder: '계약명 입력'
 }
 
-const usePurpose: Radio = {
+const radio1: Radio = {
   kind: 'radio',
-  field: 'usePurpose',
+  field: 'radio1',
   label: '사용구분',
   options: [
-    {description:'전체', value:'0'},
+    {description:'전체', value:'0', checked: true},
     {description:'사업용', value:'1'},
     {description:'사무용', value:'2'}
+  ]
+}
+
+const radio2: Radio = {
+  kind: 'radio',
+  field: 'radio2',
+  label: '사용구분',
+  options: [
+    {description:'전체', value:'0', checked: true},
+    {description:'사업용', value:'1'},
+    {description:'사무용', value:'2'}
+  ]
+}
+
+const radio3: Radio = {
+  kind: 'radio',
+  field: 'radio3',
+  label: 'disabled',
+  options: [
+    {description:'전체', value:'4', disabled: true, checked: true },
+    {description:'사업용', value:'5', disabled: true},
+    {description:'사무용', value:'6', disabled: true}
   ]
 }
 
@@ -179,6 +201,6 @@ const bunRyu3: Select = {
 }
 
 const conditions: Array<ICondition> = [
-  usePurpose, dept1, dept2, dept3, bunRyu1, bunRyu2, bunRyu3, contractName, period, inputDate
+  radio1, radio2, radio3, dept1, dept2, dept3, bunRyu1, bunRyu2, bunRyu3, contractName, period, inputDate
 ]
 export {conditions};

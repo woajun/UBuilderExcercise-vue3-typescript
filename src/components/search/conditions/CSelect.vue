@@ -1,18 +1,14 @@
 <template>
-    <div>
-        <br />
-        <label for="">{{ select.label }}</label><span>:</span>
-        <span v-for="(box, i) in select.optionBox" :key="i">
-            <select v-model="box.selectedValue">
-                <option v-for="(option, t) in box.options" :key="t"
-                    v-show="getParent(i) == option.parent || option.parent == undefined" :value="option.value"
-                    :disabled="option.disabled">
-                    {{ option.description }}
-                </option>
-            </select>
-            {{ box.endLabel }}
-        </span>
-    </div>
+    <span v-for="(box, i) in select.optionBox" :key="i">
+        <select v-model="box.selectedValue">
+            <option v-for="(option, t) in box.options" :key="t"
+                v-show="getParent(i) == option.parent || option.parent == undefined" :value="option.value"
+                :disabled="option.disabled">
+                {{ option.description }}
+            </option>
+        </select>
+        {{ box.endLabel }}
+    </span>
 </template>
 
 <script setup lang="ts">
