@@ -1,5 +1,5 @@
 interface ICondition {
-    kind: 'code'|'radio'|'text'|'select'|'date'|'period'
+    kind: 'innerSearch'|'radio'|'text'|'select'|'date'|'period'
     field:string
     label:string
     labelWidth?:string
@@ -25,19 +25,23 @@ interface Text extends ICondition {
     placeholder?: string,
 }
 
-interface Code extends ICondition{
-    kind: 'code',
+interface InnerSearch extends ICondition{
+    kind: 'innerSearch',
     value: string,
     valueWidth?: string
     valueClickEvent?: boolean
     disabled?: boolean
-    result?: Array<CodeResult>
-    event(v: string): Array<string>
+    firstResult?: string,
+    firstResultWidth?: string,
+    secondResult?:string,
+    secondResultWidth?: string,
+    event(value: string): Array<string>
 }
-interface CodeResult {
+interface InnerSearchResult {
+    field: string,
     value: string,
-    width?: string,
-    editable?: boolean
+    firstResult?: string,
+    secondResult?: string
 }
 
 interface Select extends ICondition{
@@ -70,4 +74,4 @@ interface RadioOption {
     disabled?: boolean
 }
 
-export {ICondition, Code, Select, Radio, Text, CDate, Period};
+export {ICondition, InnerSearch, Select, Radio, Text, CDate, Period};

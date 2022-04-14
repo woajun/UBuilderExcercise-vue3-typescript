@@ -1,6 +1,7 @@
 <template>
   <div class="sl">
     <!-- 조회버튼 -->
+    <button>검색</button>
     <slot></slot>
   </div>
 </template>

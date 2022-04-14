@@ -1,4 +1,4 @@
-import {ICondition, Code, Select, Radio, Text, CDate, Period} from '@/components/search/Conditions'
+import {ICondition, InnerSearch, Select, Radio, Text, CDate, Period} from '@/components/search/Conditions'
 
 
 const inputDate: CDate = {
@@ -56,21 +56,18 @@ const radio3: Radio = {
   ]
 }
 
-const dept1: Code = {
-  kind: 'code',
+const dept1: InnerSearch = {
+  kind: 'innerSearch',
   field: 'dept1',
   label: '부서1',
   labelWidth: '40px',
   fullWidth:'col-12',
   value: '  -     -    ',
   valueWidth: '100px',
-  result: [
-    {value: '차량지원팀-일상파트', width: '100px'},
-    {value: '78AB531-DS241ST', width: '150px'}
-  ],
+  firstResult: '차량지원팀-일상파트',
   //여기서 구현하면 코드가 장황해지고 js파일에 import할 게 많아짐
-  event(val){
-    alert('검색값:'+val);
+  event(value){
+    alert('검색값:'+value);
     return ['아큐라지원팀','아큐라코드'];
     // return dept1ClickEvent(val);
   }
@@ -83,23 +80,21 @@ function dept1ClickEvent(val: string):Array<string>{
 }
 
 
-const dept2: Code = {
-  kind: 'code',
+const dept2: InnerSearch = {
+  kind: 'innerSearch',
   field: 'dept2',
   label: '부서2',
   value: '  -     -    ',
   valueWidth: '100px',
-  result: [
-    {value: '타입2-일상파트'},
-  ],
+  firstResult: '타입2-일상파트',
   event(value){
     alert('검색값:'+value);
     return ['검색결과'];
   }
 }
 
-const dept3: Code = {
-  kind: 'code',
+const dept3: InnerSearch = {
+  kind: 'innerSearch',
   field: 'dept3',
   label: '부서3',
   value: '기본값',
