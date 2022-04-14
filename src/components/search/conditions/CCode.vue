@@ -3,7 +3,7 @@
         <br />
         <label for="">{{ code.label }}</label><span>:</span>
         <input type="text" v-model="code.val" />
-        <button @click="clickEvent()">버튼</button>
+        <button @click="clickEvent()">검색</button>
         <span v-for="(res, i) in code.result" :key="i">
             <input type="text" v-model="res.val" />
         </span>

@@ -28,7 +28,7 @@ interface Code extends ICondition{
     valWidth?: string
     active?: boolean //default true
     result?: Array<CodeResult>
-    event(v?: string): Array<string>
+    event(v: string): Array<string>
 }
 interface CodeResult {
     val: string,
@@ -45,11 +45,12 @@ interface SelectOptionBox {
     options: Array<SelectOption>,
     endLabel?: string,
     width?: string,
+    selectedValue?: string,
 }
 interface SelectOption {
-    value: string|null,
+    value: string,
     description: string,
-    selected?:boolean, //default false
+    disabled?:boolean, //default false
     parent?: string,
 }
 
