@@ -2,9 +2,9 @@
   <div>
     {{ search }}
     <div v-for="condition in searchSetting" :key="condition.field">
-      <div :class="[condition.fullWidth ? condition.fullWidth : 'col-12']">
+      <div :class="condition.fullWidth ?? 'col-12'">
         <br />
-        <label for="">{{ condition.label }}</label
+        <label>{{ condition.label }}</label
         ><span>:</span>
         <cInnerSearch
           v-if="condition.kind == 'innerSearch'"
@@ -41,7 +41,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { defineProps, reactive } from "vue";
+import { defineProps, reactive, defineExpose } from "vue";
 import {
   ICondition,
   InnerSearch,
@@ -68,4 +68,12 @@ type Search = {
   [key: string]: string;
 };
 const search: Search = reactive({});
+
+const getSearch = () => {
+  return search;
+};
+
+defineExpose({
+  getSearch,
+});
 </script>
