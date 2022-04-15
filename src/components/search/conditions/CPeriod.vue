@@ -1,7 +1,13 @@
 <template>
-    <div>
-        <!-- {{ props }} -->
-    </div>
+    <span>
+        <input type="text" :value="props.arg.from" :placeholder="props.arg.fromPlaceholder">
+    </span>
+    <span>
+        ~
+    </span>
+    <span>
+        <input type="text" :value="props.arg.to" :placeholder="props.arg.toPlaceholder">
+    </span>
 </template>
 
 <script setup lang="ts">

@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <!-- {{ props }} -->
-    </div>
+    <span>
+        <input type="text" :value="props.arg.value" :placeholder="props.arg.placeholder">
+    </span>
 </template>
 
 <script setup lang="ts">

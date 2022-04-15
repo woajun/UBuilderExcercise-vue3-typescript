@@ -19,9 +19,11 @@ const code = ref(props.arg);
 
 function clickEvent() {
     const coval = code.value
-    const resval: Array<string> = coval.event(coval.value);
-    code.value.firstResult = resval[0];
-    code.value.secondResult = resval[1];
+    const resval: Array<string> | undefined = coval.event ? coval.event(coval.value) : undefined;
+    if (resval) {
+        code.value.firstResult = resval[0];
+        code.value.secondResult = resval[1];
+    }
 }
 
 </script>
