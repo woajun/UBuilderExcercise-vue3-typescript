@@ -1,14 +1,17 @@
 <template>
-    <span v-for="(box, i) in select.optionBox" :key="i">
-        <select v-model="box.selectedValue">
-            <option v-for="(option, t) in box.options" :key="t"
-                v-show="getParent(i) == option.parent || option.parent == undefined" :value="option.value"
-                :disabled="option.disabled">
-                {{ option.description }}
-            </option>
-        </select>
-        {{ box.endLabel }}
-    </span>
+    <div>
+        <span v-for="(box, i) in select.optionBox" :key="i">
+            <select v-model="box.selectedValue"
+                @change="$emit('value', { field: box.field, value: box.selectedValue })">
+                <option v-for="(option, t) in box.options" :key="t"
+                    v-show="getParent(i) == option.parent || option.parent == undefined" :value="option.value"
+                    :disabled="option.disabled">
+                    {{ option.description }}
+                </option>
+            </select>
+            {{ box.endLabel }}
+        </span>
+    </div>
 </template>
 
 <script setup lang="ts">

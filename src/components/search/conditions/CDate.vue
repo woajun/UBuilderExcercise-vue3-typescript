@@ -1,19 +1,22 @@
 <template>
-    <span>
-        <input type="text" :value="props.arg.date" :placeholder="props.arg.placeholder">
-    </span>
+  <span>
+    <input
+      type="text"
+      v-model="cDate.date"
+      :placeholder="cDate.placeholder"
+      @change="$emit('update:value', cDate.date)"
+    />
+  </span>
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
-import { CDate } from '../Conditions';
+import { defineProps, ref } from "vue";
+import { CDate } from "../Conditions";
 
 interface Props {
-    arg: CDate
+  arg: CDate;
 }
 
 const props = defineProps<Props>();
+const cDate = ref(props.arg);
 </script>
-
-<style>
-</style>

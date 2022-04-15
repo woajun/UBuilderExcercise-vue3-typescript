@@ -1,22 +1,34 @@
 <template>
-    <span v-for="option in radio.options" :key="option.value">
-        <input :value="option.value" :id="radio.field + option.value" type="radio" :name="radio.field"
-            :checked="option.checked" :disabled="option.disabled" />
-        <label :for="radio.field + option.value">{{ option.description }}</label>
+  <div>
+    <span
+      v-for="option in radio.options"
+      :key="option.value"
+      @change="$emit('update:value', radio.selectedValue)"
+    >
+      <input
+        type="radio"
+        :value="option.value"
+        :id="radio.field + option.value"
+        :checked="option.checked"
+        :disabled="option.disabled"
+        v-model="radio.selectedValue"
+      />
+      <label :for="radio.field + option.value">
+        {{ option.description }}
+      </label>
     </span>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps, ref } from 'vue';
-import { Radio } from '../Conditions';
+import { defineProps, ref } from "vue";
+import { Radio } from "../Conditions";
 
 interface Props {
-    arg: Radio
+  arg: Radio;
 }
 const props = defineProps<Props>();
 const radio = ref(props.arg);
-
 </script>
 
-<style>
-</style>
+<style></style>

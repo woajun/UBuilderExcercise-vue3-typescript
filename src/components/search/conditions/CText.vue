@@ -1,18 +1,21 @@
 <template>
-    <span>
-        <input type="text" :value="props.arg.value" :placeholder="props.arg.placeholder">
-    </span>
+  <div>
+    <input
+      type="text"
+      v-model="text.value"
+      :placeholder="text.placeholder"
+      @change="$emit('update:value', text.value)"
+    />
+  </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
-import { Text } from '../Conditions';
+import { defineProps, ref } from "vue";
+import { Text } from "../Conditions";
 
 interface Props {
-    arg: Text
+  arg: Text;
 }
 const props = defineProps<Props>();
+const text = ref(props.arg);
 </script>
-
-<style>
-</style>

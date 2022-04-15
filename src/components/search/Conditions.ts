@@ -68,6 +68,7 @@ interface SelectOption {
 interface Radio extends ICondition {
   kind: "radio";
   options: Array<RadioOption>;
+  selectedValue?: string;
 }
 
 interface RadioOption {

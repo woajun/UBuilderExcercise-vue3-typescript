@@ -1,24 +1,44 @@
 <template>
+  <div>
     <span>
-        <input type="text" :value="props.arg.from" :placeholder="props.arg.fromPlaceholder">
+      <input
+        type="text"
+        v-model="period.from"
+        :placeholder="period.fromPlaceholder"
+        @change="
+          $emit('value', {
+            field: period.field.concat('From'),
+            value: period.to,
+          })
+        "
+      />
     </span>
+    <span> ~ </span>
     <span>
-        ~
+      <input
+        type="text"
+        v-model="period.to"
+        :placeholder="period.toPlaceholder"
+        @change="
+          $emit('value', {
+            field: period.field.concat('To'),
+            value: period.to,
+          })
+        "
+      />
     </span>
-    <span>
-        <input type="text" :value="props.arg.to" :placeholder="props.arg.toPlaceholder">
-    </span>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
-import { Period } from '../Conditions';
+import { defineProps, ref } from "vue";
+import { Period } from "../Conditions";
 
 interface Props {
-    arg: Period
+  arg: Period;
 }
 const props = defineProps<Props>();
+const period = ref(props.arg);
 </script>
 
-<style>
-</style>
+<style></style>
