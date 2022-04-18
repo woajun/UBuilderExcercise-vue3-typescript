@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ search }}
     <div v-for="condition in searchSetting" :key="condition.field">
       <div :class="condition.fullWidth ?? 'col-12'">
         <br />
@@ -9,39 +8,39 @@
         <cInnerSearch
           v-if="condition.kind == 'innerSearch'"
           :arg="(condition as InnerSearch)"
-          v-model:value="search[condition.field]"
+          v-model:value="searchItem[condition.field]"
         />
         <cSelect
           v-if="condition.kind == 'select'"
           :arg="(condition as Select)"
-          @value="(obj) => (search[obj.field] = obj.value)"
+          @value="(obj) => (searchItem[obj.field] = obj.value)"
         />
         <cRadio
           v-if="condition.kind == 'radio'"
           :arg="(condition as Radio)"
-          v-model:value="search[condition.field]"
+          v-model:value="searchItem[condition.field]"
         />
         <cText
           v-if="condition.kind == 'text'"
           :arg="(condition as Text)"
-          v-model:value="search[condition.field]"
+          v-model:value="searchItem[condition.field]"
         />
         <cDate
           v-if="condition.kind == 'date'"
           :arg="(condition as CDate)"
-          v-model:value="search[condition.field]"
+          v-model:value="searchItem[condition.field]"
         />
         <cPeriod
           v-if="condition.kind == 'period'"
           :arg="(condition as Period)"
-          @value="(obj) => (search[obj.field] = obj.value)"
+          @value="(obj) => (searchItem[obj.field] = obj.value)"
         />
       </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { defineProps, reactive, defineExpose } from "vue";
+import { defineProps, defineExpose, ref, Ref } from "vue";
 import {
   ICondition,
   InnerSearch,
@@ -64,16 +63,16 @@ interface Props {
 
 const props = defineProps<Props>();
 
-type Search = {
+type SearchItem = {
   [key: string]: string;
 };
-const search: Search = reactive({});
+const searchItem: Ref<SearchItem> = ref({});
 
-const getSearch = () => {
-  return search;
+const getSearchItem = () => {
+  return searchItem;
 };
 
 defineExpose({
-  getSearch,
+  getSearchItem,
 });
 </script>

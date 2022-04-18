@@ -1,6 +1,7 @@
 <template>
   <div class="sl">
     <button @click="runSearch">검색</button>
+    {{ searchItem }}
     <search :search-setting="searchSetting" ref="searchRef" />
     <list :list-setting="listSetting" />
   </div>
@@ -20,8 +21,16 @@ const props = defineProps<{
 
 const searchRef = ref<InstanceType<typeof search> | null>(null);
 
+let searchItem: undefined | any = ref({});
+
+//TODO list초기화
+function initList() {}
+
 function runSearch() {
-  console.log(searchRef.value?.getSearch());
+  searchItem.value = searchRef.value?.getSearchItem().value;
+  // 백엔드에 요청
+  // 검색결과 응답받음.
+  // list에 전달
 }
 </script>
 <style scoped></style>
