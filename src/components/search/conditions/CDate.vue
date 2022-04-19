@@ -1,12 +1,12 @@
 <template>
-  <span>
+  <div>
     <input
       type="text"
       v-model="cDate.date"
       :placeholder="cDate.placeholder"
       @change="$emit('update:value', cDate.date)"
     />
-  </span>
+  </div>
 </template>
 
 <script setup lang="ts">

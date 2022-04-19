@@ -10,7 +10,8 @@ export const searchSetting: SearchSetting = [
 
   {
     kind: "period",
-    field: "period",
+    fromField: "datefrom",
+    toField: "dateTo",
     label: "기간",
     from: new Date(),
     to: new Date(),
@@ -93,7 +94,6 @@ export const searchSetting: SearchSetting = [
 
   {
     kind: "select",
-    field: "bunRyu1",
     label: "수입구분",
     optionBox: [
       {
@@ -110,7 +110,6 @@ export const searchSetting: SearchSetting = [
 
   {
     kind: "select",
-    field: "bunRyu2",
     label: "확정차수",
     optionBox: [
       {
@@ -139,7 +138,6 @@ export const searchSetting: SearchSetting = [
   },
   {
     kind: "select",
-    field: "innerType",
     label: "물품분류",
     optionBox: [
       {

@@ -1,33 +1,35 @@
-import { searchSetting } from "@/pages/settings/sampleSearchSetting";
-
 interface ICondition {
   kind: "innerSearch" | "radio" | "text" | "select" | "date" | "period";
-  field: string;
   label: string;
   labelWidth?: string;
   fullWidth?: string;
 }
 
 interface CDate extends ICondition {
+  field: string;
   kind: "date";
   date?: Date;
   placeholder?: string;
 }
 interface Period extends ICondition {
   kind: "period";
+  fromField: string;
   from?: Date;
   fromPlaceholder?: string;
+  toField: string;
   to?: Date;
   toPlaceholder?: string;
 }
 
 interface Text extends ICondition {
+  field: string;
   kind: "text";
   value?: string;
   placeholder?: string;
 }
 
 interface InnerSearch extends ICondition {
+  field: string;
   kind: "innerSearch";
   value: string;
   valueWidth?: string;
@@ -38,12 +40,6 @@ interface InnerSearch extends ICondition {
   secondResult?: string;
   secondResultWidth?: string;
   event?(value: string): Array<string>;
-}
-interface InnerSearchResult {
-  field: string;
-  value: string;
-  firstResult?: string;
-  secondResult?: string;
 }
 
 interface Select extends ICondition {
@@ -66,6 +62,7 @@ interface SelectOption {
 }
 
 interface Radio extends ICondition {
+  field: string;
   kind: "radio";
   options: Array<RadioOption>;
   selectedValue?: string;

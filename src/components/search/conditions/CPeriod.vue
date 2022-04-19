@@ -7,7 +7,7 @@
         :placeholder="period.fromPlaceholder"
         @change="
           $emit('value', {
-            field: period.field.concat('From'),
+            field: period.fromField,
             value: period.to,
           })
         "
@@ -21,7 +21,7 @@
         :placeholder="period.toPlaceholder"
         @change="
           $emit('value', {
-            field: period.field.concat('To'),
+            field: period.toField,
             value: period.to,
           })
         "
