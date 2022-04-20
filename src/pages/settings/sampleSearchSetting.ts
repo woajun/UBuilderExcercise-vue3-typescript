@@ -66,16 +66,17 @@ export const searchSetting: SearchSetting = [
   {
     id: "7",
     kind: "innerSearch",
-    field: "dept1",
-    label: "부서1",
+    field: "class1",
+    label: "학생검색1",
     labelWidth: "40px",
     fullWidth: "col-12",
-    value: "  -     -    ",
+    value: "020301",
     valueWidth: "100px",
-    firstResult: "차량지원팀-일상파트",
+    firstResult: "2학년 3반 1번",
+    secondResult: "강준희",
     event(value) {
       alert("검색값:" + value);
-      return ["아큐라지원팀", "아큐라코드"];
+      return ["2학년 5반 2번", "홍길동"];
     },
   },
 

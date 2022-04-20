@@ -1,14 +1,15 @@
 interface ListSetting {
-    title: string,
-    total?: boolean
-    headers: Array<Header>
+  requestURL: string;
+  title: string;
+  total?: boolean;
+  headers: Array<Header>;
 }
 
 interface Header {
-    field: string,
-    label: string,
-    width?: string,
-    type: 'saerch'|'label'
+  field: string;
+  label: string;
+  width?: string;
+  type: "saerch" | "label";
 }
 
-export {ListSetting};
+export { ListSetting };
