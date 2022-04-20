@@ -2,6 +2,7 @@ import { SearchSetting } from "@/components/search/Conditions";
 
 export const searchSetting: SearchSetting = [
   {
+    id: "1",
     kind: "date",
     field: "inputDate",
     label: "기준일자",
@@ -9,6 +10,7 @@ export const searchSetting: SearchSetting = [
   },
 
   {
+    id: "2",
     kind: "period",
     fromField: "datefrom",
     toField: "dateTo",
@@ -18,6 +20,7 @@ export const searchSetting: SearchSetting = [
   },
 
   {
+    id: "3",
     kind: "text",
     field: "contractName",
     label: "계약명",
@@ -25,6 +28,7 @@ export const searchSetting: SearchSetting = [
   },
 
   {
+    id: "4",
     kind: "radio",
     field: "radio1",
     label: "사용구분",
@@ -36,6 +40,7 @@ export const searchSetting: SearchSetting = [
   },
 
   {
+    id: "5",
     kind: "radio",
     field: "radio2",
     label: "사용구분",
@@ -47,6 +52,7 @@ export const searchSetting: SearchSetting = [
   },
 
   {
+    id: "6",
     kind: "radio",
     field: "radio3",
     label: "disabled",
@@ -58,6 +64,7 @@ export const searchSetting: SearchSetting = [
   },
 
   {
+    id: "7",
     kind: "innerSearch",
     field: "dept1",
     label: "부서1",
@@ -73,6 +80,7 @@ export const searchSetting: SearchSetting = [
   },
 
   {
+    id: "8",
     kind: "innerSearch",
     field: "dept2",
     label: "부서2",
@@ -86,6 +94,7 @@ export const searchSetting: SearchSetting = [
   },
 
   {
+    id: "9",
     kind: "innerSearch",
     field: "dept3",
     label: "부서3",
@@ -93,9 +102,10 @@ export const searchSetting: SearchSetting = [
   },
 
   {
-    kind: "select",
+    id: "10",
+    kind: "selects",
     label: "수입구분",
-    optionBox: [
+    selects: [
       {
         selectedValue: "A",
         field: "bunRyu1One",
@@ -109,9 +119,10 @@ export const searchSetting: SearchSetting = [
   },
 
   {
-    kind: "select",
+    id: "11",
+    kind: "selects",
     label: "확정차수",
-    optionBox: [
+    selects: [
       {
         selectedValue: "",
         field: "bunRyu2One",
@@ -137,9 +148,10 @@ export const searchSetting: SearchSetting = [
     ],
   },
   {
-    kind: "select",
+    id: "12",
+    kind: "selects",
     label: "물품분류",
-    optionBox: [
+    selects: [
       {
         selectedValue: "",
         field: "innerTypeOne",

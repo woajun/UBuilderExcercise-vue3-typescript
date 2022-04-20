@@ -1,5 +1,6 @@
 interface ICondition {
-  kind: "innerSearch" | "radio" | "text" | "select" | "date" | "period";
+  id: string;
+  kind: "innerSearch" | "radio" | "text" | "selects" | "date" | "period";
   label: string;
   labelWidth?: string;
   fullWidth?: string;
@@ -42,18 +43,19 @@ interface InnerSearch extends ICondition {
   event?(value: string): Array<string>;
 }
 
-interface Select extends ICondition {
-  kind: "select";
-  optionBox: Array<SelectOptionBox>;
+interface Selects extends ICondition {
+  kind: "selects";
+  selects: Array<Select>;
 }
 
-interface SelectOptionBox {
+interface Select {
   options: Array<SelectOption>;
   field: string;
   endLabel?: string;
   width?: string;
   selectedValue?: string;
 }
+
 interface SelectOption {
   value: string;
   description: string;
@@ -76,13 +78,13 @@ interface RadioOption {
 }
 
 type SearchSetting = Array<
-  Period | CDate | InnerSearch | Text | Select | Radio
+  Period | CDate | InnerSearch | Text | Selects | Radio
 >;
 
 export {
   ICondition,
   InnerSearch,
-  Select,
+  Selects,
   Radio,
   Text,
   CDate,
