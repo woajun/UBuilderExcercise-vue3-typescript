@@ -1,11 +1,16 @@
 <template>
   <div>
     <br />====[리스트]====<br />
+    <span> 검색결과 : </span>
+    <span> {{ data.length }} </span>
+    <span> 건 </span>
     <table>
       <thead>
         <tr>
           <th v-for="col in props.listSetting.headers" :key="col.field">
             {{ col.label }}
+            <!-- TODO 정렬기능
+            <button>정렬</button> -->
           </th>
         </tr>
       </thead>

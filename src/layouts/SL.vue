@@ -29,6 +29,7 @@ function doSearch() {
 }
 
 function requestToServer(params: any) {
+  // serachUrl 사용
   if (!params) return (data.value = init);
   if (params.type == "") {
     data.value = init;

@@ -25,8 +25,13 @@ const el3 = {
   col1: "열1",
   type: "B",
 };
+const elZ = {
+  id: "z",
+  type: "Z",
+  col1: "열1z",
+};
 
-const init = [el1, el2, el3];
+const init = [el1, elZ, el2, el3];
 const typeA = [el1, el2];
 const typeB = [el3];
 const typeC: any = [];

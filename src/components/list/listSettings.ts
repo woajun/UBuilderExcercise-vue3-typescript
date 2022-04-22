@@ -9,7 +9,7 @@ interface Header {
   field: string;
   label: string;
   width?: string;
-  type: "saerch" | "label";
+  type: "search" | "label";
 }
 
 export { ListSetting };
