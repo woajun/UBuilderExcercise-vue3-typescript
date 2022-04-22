@@ -6,32 +6,32 @@ const listSetting: ListSetting = {
   total: true,
   headers: [
     {
+      field: "type",
+      label: "타입",
+      type: "label",
+      width: "50px",
+    },
+    {
       field: "col1",
-      label: "정수코드",
+      label: "열1",
       type: "label",
       width: "50px",
     },
     {
       field: "col2",
-      label: "거래처물품명",
-      type: "label",
-      width: "50px",
-    },
-    {
-      field: "col3",
-      label: "순번",
+      label: "열2",
       type: "label",
       width: "50px",
     },
     {
       field: "col4",
-      label: "정수",
+      label: "열4",
       type: "label",
       width: "50px",
     },
     {
       field: "col5",
-      label: "보유수",
+      label: "열5",
       type: "label",
       width: "50px",
     },

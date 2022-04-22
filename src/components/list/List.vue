@@ -1,7 +1,6 @@
 <template>
   <div>
-    <br />=============[리스트]====================<br />
-    {{ props.listSetting.title }}
+    <br />====[리스트]====<br />
     <table>
       <thead>
         <tr>
@@ -11,41 +10,27 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>The table body</td>
-          <td>with two columns</td>
-          <td>with two columns</td>
-          <td>with two columns</td>
-          <td>with two columns</td>
-        </tr>
-        <tr>
-          <td>The table body</td>
-          <td>with two columns</td>
-          <td>with two columns</td>
-          <td>with two columns</td>
-          <td>with two columns</td>
-        </tr>
-        <tr>
-          <td>The table body</td>
-          <td>with two columns</td>
-          <td>with two columns</td>
-          <td>with two columns</td>
-          <td>with two columns</td>
+        <tr v-for="row in data" :key="row.id">
+          <td v-for="col in props.listSetting.headers" :key="col.field">
+            <template v-for="(value, key) of row">
+              <template v-if="String(key) === col.field">
+                {{ value }}
+              </template>
+            </template>
+          </td>
         </tr>
       </tbody>
     </table>
-
-    {{ props }}
   </div>
 </template>
 <script setup lang="ts">
 import { defineProps } from "vue";
 import { ListSetting } from "./listSettings";
 
-interface Props {
+const props = defineProps<{
   listSetting: ListSetting;
-}
-const props = defineProps<Props>();
+  data: any;
+}>();
 </script>
 <style>
 table,

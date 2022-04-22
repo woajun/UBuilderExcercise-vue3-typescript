@@ -1,5 +1,9 @@
 <template>
-  <sl :search-setting="searchSetting" :list-setting="listSetting" />
+  <sl
+    search-url="api/sample/search"
+    :search-setting="searchSetting"
+    :list-setting="listSetting"
+  />
 </template>
 
 <script setup lang="ts">

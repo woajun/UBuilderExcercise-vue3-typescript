@@ -1,43 +1,48 @@
 <template>
   <div>
-    <div v-for="condition in searchSetting" :key="condition.id">
+    <template v-for="condition in searchSetting" :key="condition.id">
       <div :class="condition.fullWidth ?? 'col-12'">
         <br />
         <label>{{ condition.label }}</label
         ><span>:</span>
-        <div></div>
-        <cInnerSearch
-          v-if="condition.kind == 'innerSearch'"
-          :arg="(condition as InnerSearch)"
-          v-model:value="searchItem[(condition as InnerSearch).field]"
-        />
-        <cSelects
-          v-if="condition.kind == 'selects'"
-          :arg="(condition as Selects)"
-          @value="(obj) => (searchItem[obj.field] = obj.value)"
-        />
-        <cRadio
-          v-if="condition.kind == 'radio'"
-          :arg="(condition as Radio)"
-          v-model:value="searchItem[(condition as Radio).field]"
-        />
-        <cText
-          v-if="condition.kind == 'text'"
-          :arg="(condition as Text)"
-          v-model:value="searchItem[(condition as Text).field]"
-        />
-        <cDate
-          v-if="condition.kind == 'date'"
-          :arg="(condition as CDate)"
-          v-model:value="searchItem[(condition as CDate).field]"
-        />
-        <cPeriod
-          v-if="condition.kind == 'period'"
-          :arg="(condition as Period)"
-          @value="(obj) => (searchItem[obj.field] = obj.value)"
-        />
+        <template v-if="condition.kind == 'innerSearch'">
+          <cInnerSearch
+            :arg="(condition as InnerSearch)"
+            v-model:value="searchItem[(condition as InnerSearch).field]"
+          />
+        </template>
+        <template v-else-if="condition.kind == 'selects'">
+          <cSelects
+            :arg="(condition as Selects)"
+            @value="(obj) => (searchItem[obj.field] = obj.value)"
+          />
+        </template>
+        <template v-else-if="condition.kind == 'radio'">
+          <cRadio
+            :arg="(condition as Radio)"
+            v-model:value="searchItem[(condition as Radio).field]"
+          />
+        </template>
+        <template v-else-if="condition.kind == 'text'">
+          <cText
+            :arg="(condition as Text)"
+            v-model:value="searchItem[(condition as Text).field]"
+          />
+        </template>
+        <template v-else-if="condition.kind == 'date'">
+          <cDate
+            :arg="(condition as CDate)"
+            v-model:value="searchItem[(condition as CDate).field]"
+          />
+        </template>
+        <template v-else-if="condition.kind == 'period'">
+          <cPeriod
+            :arg="(condition as Period)"
+            @value="(obj) => (searchItem[obj.field] = obj.value)"
+          />
+        </template>
       </div>
-    </div>
+    </template>
   </div>
 </template>
 <script setup lang="ts">

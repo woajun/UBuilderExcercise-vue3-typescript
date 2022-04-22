@@ -1,9 +1,8 @@
 <template>
   <div class="sl">
-    {{ searchItem }}
-    <button @click="runSearch">검색</button>
+    <button @click="doSearch">검색</button>
     <search :search-setting="searchSetting" ref="searchRef" />
-    <list :list-setting="listSetting" v-model="rows" />
+    <list :list-setting="listSetting" :data="data" />
   </div>
 </template>
 
@@ -13,26 +12,35 @@ import search from "@/components/search/Search.vue";
 import list from "@/components/list/List.vue";
 import { ICondition } from "@/components/search/Conditions";
 import { ListSetting } from "@/components/list/listSettings";
+import { init, typeA, typeB, typeC } from "./mockServer";
 
 defineProps<{
   searchSetting: Array<ICondition>;
   listSetting: ListSetting;
+  searchUrl: string;
 }>();
 
 const searchRef = ref<InstanceType<typeof search> | null>(null);
-const searchItem: undefined | any = ref(null);
-const rows = ref();
+const data = ref<Array<any>>([]);
 
-function runSearch() {
-  searchItem.value = searchRef.value?.getSearchItem().value;
+function doSearch() {
   const params = searchRef.value?.getSearchItem().value;
-  const response = searchByAxios(params);
-  rows.value = response;
+  requestToServer(params);
 }
 
-function searchByAxios(params: any) {
-  const response = "ss";
-  return response;
+function requestToServer(params: any) {
+  if (!params) return (data.value = init);
+  if (params.type == "") {
+    data.value = init;
+  } else if (params.type == "A") {
+    data.value = typeA;
+  } else if (params.type == "B") {
+    data.value = typeB;
+  } else if (params.type == "C") {
+    data.value = typeC;
+  }
 }
+
+doSearch();
 </script>
 <style scoped></style>
