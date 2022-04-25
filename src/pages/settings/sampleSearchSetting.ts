@@ -6,6 +6,7 @@ export const searchSetting: SearchSetting = [
     field: "type",
     id: "typeRadio",
     label: "타입",
+    checkedValue: "",
     options: [
       { description: "전체", value: "" },
       { description: "A", value: "A" },
@@ -18,7 +19,6 @@ export const searchSetting: SearchSetting = [
         value: "C",
       },
     ],
-    selectedValue: "A",
   },
   {
     kind: "text",

@@ -17,10 +17,10 @@
 
 <script setup lang="ts">
 import { defineProps, ref } from "vue";
-import { InnerSearch } from "../Conditions";
+import { CodePopup } from "../Conditions";
 
 interface Props {
-  arg: InnerSearch;
+  arg: CodePopup;
 }
 const props = defineProps<Props>();
 const code = ref(props.arg);

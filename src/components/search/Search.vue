@@ -6,10 +6,10 @@
         <br />
         <label>{{ condition.label }}</label
         ><span>:</span>
-        <template v-if="condition.kind == 'innerSearch'">
-          <cInnerSearch
-            :arg="(condition as InnerSearch)"
-            v-model:value="searchItem[(condition as InnerSearch).field]"
+        <template v-if="condition.kind == 'codePopup'">
+          <cCodePopup
+            :arg="(condition as CodePopup)"
+            v-model:value="searchItem[(condition as CodePopup).field]"
           />
         </template>
         <template v-else-if="condition.kind == 'selects'">
@@ -58,14 +58,14 @@ import {
 } from "vue";
 import {
   ICondition,
-  InnerSearch,
+  CodePopup,
   Selects,
   Radio,
   Text,
   CDate,
   Period,
 } from "./Conditions";
-import cInnerSearch from "./conditions/CInnerSearch.vue";
+import cCodePopup from "./conditions/CCodePopup.vue";
 import cSelects from "./conditions/CSelects.vue";
 import cRadio from "./conditions/CRadio.vue";
 import cText from "./conditions/CText.vue";

@@ -1,17 +1,18 @@
 <template>
   <div>
+    {{ radio.checkedValue }}
     <span
       v-for="option in radio.options"
       :key="option.value"
-      @change="$emit('update:value', radio.selectedValue)"
+      @change="$emit('update:value', radio.checkedValue)"
     >
       <input
         type="radio"
         :value="option.value"
         :id="radio.field + option.value"
-        :checked="option.checked"
+        :checked="radio.checkedValue === option.value"
         :disabled="option.disabled"
-        v-model="radio.selectedValue"
+        v-model="radio.checkedValue"
       />
       <label :for="radio.field + option.value">
         {{ option.description }}
