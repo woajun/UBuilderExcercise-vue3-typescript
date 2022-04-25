@@ -1,7 +1,14 @@
 interface ICondition {
   id: string;
-  kind: "codePopup" | "radio" | "text" | "selects" | "date" | "period";
-  label: string;
+  kind:
+    | "codePopup"
+    | "radio"
+    | "text"
+    | "select"
+    | "subSelect"
+    | "date"
+    | "period";
+  label?: string;
   labelWidth?: string;
   fullWidth?: string;
 }
@@ -45,13 +52,18 @@ interface CodePopup extends ICondition {
   event?(value: string): Array<string>;
 }
 
-interface Selects extends ICondition {
-  kind: "selects";
-  selects: Array<Select>;
-}
-
-interface Select {
+interface Select extends ICondition {
+  kind: "select";
   options: Array<SelectOption>;
+  field: string;
+  endLabel?: string;
+  width?: string;
+  selectedValue?: string;
+}
+interface SubSelect extends ICondition {
+  parentField: string;
+  kind: "subSelect";
+  options: Record<string, Array<SelectOption>>;
   field: string;
   endLabel?: string;
   width?: string;
@@ -78,15 +90,19 @@ interface RadioOption {
   disabled?: boolean;
 }
 
-type SearchSetting = Array<Period | CDate | CodePopup | Text | Selects | Radio>;
+type SearchSetting = Array<
+  Period | CDate | CodePopup | Text | Select | Radio | SubSelect
+>;
 
 export {
   ICondition,
   CodePopup,
-  Selects,
+  Select,
+  SubSelect,
   Radio,
   Text,
   CDate,
   Period,
   SearchSetting,
+  SelectOption,
 };

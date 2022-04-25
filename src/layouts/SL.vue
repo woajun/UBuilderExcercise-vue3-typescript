@@ -20,7 +20,7 @@ const props = defineProps<{
   listSetting: ListSetting;
   searchUrl: string;
 }>();
-const searchItem = ref({});
+const searchItem = ref<Record<string, unknown>>({});
 const data = ref<Array<any>>([]);
 
 function doSearch() {

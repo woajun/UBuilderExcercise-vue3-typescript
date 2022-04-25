@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ radio.checkedValue }}
     <span
       v-for="option in radio.options"
       :key="option.value"
