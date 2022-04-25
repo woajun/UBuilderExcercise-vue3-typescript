@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{ searchItem }}
     <template v-for="condition in searchSetting" :key="condition.id">
       <div :class="condition.fullWidth ?? 'col-12'">
         <br />
@@ -74,11 +75,7 @@ type SearchItem = {
 };
 const searchItem: Ref<SearchItem> = ref({});
 
-const getSearchItem = () => {
-  return searchItem;
-};
-
 defineExpose({
-  getSearchItem,
+  searchItem,
 });
 </script>

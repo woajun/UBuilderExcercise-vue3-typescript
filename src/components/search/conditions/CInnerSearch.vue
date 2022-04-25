@@ -6,8 +6,12 @@
       @change="$emit('update:value', code.value)"
     />
     <button @click="clickEvent()">🔍</button>
-    <input type="text" v-model="code.firstResult" disabled />
-    <input type="text" v-model="code.secondResult" disabled />
+    <template v-if="code.firstResultVisible">
+      <input type="text" v-model="code.firstResult" disabled />
+    </template>
+    <template v-if="code.secondResultVisible">
+      <input type="text" v-model="code.secondResult" disabled />
+    </template>
   </div>
 </template>
 

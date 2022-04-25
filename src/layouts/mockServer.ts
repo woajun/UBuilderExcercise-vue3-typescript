@@ -1,5 +1,6 @@
 const el1 = {
   id: "1",
+  name: "홍길동",
   col1: "열1",
   col2: "열2",
   col3: "열3",
@@ -12,6 +13,7 @@ const el1 = {
 };
 const el2 = {
   id: "2",
+  name: "김철수",
   col1: "열1",
   col5: "열5",
   col2: "열2",
@@ -19,6 +21,7 @@ const el2 = {
 };
 const el3 = {
   id: "3",
+  name: "김영희",
   col3: "열3",
   col4: "열4",
   col5: "열5",
@@ -27,6 +30,7 @@ const el3 = {
 };
 const elZ = {
   id: "z",
+  name: "유재석",
   type: "Z",
   col1: "열1z",
 };

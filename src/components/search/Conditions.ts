@@ -36,7 +36,7 @@ interface InnerSearch extends ICondition {
   valueWidth?: string;
   valueClickEvent?: boolean;
   disabled?: boolean;
-  firResultVisible?: boolean;
+  firstResultVisible?: boolean;
   firstResult?: string;
   firstResultWidth?: string;
   secondResultVisible?: boolean;

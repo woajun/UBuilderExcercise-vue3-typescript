@@ -12,6 +12,7 @@
           :value="option.value"
           :disabled="option.disabled"
         >
+          <!-- TODO option.value가 부모값에 따라 부모값 첫번째가 선택되거나 아예 빈 값을 갖도록-->
           {{ option.description }}
         </option>
       </select>

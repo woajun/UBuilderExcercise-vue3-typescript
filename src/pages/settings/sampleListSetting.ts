@@ -6,14 +6,14 @@ const listSetting: ListSetting = {
   total: true,
   headers: [
     {
-      field: "type",
-      label: "타입",
+      field: "name",
+      label: "이름",
       type: "label",
       width: "50px",
     },
     {
-      field: "col1",
-      label: "열1",
+      field: "type",
+      label: "타입",
       type: "label",
       width: "50px",
     },

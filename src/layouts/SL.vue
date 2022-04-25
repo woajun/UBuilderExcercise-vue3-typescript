@@ -24,7 +24,8 @@ const searchRef = ref<InstanceType<typeof search> | null>(null);
 const data = ref<Array<any>>([]);
 
 function doSearch() {
-  const params = searchRef.value?.getSearchItem().value;
+  const params = searchRef.value?.searchItem;
+  console.log(params);
   requestToServer(params);
 }
 
