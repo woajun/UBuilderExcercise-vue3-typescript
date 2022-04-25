@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import { searchSetting } from "./settings/sampleSearchSetting2";
+import { searchSetting } from "./settings/sampleSearchSetting";
 import { listSetting } from "./settings/sampleListSetting";
 import sl from "../layouts/SL.vue";
 </script>

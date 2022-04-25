@@ -47,7 +47,15 @@
   </div>
 </template>
 <script setup lang="ts">
-import { defineProps, defineExpose, ref, Ref } from "vue";
+import {
+  defineProps,
+  defineEmits,
+  ref,
+  Ref,
+  computed,
+  watch,
+  reactive,
+} from "vue";
 import {
   ICondition,
   InnerSearch,
@@ -68,14 +76,11 @@ interface Props {
   searchSetting: Array<ICondition>;
 }
 
+const searchItem = reactive({});
 defineProps<Props>();
+const emit = defineEmits(["update:searchItem"]);
 
-type SearchItem = {
-  [key: string]: string;
-};
-const searchItem: Ref<SearchItem> = ref({});
-
-defineExpose({
-  searchItem,
+watch(searchItem, (newItem) => {
+  emit("update:searchItem", newItem);
 });
 </script>

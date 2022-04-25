@@ -28,51 +28,6 @@ export const searchSetting: SearchSetting = [
     placeholder: "포함검색",
   },
   {
-    id: "10",
-    kind: "selects",
-    label: "수입구분",
-    selects: [
-      {
-        selectedValue: "A",
-        field: "bunRyu1One",
-        options: [
-          { description: "정규구매입고", value: "A" },
-          { description: "비정규구매입고", value: "B" },
-        ],
-        width: "100px",
-      },
-    ],
-  },
-  {
-    id: "11",
-    kind: "selects",
-    label: "확정차수",
-    selects: [
-      {
-        selectedValue: "",
-        field: "bunRyu2One",
-        options: [
-          { description: "확정차수", value: "", disabled: true },
-          { description: "1차확정", value: "kr" },
-          { description: "2차확정", value: "cn" },
-          { description: "3차확정", value: "uk" },
-        ],
-        endLabel: " ~ ",
-        width: "100px",
-      },
-      {
-        selectedValue: "",
-        field: "bunRyu2Two",
-        options: [
-          { description: "-중분류-", value: "", disabled: true },
-          { description: "소", value: "1" },
-          { description: "중", value: "2" },
-          { description: "대", value: "3" },
-        ],
-      },
-    ],
-  },
-  {
     id: "12",
     kind: "selects",
     label: "물품분류",

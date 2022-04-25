@@ -1,7 +1,8 @@
 <template>
   <div class="sl">
     <button @click="doSearch">검색</button>
-    <search :search-setting="searchSetting" ref="searchRef" />
+    {{ searchItem }}
+    <search :search-setting="searchSetting" v-model:search-item="searchItem" />
     <list :list-setting="listSetting" :data="data" />
   </div>
 </template>
@@ -14,32 +15,28 @@ import { ICondition } from "@/components/search/Conditions";
 import { ListSetting } from "@/components/list/listSettings";
 import { init, typeA, typeB, typeC } from "./mockServer";
 
-defineProps<{
+const props = defineProps<{
   searchSetting: Array<ICondition>;
   listSetting: ListSetting;
   searchUrl: string;
 }>();
-
-const searchRef = ref<InstanceType<typeof search> | null>(null);
+const searchItem = ref({});
 const data = ref<Array<any>>([]);
 
 function doSearch() {
-  const params = searchRef.value?.searchItem;
-  console.log(params);
-  requestToServer(params);
+  requestToServer();
 }
 
-function requestToServer(params: any) {
-  // serachUrl 사용
-  if (!params) return (data.value = init);
-  if (params.type == "") {
-    data.value = init;
-  } else if (params.type == "A") {
+function requestToServer() {
+  const params = searchItem.value;
+  if (params.type == "A") {
     data.value = typeA;
   } else if (params.type == "B") {
     data.value = typeB;
   } else if (params.type == "C") {
     data.value = typeC;
+  } else {
+    data.value = init;
   }
 }
 
