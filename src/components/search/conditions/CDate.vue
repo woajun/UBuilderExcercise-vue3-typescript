@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
-import { defineProps, ref, defineEmits } from "vue";
+import { defineProps, ref, defineEmits, onMounted } from "vue";
 import { CDate } from "../Conditions";
 
 interface Props {
@@ -45,5 +45,7 @@ function updateEvent() {
     emit("update:value", "");
   }
 }
-updateEvent();
+onMounted(() => {
+  updateEvent();
+});
 </script>

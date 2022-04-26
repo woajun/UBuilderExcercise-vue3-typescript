@@ -5,13 +5,13 @@
       type="text"
       v-model="text.value"
       :placeholder="text.placeholder"
-      @change="$emit('update:value', text.value)"
+      @change="updateEvent"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps, ref } from "vue";
+import { defineProps, defineEmits, ref, onMounted } from "vue";
 import { Text } from "../Conditions";
 
 interface Props {
@@ -19,4 +19,11 @@ interface Props {
 }
 const props = defineProps<Props>();
 const text = ref(props.arg);
+const emit = defineEmits(["update:value"]);
+function updateEvent() {
+  emit("update:value", text.value.value);
+}
+onMounted(() => {
+  updateEvent();
+});
 </script>
