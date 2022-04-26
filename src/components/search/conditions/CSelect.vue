@@ -1,5 +1,6 @@
 <template>
   <div style="display: inline">
+    <template v-if="select.label"> {{ select.label }} : </template>
     <select
       v-model="select.selectedValue"
       @change="$emit('update:value', select.selectedValue)"

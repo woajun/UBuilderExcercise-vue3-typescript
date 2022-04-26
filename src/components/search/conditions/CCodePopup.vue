@@ -1,5 +1,6 @@
 <template>
   <div>
+    <template v-if="code.label"> {{ code.label }} : </template>
     <input
       type="text"
       v-model="code.value"

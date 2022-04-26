@@ -1,14 +1,16 @@
 <template>
-  <div style="width: 150px">
-    {{ cDate.label }}
+  <div>
     <Datepicker
+      style="display: inline-block"
       v-model="date"
       @update:modelValue="updateEvent"
       :format="format"
       position="left"
+      :enable-time-picker="false"
     >
       <template #dp-input="{ value }">
-        <input type="text" :value="value" />
+        <span v-if="cDate.label"> {{ cDate.label }} : </span>
+        <input type="text" :value="value" :placeholder="cDate.placeholder" />
       </template>
     </Datepicker>
   </div>

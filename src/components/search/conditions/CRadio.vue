@@ -1,6 +1,7 @@
 <template>
   <div>
-    <span
+    <template v-if="radio.label"> {{ radio.label }} : </template>
+    <template
       v-for="option in radio.options"
       :key="option.value"
       @change="$emit('update:value', radio.checkedValue)"
@@ -16,7 +17,7 @@
       <label :for="radio.field + option.value">
         {{ option.description }}
       </label>
-    </span>
+    </template>
   </div>
 </template>
 
