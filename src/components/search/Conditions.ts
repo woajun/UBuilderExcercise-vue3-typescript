@@ -39,9 +39,10 @@ interface Text extends ICondition {
 interface CodePopup extends ICondition {
   field: string;
   kind: "codePopup";
-  value: string;
+  value?: string;
   valueWidth?: string;
   valueClickEvent?: boolean;
+  placeholder?: string;
   disabled?: boolean;
   firstResultVisible?: boolean;
   firstResult?: string;

@@ -5,6 +5,7 @@
       type="text"
       v-model="code.value"
       @change="$emit('update:value', code.value)"
+      :placeholder="code.placeholder"
     />
     <button @click="clickEvent()">🔍</button>
     <template v-if="code.firstResultVisible">
@@ -27,9 +28,8 @@ const props = defineProps<Props>();
 const code = ref(props.arg);
 
 function clickEvent() {
-  const coval = code.value;
-  const resval: Array<string> | undefined = coval.event
-    ? coval.event(coval.value)
+  const resval: Array<string> | undefined = code.value.event
+    ? code.value.event(code.value.value as string)
     : undefined;
   if (resval) {
     code.value.firstResult = resval[0];

@@ -3,7 +3,7 @@ import { SearchSetting } from "@/components/search/Conditions";
 const searchSetting: SearchSetting = [
   {
     kind: "radio",
-    field: "type",
+    field: "radio",
     id: "typeRadio",
     label: "타입",
     checkedValue: "",

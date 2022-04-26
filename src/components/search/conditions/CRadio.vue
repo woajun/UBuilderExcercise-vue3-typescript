@@ -1,12 +1,9 @@
 <template>
   <div>
     <template v-if="radio.label"> {{ radio.label }} : </template>
-    <template
-      v-for="option in radio.options"
-      :key="option.value"
-      @change="$emit('update:value', radio.checkedValue)"
-    >
+    <template v-for="option in radio.options" :key="option.value">
       <input
+        @change="updateEvent"
         type="radio"
         :value="option.value"
         :id="radio.field + option.value"
@@ -22,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, ref } from "vue";
+import { defineProps, ref, defineEmits } from "vue";
 import { Radio } from "../Conditions";
 
 interface Props {
@@ -30,6 +27,12 @@ interface Props {
 }
 const props = defineProps<Props>();
 const radio = ref(props.arg);
+const emit = defineEmits(["update:value"]);
+
+function updateEvent() {
+  console.log(radio.value.checkedValue);
+  emit("update:value", radio.value.checkedValue);
+}
 </script>
 
 <style></style>

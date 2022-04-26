@@ -17,6 +17,16 @@ const searchSetting: SearchSetting = [
     firstResultVisible: true,
     firstResult: "bb탄",
   },
+  {
+    label: "코드팝업3",
+    kind: "codePopup",
+    field: "code3",
+    id: "code3",
+    placeholder: "코드 검색",
+    firstResultVisible: true,
+    firstResult: "bb탄",
+    secondResultVisible: true,
+  },
 ];
 
 export default searchSetting;
