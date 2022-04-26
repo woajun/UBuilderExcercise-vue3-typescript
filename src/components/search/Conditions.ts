@@ -19,15 +19,15 @@ interface CDate extends ICondition {
   date?: Date;
   placeholder?: string;
 }
-interface Period extends ICondition {
-  kind: "period";
-  fromField: string;
-  from?: Date;
-  fromPlaceholder?: string;
-  toField: string;
-  to?: Date;
-  toPlaceholder?: string;
-}
+// interface Period extends ICondition {
+//   kind: "period";
+//   fromField: string;
+//   from?: Date;
+//   fromPlaceholder?: string;
+//   toField: string;
+//   to?: Date;
+//   toPlaceholder?: string;
+// }
 
 interface Text extends ICondition {
   field: string;
@@ -91,7 +91,7 @@ interface RadioOption {
 }
 
 type SearchSetting = Array<
-  Period | CDate | CodePopup | Text | Select | Radio | SubSelect
+  CDate | CodePopup | Text | Select | Radio | SubSelect
 >;
 
 export {
@@ -102,7 +102,6 @@ export {
   Radio,
   Text,
   CDate,
-  Period,
   SearchSetting,
   SelectOption,
 };

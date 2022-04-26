@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ searchItem }}<br />
     <template v-for="condition in searchSetting" :key="condition.id">
       <template v-if="condition.kind == 'codePopup'">
         <cCodePopup
@@ -39,12 +38,6 @@
           v-model:value="searchItem[(condition as CDate).field]"
         />
       </template>
-      <template v-else-if="condition.kind == 'period'">
-        <cPeriod
-          :arg="(condition as Period)"
-          @value="(obj) => (searchItem[obj.field] = obj.value)"
-        />
-      </template>
     </template>
   </div>
 </template>
@@ -65,7 +58,6 @@ import {
   Radio,
   Text,
   CDate,
-  Period,
   SubSelect,
 } from "./Conditions";
 import cCodePopup from "./conditions/CCodePopup.vue";
@@ -74,7 +66,6 @@ import cSubSelect from "./conditions/CSubSelect.vue";
 import cRadio from "./conditions/CRadio.vue";
 import cText from "./conditions/CText.vue";
 import cDate from "./conditions/CDate.vue";
-import cPeriod from "./conditions/CPeriod.vue";
 
 interface Props {
   searchSetting: Array<ICondition>;
