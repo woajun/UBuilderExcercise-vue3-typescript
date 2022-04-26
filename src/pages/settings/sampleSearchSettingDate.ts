@@ -1,6 +1,6 @@
 import { SearchSetting } from "@/components/search/Conditions";
 
-export const searchSetting: SearchSetting = [
+const searchSetting: SearchSetting = [
   {
     kind: "date",
     field: "date1",
@@ -23,3 +23,5 @@ export const searchSetting: SearchSetting = [
     placeholder: "날짜를 입력하시오",
   },
 ];
+
+export default searchSetting;

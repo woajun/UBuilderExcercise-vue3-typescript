@@ -1,6 +1,6 @@
 import { SearchSetting } from "@/components/search/Conditions";
 
-export const searchSetting: SearchSetting = [
+const searchSetting: SearchSetting = [
   {
     id: "12",
     kind: "select",
@@ -84,3 +84,4 @@ export const searchSetting: SearchSetting = [
   //   ],
   // },
 ];
+export default searchSetting;

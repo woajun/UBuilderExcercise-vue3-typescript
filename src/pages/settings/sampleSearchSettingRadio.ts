@@ -1,6 +1,6 @@
 import { SearchSetting } from "@/components/search/Conditions";
 
-export const searchSetting: SearchSetting = [
+const searchSetting: SearchSetting = [
   {
     kind: "radio",
     field: "type",
@@ -20,11 +20,5 @@ export const searchSetting: SearchSetting = [
       },
     ],
   },
-  {
-    kind: "text",
-    field: "name",
-    id: "name",
-    label: "이름 검색",
-    placeholder: "포함검색",
-  },
 ];
+export default searchSetting;
