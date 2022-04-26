@@ -1,4 +1,4 @@
-interface ListSetting {
+interface TableSetting {
   requestURL: string;
   title: string;
   total?: boolean;
@@ -12,4 +12,4 @@ interface Header {
   type: "search" | "label";
 }
 
-export { ListSetting };
+export { TableSetting };

@@ -2,22 +2,25 @@
   <div class="sl">
     <button @click="doSearch">검색</button>
     {{ searchItem }}
-    <search :search-setting="searchSetting" v-model:search-item="searchItem" />
-    <list :list-setting="listSetting" :data="data" />
+    <Search
+      :search-setting="searchSetting"
+      v-model:search-item="searchItem"
+    ></Search>
+    <Table :table-setting="tableSetting" :data="data"></Table>
   </div>
 </template>
 
 <script setup lang="ts">
 import { defineProps, ref } from "vue";
-import search from "@/components/search/Search.vue";
-import list from "@/components/list/List.vue";
+import Search from "@/components/search/Search.vue";
+import Table from "@/components/list/Table.vue";
 import { ICondition } from "@/components/search/Conditions";
-import { ListSetting } from "@/components/list/listSettings";
+import { TableSetting } from "@/components/list/tableSetting";
 import { init, typeA, typeB, typeC } from "./mockServer";
 
 const props = defineProps<{
   searchSetting: Array<ICondition>;
-  listSetting: ListSetting;
+  tableSetting: TableSetting;
   searchUrl: string;
 }>();
 const searchItem = ref<Record<string, unknown>>({});

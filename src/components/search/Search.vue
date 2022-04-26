@@ -2,38 +2,38 @@
   <div>
     <template v-for="condition in searchSetting" :key="condition.id">
       <template v-if="condition.kind == 'codePopup'">
-        <cCodePopup
+        <CCodePopup
           :arg="(condition as CodePopup)"
           v-model:value="searchItem[(condition as CodePopup).field]"
         />
       </template>
       <template v-else-if="condition.kind == 'select'">
-        <cSelect
+        <CSelect
           :arg="(condition as Select)"
           v-model:value="searchItem[(condition as Select).field]"
         />
       </template>
       <template v-else-if="condition.kind == 'subSelect'">
-        <cSubSelect
+        <CSubSelect
           :arg="(condition as Select)"
           v-model:value="searchItem[(condition as SubSelect).field]"
           :parent="searchItem[(condition as SubSelect).parentField]"
         />
       </template>
       <template v-else-if="condition.kind == 'radio'">
-        <cRadio
+        <CRadio
           :arg="(condition as Radio)"
           v-model:value="searchItem[(condition as Radio).field]"
         />
       </template>
       <template v-else-if="condition.kind == 'text'">
-        <cText
+        <CText
           :arg="(condition as Text)"
           v-model:value="searchItem[(condition as Text).field]"
         />
       </template>
       <template v-else-if="condition.kind == 'date'">
-        <cDate
+        <Date
           :arg="(condition as CDate)"
           v-model:value="searchItem[(condition as CDate).field]"
         />
@@ -42,15 +42,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import {
-  defineProps,
-  defineEmits,
-  ref,
-  Ref,
-  computed,
-  watch,
-  reactive,
-} from "vue";
+import { defineProps, defineEmits, ref, watch } from "vue";
 import {
   ICondition,
   CodePopup,
@@ -60,12 +52,12 @@ import {
   CDate,
   SubSelect,
 } from "./Conditions";
-import cCodePopup from "./conditions/CCodePopup.vue";
-import cSelect from "./conditions/CSelect.vue";
-import cSubSelect from "./conditions/CSubSelect.vue";
-import cRadio from "./conditions/CRadio.vue";
-import cText from "./conditions/CText.vue";
-import cDate from "./conditions/CDate.vue";
+import CCodePopup from "./conditions/CCodePopup.vue";
+import CSelect from "./conditions/CSelect.vue";
+import CSubSelect from "./conditions/CSubSelect.vue";
+import CRadio from "./conditions/CRadio.vue";
+import CText from "./conditions/CText.vue";
+import Date from "./conditions/CDate.vue";
 
 interface Props {
   searchSetting: Array<ICondition>;

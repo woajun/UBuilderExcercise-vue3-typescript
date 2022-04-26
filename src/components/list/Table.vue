@@ -7,7 +7,7 @@
     <table>
       <thead>
         <tr>
-          <th v-for="col in props.listSetting.headers" :key="col.field">
+          <th v-for="col in props.tableSetting.headers" :key="col.field">
             {{ col.label }}
             <!-- TODO 정렬기능
             <button>정렬</button> -->
@@ -16,7 +16,7 @@
       </thead>
       <tbody>
         <tr v-for="row in data" :key="row.id">
-          <td v-for="col in props.listSetting.headers" :key="col.field">
+          <td v-for="col in props.tableSetting.headers" :key="col.field">
             <template v-for="(value, key) of row">
               <template v-if="String(key) === col.field">
                 {{ value }}
@@ -30,10 +30,10 @@
 </template>
 <script setup lang="ts">
 import { defineProps } from "vue";
-import { ListSetting } from "./listSettings";
+import { TableSetting } from "./tableSetting";
 
 const props = defineProps<{
-  listSetting: ListSetting;
+  tableSetting: TableSetting;
   data: any;
 }>();
 </script>

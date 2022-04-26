@@ -1,6 +1,6 @@
-import { ListSetting } from "@/components/list/listSettings";
+import { TableSetting } from "@/components/list/tableSetting";
 
-const listSetting: ListSetting = {
+const tableSetting: TableSetting = {
   requestURL: "/sampleList",
   title: "정수별 현황",
   total: true,
@@ -38,4 +38,4 @@ const listSetting: ListSetting = {
   ],
 };
 
-export { listSetting };
+export { tableSetting };
