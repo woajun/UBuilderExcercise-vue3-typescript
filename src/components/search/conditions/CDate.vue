@@ -41,6 +41,9 @@ const format = (date: Date) => {
 function updateEvent() {
   if (date.value) {
     emit("update:value", format(date.value));
+  } else {
+    emit("update:value", "");
   }
 }
+updateEvent();
 </script>
