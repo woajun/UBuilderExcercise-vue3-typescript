@@ -4,7 +4,7 @@
       <template v-if="condition.kind == 'codePopup'">
         <CCodePopup
           :arg="(condition as CodePopup)"
-          v-model:value="searchItem[(condition as CodePopup).field]"
+          v-model:modelValue="searchItem[(condition as CodePopup).field]"
         />
       </template>
       <template v-else-if="condition.kind == 'select'">

@@ -2,30 +2,41 @@ import { SearchSetting } from "@/components/search/Conditions";
 
 const searchSetting: SearchSetting = [
   {
-    label: "코드팝업1",
+    label: "코드검색",
     kind: "codePopup",
     field: "code",
     id: "code",
-    value: "aaaa",
+    value: "MESSI-01",
+    event: () => {
+      alert("코드 팝업");
+      return ["결과1", "결과2", "결과3"];
+    },
   },
   {
-    label: "코드팝업2",
+    label: "상품코드",
     kind: "codePopup",
     field: "code2",
     id: "code2",
-    value: "bbbb",
+    value: "12-db-215",
     firstResultVisible: true,
-    firstResult: "bb탄",
+    firstResult: "등심300g",
+    event: () => {
+      alert("상품 팝업");
+      return ["결과1", "결과2", "결과3"];
+    },
   },
   {
-    label: "코드팝업3",
+    label: "거래처",
     kind: "codePopup",
     field: "code3",
     id: "code3",
     placeholder: "코드 검색",
     firstResultVisible: true,
-    firstResult: "bb탄",
     secondResultVisible: true,
+    event: () => {
+      alert("거래처 팝업");
+      return ["결과1", "결과2", "결과3"];
+    },
   },
 ];
 
