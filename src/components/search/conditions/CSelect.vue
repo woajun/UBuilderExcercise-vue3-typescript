@@ -1,9 +1,9 @@
 <template>
-  <div style="display: inline">
+  <div class="inline">
     <template v-if="select.label"> {{ select.label }} : </template>
     <select v-model="value">
       <template v-for="option in select.options" :key="option.value">
-        <template v-if="option.parent == parentValue || !option.parent">
+        <template v-if="option.parent == parent || !option.parent">
           <option :value="option.value" :disabled="option.disabled">
             {{ option.description }}
           </option>
@@ -48,3 +48,8 @@ function init() {
   value.value = select.value.selectedValue;
 }
 </script>
+<style>
+.inline {
+  display: inline;
+}
+</style>
