@@ -18,6 +18,7 @@ interface CDate extends ICondition {
   kind: "date";
   date?: Date;
   placeholder?: string;
+  inline?: string;
 }
 // interface Period extends ICondition {
 //   kind: "period";
@@ -61,6 +62,7 @@ interface Select extends ICondition {
   width?: string;
   selectedValue?: string;
   chain?: Select;
+  dependField?: string;
 }
 
 interface SelectOption {

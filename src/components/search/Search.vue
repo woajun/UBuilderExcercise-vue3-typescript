@@ -8,7 +8,11 @@
         />
       </template>
       <template v-else-if="condition.kind == 'select'">
-        <CSelect :arg="(condition as Select)" @update:value="addSearchItem" />
+        <CSelect
+          :arg="(condition as Select)"
+          v-model:modelValue="searchItem[(condition as Select).field]"
+          :parentValue="(searchItem[(condition as Select).dependField as string])"
+        />
       </template>
       <template v-else-if="condition.kind == 'radio'">
         <CRadio
@@ -58,8 +62,4 @@ const emit = defineEmits(["update:searchItem"]);
 watch(searchItem.value, (newItem) => {
   emit("update:searchItem", newItem);
 });
-
-function addSearchItem(value: string, field: string) {
-  searchItem.value[field] = value;
-}
 </script>

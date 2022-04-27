@@ -1,48 +1,50 @@
 <template>
   <div style="display: inline">
     <template v-if="select.label"> {{ select.label }} : </template>
-    <select v-model="select.selectedValue" @change="changeEvent">
+    <select v-model="value">
       <template v-for="option in select.options" :key="option.value">
-        <option
-          v-if="option.parent == parent || option.parent == null"
-          :value="option.value"
-          :disabled="option.disabled"
-        >
-          {{ option.description }}
-        </option>
+        <template v-if="option.parent == parentValue || !option.parent">
+          <option :value="option.value" :disabled="option.disabled">
+            {{ option.description }}
+          </option>
+        </template>
       </template>
     </select>
     {{ select.endLabel }}
-    <template v-if="select.chain">
-      <CSelect
-        :arg="select.chain"
-        @update:value="receiveSelected"
-        :parent="select.selectedValue"
-      />
-    </template>
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps, ref, defineEmits } from "vue";
+import { defineProps, ref, defineEmits, computed, onMounted, watch } from "vue";
 import { Select } from "../Conditions";
 
 interface Props {
   arg: Select;
-  parent?: string;
+  modelValue: any;
+  parentValue: any;
 }
 const props = defineProps<Props>();
 const select = ref(props.arg);
-const emit = defineEmits(["update:value"]);
+const emit = defineEmits(["update:modelValue"]);
+const value = computed({
+  get() {
+    return props.modelValue;
+  },
+  set(value) {
+    emit("update:modelValue", value);
+  },
+});
+const parent = computed(() => props.parentValue);
 
-function changeEvent() {
-  // 부모의 reacitve한 애를 자식으로 보내서
-  // 부모가 mutate했을 때
-  // 자식이 트리거가 되는....
-  emit("update:value", select.value.selectedValue, select.value.field);
-}
+watch(parent, () => {
+  value.value = "";
+});
 
-function receiveSelected(value: any, field: any): void {
-  emit("update:value", value, field);
+onMounted(() => {
+  init();
+});
+
+function init() {
+  value.value = select.value.selectedValue;
 }
 </script>
