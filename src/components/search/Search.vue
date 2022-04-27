@@ -8,17 +8,7 @@
         />
       </template>
       <template v-else-if="condition.kind == 'select'">
-        <CSelect
-          :arg="(condition as Select)"
-          v-model:value="searchItem[(condition as Select).field]"
-        />
-      </template>
-      <template v-else-if="condition.kind == 'subSelect'">
-        <CSubSelect
-          :arg="(condition as Select)"
-          v-model:value="searchItem[(condition as SubSelect).field]"
-          :parent="searchItem[(condition as SubSelect).parentField]"
-        />
+        <CSelect :arg="(condition as Select)" @update:value="addSearchItem" />
       </template>
       <template v-else-if="condition.kind == 'radio'">
         <CRadio
@@ -50,11 +40,9 @@ import {
   Radio,
   Text,
   CDate,
-  SubSelect,
 } from "./Conditions";
 import CCodePopup from "./conditions/CCodePopup.vue";
 import CSelect from "./conditions/CSelect.vue";
-import CSubSelect from "./conditions/CSubSelect.vue";
 import CRadio from "./conditions/CRadio.vue";
 import CText from "./conditions/CText.vue";
 import Date from "./conditions/CDate.vue";
@@ -63,11 +51,15 @@ interface Props {
   searchSetting: Array<ICondition>;
 }
 
-const searchItem = ref({});
+const searchItem = ref<any>({});
 defineProps<Props>();
 const emit = defineEmits(["update:searchItem"]);
 
 watch(searchItem.value, (newItem) => {
   emit("update:searchItem", newItem);
 });
+
+function addSearchItem(value: string, field: string) {
+  searchItem.value[field] = value;
+}
 </script>

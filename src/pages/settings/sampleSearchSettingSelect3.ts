@@ -33,5 +33,24 @@ const searchSetting: SearchSetting = [
       { description: "Cc", value: "Cc", parent: "C" },
     ],
   },
+  {
+    id: "14",
+    kind: "select",
+    dependField: "innerTypeTwo",
+    selectedValue: "",
+    field: "innerTypeThree",
+    options: [
+      { description: "3차분류", value: "", disabled: true },
+      { description: "Aa가", value: "Aa가", parent: "Aa" },
+      { description: "Aa나", value: "Aa나", parent: "Aa" },
+      { description: "Aa다", value: "Aa다", parent: "Aa" },
+      { description: "Ab가", value: "Ab가", parent: "Ab" },
+      { description: "Ab나", value: "Ab나", parent: "Ab" },
+      { description: "Ab다", value: "Ab다", parent: "Ab" },
+      { description: "Ac가", value: "Ac가", parent: "Ac" },
+      { description: "Ac나", value: "Ac나", parent: "Ac" },
+      { description: "Ac다", value: "Ac다", parent: "Ac" },
+    ],
+  },
 ];
 export default searchSetting;

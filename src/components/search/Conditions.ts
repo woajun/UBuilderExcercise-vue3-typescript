@@ -60,15 +60,7 @@ interface Select extends ICondition {
   endLabel?: string;
   width?: string;
   selectedValue?: string;
-}
-interface SubSelect extends ICondition {
-  parentField: string;
-  kind: "subSelect";
-  options: Record<string, Array<SelectOption>>;
-  field: string;
-  endLabel?: string;
-  width?: string;
-  selectedValue?: string;
+  chain?: Select;
 }
 
 interface SelectOption {
@@ -91,15 +83,12 @@ interface RadioOption {
   disabled?: boolean;
 }
 
-type SearchSetting = Array<
-  CDate | CodePopup | Text | Select | Radio | SubSelect
->;
+type SearchSetting = Array<CDate | CodePopup | Text | Select | Radio>;
 
 export {
   ICondition,
   CodePopup,
   Select,
-  SubSelect,
   Radio,
   Text,
   CDate,
