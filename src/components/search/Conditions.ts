@@ -18,17 +18,8 @@ interface CDate extends ICondition {
   kind: "date";
   date?: Date;
   placeholder?: string;
-  inline?: string;
+  inline?: boolean;
 }
-// interface Period extends ICondition {
-//   kind: "period";
-//   fromField: string;
-//   from?: Date;
-//   fromPlaceholder?: string;
-//   toField: string;
-//   to?: Date;
-//   toPlaceholder?: string;
-// }
 
 interface Text extends ICondition {
   field: string;

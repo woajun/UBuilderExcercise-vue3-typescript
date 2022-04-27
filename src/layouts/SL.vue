@@ -2,10 +2,7 @@
   <div class="sl">
     <button @click="doSearch">검색</button>
     {{ searchItem }}
-    <Search
-      :search-setting="searchSetting"
-      v-model:model-value="searchItem"
-    ></Search>
+    <Search :search-setting="searchSetting" v-model="searchItem"></Search>
     <Table :table-setting="tableSetting" :data="data"></Table>
   </div>
 </template>
@@ -18,7 +15,7 @@ import { ICondition } from "@/components/search/Conditions";
 import { TableSetting } from "@/components/list/tableSetting";
 import { init, typeA, typeB, typeC } from "./mockServer";
 
-const props = defineProps<{
+defineProps<{
   searchSetting: Array<ICondition>;
   tableSetting: TableSetting;
   searchUrl: string;
