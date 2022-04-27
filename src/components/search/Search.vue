@@ -19,7 +19,7 @@
       <template v-else-if="condition.kind == 'text'">
         <CText
           :arg="(condition as Text)"
-          v-model:value="searchItem[(condition as Text).field]"
+          v-model:modelValue="searchItem[(condition as Text).field]"
         />
       </template>
       <template v-else-if="condition.kind == 'date'">
