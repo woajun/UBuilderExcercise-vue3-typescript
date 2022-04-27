@@ -20,11 +20,10 @@
 import { defineProps, ref, defineEmits, computed, onMounted } from "vue";
 import { Radio } from "../Conditions";
 
-interface Props {
+const props = defineProps<{
   arg: Radio;
   modelValue: any;
-}
-const props = defineProps<Props>();
+}>();
 const radio = ref(props.arg);
 const emit = defineEmits(["update:modelValue"]);
 
@@ -38,10 +37,6 @@ const value = computed({
 });
 
 onMounted(() => {
-  init();
-});
-
-function init() {
   value.value = radio.value.checkedValue;
-}
+});
 </script>

@@ -18,12 +18,11 @@
 import { defineProps, ref, defineEmits, computed, onMounted, watch } from "vue";
 import { Select } from "../Conditions";
 
-interface Props {
+const props = defineProps<{
   arg: Select;
   modelValue: any;
   parentValue: any;
-}
-const props = defineProps<Props>();
+}>();
 const select = ref(props.arg);
 const emit = defineEmits(["update:modelValue"]);
 const value = computed({
@@ -41,12 +40,8 @@ watch(parent, () => {
 });
 
 onMounted(() => {
-  init();
-});
-
-function init() {
   value.value = select.value.selectedValue;
-}
+});
 </script>
 <style>
 .inline {

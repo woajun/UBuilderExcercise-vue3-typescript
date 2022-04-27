@@ -4,7 +4,7 @@
     {{ searchItem }}
     <Search
       :search-setting="searchSetting"
-      v-model:search-item="searchItem"
+      v-model:model-value="searchItem"
     ></Search>
     <Table :table-setting="tableSetting" :data="data"></Table>
   </div>

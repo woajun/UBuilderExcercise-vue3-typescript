@@ -16,11 +16,10 @@
 import { defineProps, ref, defineEmits, computed, onMounted } from "vue";
 import { CodePopup } from "../Conditions";
 
-interface Props {
+const props = defineProps<{
   arg: CodePopup;
   modelValue: any;
-}
-const props = defineProps<Props>();
+}>();
 const code = ref(props.arg);
 const emit = defineEmits(["update:modelValue"]);
 
@@ -34,12 +33,8 @@ const value = computed({
 });
 
 onMounted(() => {
-  init();
-});
-
-function init() {
   value.value = code.value.value;
-}
+});
 
 function clickEvent() {
   const resval: Array<string> | undefined = code.value.event

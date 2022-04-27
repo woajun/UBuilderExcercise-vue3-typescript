@@ -9,11 +9,10 @@
 import { defineProps, defineEmits, ref, computed, onMounted } from "vue";
 import { Text } from "../Conditions";
 
-interface Props {
+const props = defineProps<{
   arg: Text;
   modelValue: any;
-}
-const props = defineProps<Props>();
+}>();
 const text = ref(props.arg);
 const emit = defineEmits(["update:modelValue"]);
 
@@ -27,10 +26,6 @@ const value = computed({
 });
 
 onMounted(() => {
-  init();
-});
-
-function init() {
   value.value = text.value.value;
-}
+});
 </script>

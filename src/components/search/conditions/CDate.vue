@@ -28,11 +28,10 @@ import {
 } from "vue";
 import { CDate } from "../Conditions";
 
-interface Props {
+const props = defineProps<{
   arg: CDate;
   modelValue: any;
-}
-const props = defineProps<Props>();
+}>();
 const emit = defineEmits(["update:modelValue"]);
 const cDate = ref(props.arg);
 
@@ -54,10 +53,6 @@ const format = (date: Date | undefined) => {
 };
 
 onMounted(() => {
-  init();
-});
-
-function init() {
   value.value = cDate.value.date;
-}
+});
 </script>
