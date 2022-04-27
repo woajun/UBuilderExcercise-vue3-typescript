@@ -25,7 +25,7 @@
       <template v-else-if="condition.kind == 'date'">
         <Date
           :arg="(condition as CDate)"
-          v-model:value="searchItem[(condition as CDate).field]"
+          v-model:modelValue="searchItem[(condition as CDate).field]"
         />
       </template>
     </template>

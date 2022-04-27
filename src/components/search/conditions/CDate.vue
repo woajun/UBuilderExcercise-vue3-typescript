@@ -2,8 +2,7 @@
   <div>
     <Datepicker
       style="display: inline-block"
-      v-model="date"
-      @update:modelValue="updateEvent"
+      v-model="value"
       :format="format"
       position="left"
       :enable-time-picker="false"
@@ -19,33 +18,46 @@
 <script setup lang="ts">
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
-import { defineProps, ref, defineEmits, onMounted } from "vue";
+import {
+  defineProps,
+  ref,
+  defineEmits,
+  computed,
+  WritableComputedRef,
+  onMounted,
+} from "vue";
 import { CDate } from "../Conditions";
 
 interface Props {
   arg: CDate;
+  modelValue: any;
 }
-
 const props = defineProps<Props>();
+const emit = defineEmits(["update:modelValue"]);
 const cDate = ref(props.arg);
-const date = ref(cDate.value.date);
-const emit = defineEmits(["update:value"]);
 
-const format = (date: Date) => {
+const value: WritableComputedRef<Date | undefined> = computed({
+  get() {
+    return props.modelValue;
+  },
+  set(value) {
+    emit("update:modelValue", format(value));
+  },
+});
+
+const format = (date: Date | undefined) => {
+  if (date == undefined) return;
   const day = date.getDate();
   const month = date.getMonth() + 1;
   const year = date.getFullYear();
   return `${year}-${month}-${day}`;
 };
 
-function updateEvent() {
-  if (date.value) {
-    emit("update:value", format(date.value));
-  } else {
-    emit("update:value", "");
-  }
-}
 onMounted(() => {
-  updateEvent();
+  init();
 });
+
+function init() {
+  value.value = cDate.value.date;
+}
 </script>
