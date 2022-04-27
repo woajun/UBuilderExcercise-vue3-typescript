@@ -3,13 +3,11 @@
     <template v-if="radio.label"> {{ radio.label }} : </template>
     <template v-for="option in radio.options" :key="option.value">
       <input
-        @change="updateEvent"
+        v-model="value"
         type="radio"
         :value="option.value"
         :id="radio.field + option.value"
-        :checked="radio.checkedValue === option.value"
         :disabled="option.disabled"
-        v-model="radio.checkedValue"
       />
       <label :for="radio.field + option.value">
         {{ option.description }}
@@ -19,20 +17,31 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, ref, defineEmits } from "vue";
+import { defineProps, ref, defineEmits, computed, onMounted } from "vue";
 import { Radio } from "../Conditions";
 
 interface Props {
   arg: Radio;
+  modelValue: any;
 }
 const props = defineProps<Props>();
 const radio = ref(props.arg);
-const emit = defineEmits(["update:value"]);
+const emit = defineEmits(["update:modelValue"]);
 
-function updateEvent() {
-  console.log(radio.value.checkedValue);
-  emit("update:value", radio.value.checkedValue);
+const value = computed({
+  get() {
+    return props.modelValue;
+  },
+  set(value) {
+    emit("update:modelValue", value);
+  },
+});
+
+onMounted(() => {
+  init();
+});
+
+function init() {
+  value.value = radio.value.checkedValue;
 }
 </script>
-
-<style></style>

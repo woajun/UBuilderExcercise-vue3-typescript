@@ -13,7 +13,7 @@
       <template v-else-if="condition.kind == 'radio'">
         <CRadio
           :arg="(condition as Radio)"
-          v-model:value="searchItem[(condition as Radio).field]"
+          v-model:modelValue="searchItem[(condition as Radio).field]"
         />
       </template>
       <template v-else-if="condition.kind == 'text'">

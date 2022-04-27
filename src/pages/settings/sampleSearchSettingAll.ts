@@ -7,8 +7,8 @@ import text from "./sampleSearchSettingText";
 import codePopup from "./sampleSearchSettingCodePopup";
 
 export const searchSetting: SearchSetting = [
-  ...date,
-  // ...radio,
+  // ...date,
+  ...radio,
   // ...select,
   // ...text,
   // ...codePopup,
