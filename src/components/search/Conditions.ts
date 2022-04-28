@@ -11,10 +11,10 @@ interface ICondition {
   label?: string;
   labelWidth?: string;
   fullWidth?: string;
+  field: string;
 }
 
 interface CDate extends ICondition {
-  field: string;
   kind: "date";
   date?: Date;
   placeholder?: string;
@@ -22,14 +22,12 @@ interface CDate extends ICondition {
 }
 
 interface Text extends ICondition {
-  field: string;
   kind: "text";
   value?: string;
   placeholder?: string;
 }
 
 interface CodePopup extends ICondition {
-  field: string;
   kind: "codePopup";
   value?: string;
   valueWidth?: string;
@@ -48,7 +46,6 @@ interface CodePopup extends ICondition {
 interface Select extends ICondition {
   kind: "select";
   options: Array<SelectOption>;
-  field: string;
   endLabel?: string;
   width?: string;
   selectedValue?: string;
@@ -64,7 +61,6 @@ interface SelectOption {
 }
 
 interface Radio extends ICondition {
-  field: string;
   kind: "radio";
   options: Array<RadioOption>;
   checkedValue?: string;
