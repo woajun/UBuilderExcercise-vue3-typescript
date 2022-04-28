@@ -20,8 +20,8 @@ import { Select } from "../Conditions";
 
 const props = defineProps<{
   arg: Select;
-  modelValue: any;
-  parentValue: any;
+  modelValue?: string;
+  parentValue?: string;
 }>();
 const select = ref(props.arg);
 const emit = defineEmits(["update:modelValue"]);

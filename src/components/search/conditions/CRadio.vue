@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{ modelValue }}
     <template v-if="radio.label"> {{ radio.label }} : </template>
     <template v-for="option in radio.options" :key="option.value">
       <input
@@ -22,7 +23,7 @@ import { Radio } from "../Conditions";
 
 const props = defineProps<{
   arg: Radio;
-  modelValue: any;
+  modelValue?: string;
 }>();
 const radio = ref(props.arg);
 const emit = defineEmits(["update:modelValue"]);

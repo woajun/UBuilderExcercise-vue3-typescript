@@ -11,7 +11,7 @@ import { Text } from "../Conditions";
 
 const props = defineProps<{
   arg: Text;
-  modelValue: any;
+  modelValue?: string;
 }>();
 const text = ref(props.arg);
 const emit = defineEmits(["update:modelValue"]);

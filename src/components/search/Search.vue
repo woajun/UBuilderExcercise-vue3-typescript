@@ -53,10 +53,10 @@ import Date from "./conditions/CDate.vue";
 
 const props = defineProps<{
   searchSetting: Array<ICondition>;
-  modelValue: Record<string, unknown>;
+  modelValue: Record<string, string>;
 }>();
 const emit = defineEmits(["update:modelValue"]);
-const searchItem: WritableComputedRef<Record<string, unknown>> = computed({
+const searchItem: WritableComputedRef<Record<string, string>> = computed({
   get() {
     return props.modelValue;
   },

@@ -34,7 +34,7 @@ import { TableSetting } from "./tableSetting";
 
 const props = defineProps<{
   tableSetting: TableSetting;
-  data: any;
+  data: Array<Record<string, string>>;
 }>();
 </script>
 <style>

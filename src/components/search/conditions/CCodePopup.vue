@@ -18,7 +18,7 @@ import { CodePopup } from "../Conditions";
 
 const props = defineProps<{
   arg: CodePopup;
-  modelValue: any;
+  modelValue?: string;
 }>();
 const code = ref(props.arg);
 const emit = defineEmits(["update:modelValue"]);

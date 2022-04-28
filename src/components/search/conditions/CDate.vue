@@ -45,7 +45,7 @@ const value: WritableComputedRef<Date | undefined> = computed({
 });
 
 const format = (date: Date | undefined) => {
-  if (date == undefined) return;
+  if (typeof date === "undefined") return;
   const day = date.getDate();
   const month = date.getMonth() + 1;
   const year = date.getFullYear();
