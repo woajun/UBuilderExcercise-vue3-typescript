@@ -12,6 +12,7 @@ interface ICondition {
   labelWidth?: string;
   fullWidth?: string;
   field: string;
+  value?: string;
 }
 
 interface CDate extends ICondition {
@@ -23,7 +24,6 @@ interface CDate extends ICondition {
 
 interface Text extends ICondition {
   kind: "text";
-  value?: string;
   placeholder?: string;
 }
 
