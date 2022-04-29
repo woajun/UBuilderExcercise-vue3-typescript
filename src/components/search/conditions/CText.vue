@@ -5,7 +5,7 @@
       type="text"
       :placeholder="placeholder"
       :value="value"
-      @input="$emit('update:value', ($event.target as HTMLTextAreaElement).value)"
+      @input="$emit('update:value', ($event.target as HTMLInputElement).value)"
     />
   </div>
 </template>

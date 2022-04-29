@@ -1,8 +1,10 @@
 <template>
   <div class="sl">
-    <button @click="doSearch">검색</button>
-    {{ searchItem }}
-    <Search :search-setting="searchSetting" v-model="searchItem"></Search>
+    <form>
+      <button @click.prevent="submit">검색</button>
+      {{ searchItem }}
+      <Search :search-setting="searchSetting"></Search>
+    </form>
     <Table :table-setting="tableSetting" :data="data"></Table>
   </div>
 </template>
@@ -13,33 +15,18 @@ import Search from "@/components/search/Search.vue";
 import Table from "@/components/list/Table.vue";
 import { ICondition } from "@/components/search/Conditions";
 import { TableSetting } from "@/components/list/tableSetting";
-import { init, typeA, typeB, typeC } from "./mockServer";
 
-defineProps<{
+const props = defineProps<{
   searchSetting: Array<ICondition>;
   tableSetting: TableSetting;
   searchUrl: string;
 }>();
-const searchItem = ref<Record<string, unknown>>({});
 const data = ref<Array<any>>([]);
+const searchItem = ref<Record<string, any>>({});
 
-function doSearch() {
-  requestToServer();
+function submit() {
+  props.searchSetting.forEach((c) => {
+    searchItem.value[c.field] = c.value;
+  });
 }
-
-function requestToServer() {
-  const params = searchItem.value;
-  if (params.type == "A") {
-    data.value = typeA;
-  } else if (params.type == "B") {
-    data.value = typeB;
-  } else if (params.type == "C") {
-    data.value = typeC;
-  } else {
-    data.value = init;
-  }
-}
-
-doSearch();
 </script>
-<style scoped></style>
