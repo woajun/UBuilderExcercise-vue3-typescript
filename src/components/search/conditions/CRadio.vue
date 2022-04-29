@@ -22,7 +22,6 @@ import { computed, defineProps, defineEmits } from "vue";
 import { RadioOption } from "../Conditions";
 
 const props = defineProps<{
-  id: string;
   label?: string;
   labelWidth?: string;
   fullWidth?: string;

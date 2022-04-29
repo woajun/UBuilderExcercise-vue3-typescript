@@ -4,7 +4,7 @@ const searchSetting: SearchSetting = [
   {
     kind: "select",
     label: "물품분류",
-    selectedValue: "",
+    value: "A",
     field: "select1",
     options: [
       { description: "1차분류", value: "", disabled: true },
@@ -15,8 +15,8 @@ const searchSetting: SearchSetting = [
   },
   {
     kind: "select",
-    dependField: "select1",
-    selectedValue: "",
+    parentField: "select1",
+    value: "",
     field: "select1-1",
     options: [
       { description: "2차분류", value: "", disabled: true },
@@ -33,8 +33,8 @@ const searchSetting: SearchSetting = [
   },
   {
     kind: "select",
-    dependField: "select1-1",
-    selectedValue: "",
+    parentField: "select1-1",
+    value: "",
     field: "select1-1-1",
     options: [
       { description: "3차분류", value: "", disabled: true },

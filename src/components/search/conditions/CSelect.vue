@@ -1,8 +1,8 @@
 <template>
   <div class="inline">
-    <template v-if="select.label"> {{ select.label }} : </template>
-    <select v-model="value">
-      <template v-for="option in select.options" :key="option.value">
+    <template v-if="label"> {{ label }} : </template>
+    <select v-model="selected">
+      <template v-for="option in options" :key="option.value">
         <template v-if="option.parent == parent || !option.parent">
           <option :value="option.value" :disabled="option.disabled">
             {{ option.description }}
@@ -10,37 +10,37 @@
         </template>
       </template>
     </select>
-    {{ select.endLabel }}
+    {{ endLabel }}
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps, ref, defineEmits, computed, onMounted, watch } from "vue";
-import { Select } from "../Conditions";
+import { defineProps, defineEmits, computed, ref } from "vue";
+import { SelectOption } from "../Conditions";
 
 const props = defineProps<{
-  arg: Select;
-  modelValue?: string;
-  parentValue?: string;
+  kind: "select";
+  options: Array<SelectOption>;
+  endLabel?: string;
+  width?: string;
+  selectedValue?: string;
+  dependField?: string;
+  label?: string;
+  labelWidth?: string;
+  fullWidth?: string;
+  field: string;
+  value?: string;
+
+  parent: string;
 }>();
-const select = ref(props.arg);
-const emit = defineEmits(["update:modelValue"]);
-const value = computed({
+const emit = defineEmits(["update:value"]);
+const selected = computed({
   get() {
-    return props.modelValue;
+    return props.value;
   },
   set(value) {
-    emit("update:modelValue", value);
+    emit("update:value", value);
   },
-});
-const parent = computed(() => props.parentValue);
-
-watch(parent, () => {
-  value.value = "";
-});
-
-onMounted(() => {
-  value.value = select.value.selectedValue;
 });
 </script>
 <style>

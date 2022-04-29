@@ -12,6 +12,7 @@ interface ICondition {
   fullWidth?: string;
   field: string;
   value?: string;
+  parentField?: string;
 }
 
 interface CDate extends ICondition {
@@ -47,9 +48,6 @@ interface Select extends ICondition {
   options: Array<SelectOption>;
   endLabel?: string;
   width?: string;
-  selectedValue?: string;
-  chain?: Select;
-  dependField?: string;
 }
 
 interface SelectOption {

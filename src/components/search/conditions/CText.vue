@@ -16,7 +16,6 @@ import { defineProps, defineEmits } from "vue";
 
 // const props = defineProps<Text>(); // Not Supported in Vue3
 const props = defineProps<{
-  id: string;
   label?: string;
   labelWidth?: string;
   fullWidth?: string;
