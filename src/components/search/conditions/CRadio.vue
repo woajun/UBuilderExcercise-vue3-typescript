@@ -1,16 +1,16 @@
 <template>
   <div>
-    {{ modelValue }}
-    <template v-if="radio.label"> {{ radio.label }} : </template>
-    <template v-for="option in radio.options" :key="option.value">
+    <template v-if="label"> {{ label }} : </template>
+    <template v-for="option in options" :key="option.value">
       <input
-        v-model="value"
-        type="radio"
+        v-model="checked"
+        :type="kind"
         :value="option.value"
-        :id="radio.field + option.value"
+        :id="field + option.value"
         :disabled="option.disabled"
+        :name="field"
       />
-      <label :for="radio.field + option.value">
+      <label :for="field + option.value">
         {{ option.description }}
       </label>
     </template>
@@ -18,26 +18,26 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, ref, defineEmits, computed, onMounted } from "vue";
-import { Radio } from "../Conditions";
+import { computed, defineProps, defineEmits } from "vue";
+import { RadioOption } from "../Conditions";
 
 const props = defineProps<{
-  arg: Radio;
-  modelValue?: string;
+  id: string;
+  label?: string;
+  labelWidth?: string;
+  fullWidth?: string;
+  field: string;
+  value?: string;
+  kind: "radio";
+  options: Array<RadioOption>;
 }>();
-const radio = ref(props.arg);
-const emit = defineEmits(["update:modelValue"]);
-
-const value = computed({
+const emit = defineEmits(["update:value"]);
+const checked = computed({
   get() {
-    return props.modelValue;
+    return props.value;
   },
   set(value) {
-    emit("update:modelValue", value);
+    emit("update:value", value);
   },
-});
-
-onMounted(() => {
-  value.value = radio.value.checkedValue;
 });
 </script>

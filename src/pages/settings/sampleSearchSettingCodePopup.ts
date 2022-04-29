@@ -5,7 +5,6 @@ const searchSetting: SearchSetting = [
     label: "코드검색",
     kind: "codePopup",
     field: "code",
-    id: "code",
     value: "MESSI-01",
     event: () => {
       alert("코드 팝업");
@@ -16,7 +15,6 @@ const searchSetting: SearchSetting = [
     label: "상품코드",
     kind: "codePopup",
     field: "code2",
-    id: "code2",
     value: "12-db-215",
     firstResultVisible: true,
     firstResult: "등심300g",
@@ -29,7 +27,6 @@ const searchSetting: SearchSetting = [
     label: "거래처",
     kind: "codePopup",
     field: "code3",
-    id: "code3",
     placeholder: "코드 검색",
     firstResultVisible: true,
     secondResultVisible: true,

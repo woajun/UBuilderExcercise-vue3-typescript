@@ -1,5 +1,4 @@
 interface ICondition {
-  id: string;
   kind:
     | "codePopup"
     | "radio"
@@ -63,11 +62,10 @@ interface SelectOption {
 interface Radio extends ICondition {
   kind: "radio";
   options: Array<RadioOption>;
-  checkedValue?: string;
 }
 
 interface RadioOption {
-  value: string;
+  value?: string;
   description: string;
   disabled?: boolean;
 }
@@ -79,6 +77,7 @@ export {
   CodePopup,
   Select,
   Radio,
+  RadioOption,
   Text,
   CDate,
   SearchSetting,

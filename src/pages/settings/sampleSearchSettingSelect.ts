@@ -2,7 +2,6 @@ import { SearchSetting } from "@/components/search/Conditions";
 
 const searchSetting: SearchSetting = [
   {
-    id: "12",
     kind: "select",
     label: "물품분류",
     selectedValue: "",
@@ -15,7 +14,6 @@ const searchSetting: SearchSetting = [
     ],
   },
   {
-    id: "13",
     kind: "select",
     dependField: "select1",
     selectedValue: "",
@@ -34,7 +32,6 @@ const searchSetting: SearchSetting = [
     ],
   },
   {
-    id: "14",
     kind: "select",
     dependField: "select1-1",
     selectedValue: "",

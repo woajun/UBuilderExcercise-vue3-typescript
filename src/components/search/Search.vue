@@ -1,6 +1,6 @@
 <template>
   <div>
-    <template v-for="condition in searchSetting" :key="condition.id">
+    <template v-for="condition in searchSetting" :key="condition.field">
       <component
         :is="conditions[condition.kind]"
         v-bind="condition"
