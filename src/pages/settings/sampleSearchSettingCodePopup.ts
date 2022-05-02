@@ -17,7 +17,7 @@ const searchSetting: SearchSetting = [
     field: "code2",
     value: "12-db-215",
     firstResultVisible: true,
-    firstResult: "등심300g",
+    firstResultDefault: "등심300g",
     event: () => {
       alert("상품 팝업");
       return ["결과1", "결과2", "결과3"];

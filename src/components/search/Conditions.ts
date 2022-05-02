@@ -38,11 +38,13 @@ interface CodePopup extends ICondition {
   placeholder?: string;
   disabled?: boolean;
   firstResultVisible?: boolean;
-  firstResult?: string;
+  firstResultDefault?: string;
   firstResultWidth?: string;
+  firstResultPlaceholder?: string;
   secondResultVisible?: boolean;
-  secondResult?: string;
+  secondResultDefault?: string;
   secondResultWidth?: string;
+  secondResultPlaceholder?: string;
   event?(value: string): Array<string>;
 }
 

@@ -1,49 +1,73 @@
 <template>
   <div>
-    <template v-if="code.label"> {{ code.label }} : </template>
-    <input type="text" v-model="value" :placeholder="code.placeholder" />
-    <button @click="clickEvent()">🔍</button>
-    <template v-if="code.firstResultVisible">
-      <input type="text" v-model="code.firstResult" disabled />
+    <template v-if="label"> {{ label }} : </template>
+    <input
+      type="text"
+      :placeholder="placeholder"
+      :value="result"
+      @input="emit('update:searchItem', ($event.target as HTMLInputElement).value)"
+    />
+    <button @click.prevent="clickEvent">🔍</button>
+    <template v-if="firstResultVisible">
+      <input type="text" :value="firstResult" disabled />
     </template>
-    <template v-if="code.secondResultVisible">
-      <input type="text" v-model="code.secondResult" disabled />
+    <template v-if="secondResultVisible">
+      <input type="text" :value="secondResult" disabled />
     </template>
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps, ref, defineEmits, computed, onMounted } from "vue";
-import { CodePopup } from "../Conditions";
+import { defineProps, defineEmits, computed, ref } from "vue";
 
 const props = defineProps<{
-  arg: CodePopup;
-  modelValue?: string;
+  kind: "codePopup";
+  value?: string;
+  valueWidth?: string;
+  valueClickEvent?: boolean;
+  placeholder?: string;
+  disabled?: boolean;
+  firstResultVisible?: boolean;
+  firstResultDefault?: string;
+  firstResultWidth?: string;
+  firstResultPlaceholder?: string;
+  secondResultVisible?: boolean;
+  secondResultDefault?: string;
+  secondResultWidth?: string;
+  secondResultPlaceholder?: string;
+  event?(value: string): Array<string>;
+  label?: string;
+  labelWidth?: string;
+  fullWidth?: string;
+  field: string;
+  parentField?: string;
+  searchItem?: string;
 }>();
-const code = ref(props.arg);
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits(["update:searchItem"]);
 
-const value = computed({
+const firstResult = ref("");
+const secondResult = ref("");
+
+const result = computed({
   get() {
-    return props.modelValue;
+    return props.searchItem;
   },
   set(value) {
-    emit("update:modelValue", value);
+    emit("update:searchItem", value);
   },
 });
 
-onMounted(() => {
-  value.value = code.value.value;
-});
+firstResult.value = props.firstResultDefault ?? "";
+secondResult.value = props.secondResultDefault ?? "";
 
 function clickEvent() {
-  const resval: Array<string> | undefined = code.value.event
-    ? code.value.event(code.value.value as string)
+  const resval: Array<string> | undefined = props.event
+    ? props.event(result.value as string)
     : undefined;
   if (resval) {
-    value.value = resval[0];
-    code.value.firstResult = resval[1];
-    code.value.secondResult = resval[2];
+    emit("update:searchItem", resval[0]);
+    firstResult.value = resval[1];
+    secondResult.value = resval[2];
   }
 }
 </script>
