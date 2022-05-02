@@ -3,7 +3,7 @@
     <template v-if="label"> {{ label }} : </template>
     <select v-model="selected">
       <template v-for="option in options" :key="option.value">
-        <template v-if="option.parent == parent?.value || !option.parent">
+        <template v-if="option.parent == parentVal || !option.parent">
           <option :value="option.value" :disabled="option.disabled">
             {{ option.description }}
           </option>
@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmits, computed, Ref, watch } from "vue";
+import { defineProps, defineEmits, computed, watch } from "vue";
 import { SelectOption } from "../Conditions";
 
 const props = defineProps<{
@@ -29,24 +29,33 @@ const props = defineProps<{
   labelWidth?: string;
   fullWidth?: string;
   field: string;
-  value: Ref<string | undefined>;
-  parent: Ref<string | undefined>;
+  value?: string;
+  parentVal?: string;
+  searchItem?: string;
 }>();
 
-const emit = defineEmits(["update:value"]);
+const emit = defineEmits(["update:searchItem"]);
+
 const selected = computed({
   get() {
-    return props.value.value;
+    return props.searchItem;
   },
   set(value) {
-    emit("update:value", value);
+    emit("update:searchItem", value);
   },
 });
 
-if (typeof props.parent !== "undefined") {
-  watch(props.parent, () => {
-    emit("update:value", "");
-  });
+if (props.parentVal !== undefined) {
+  watch(
+    () => props.parentVal,
+    () => {
+      emit("update:searchItem", "");
+    }
+  );
+}
+
+if (props.value !== undefined) {
+  emit("update:searchItem", props.value);
 }
 </script>
 <style>

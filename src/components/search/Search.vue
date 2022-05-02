@@ -1,30 +1,33 @@
 <template>
   <div>
-    <template v-for="condition in searchSetting" :key="condition.field">
+    <button @click.prevent="logSrch">검색</button>
+    <template v-for="con in conditions" :key="con.field">
       <component
-        :is="conditions[condition.kind]"
-        v-bind="condition"
-        @update:value="(newValue:string) => (condition.value as Ref<string|undefined>).value = newValue"
-        :parent="getParentValue(condition.parentField)"
+        :is="conKinds[con.kind]"
+        v-bind="con"
+        :search-item="searchItem[con.field]"
+        @update:search-item="(val:string) => emit('update:searchItem',con.field, val)"
+        :parent-val="searchItem[con.parentField as string]"
       ></component>
     </template>
   </div>
 </template>
 <script setup lang="ts">
-import { defineProps, ref, Ref } from "vue";
+import { defineProps, defineEmits } from "vue";
 import { ICondition } from "./Conditions";
 import CCodePopup from "./conditions/CCodePopup.vue";
 import CSelect from "./conditions/CSelect.vue";
 import CRadio from "./conditions/CRadio.vue";
 import CText from "./conditions/CText.vue";
 import CDate from "./conditions/CDate.vue";
-import { registerRuntimeHelpers } from "@vue/compiler-core";
 
 const props = defineProps<{
-  searchSetting: Array<ICondition>;
+  conditions: Array<ICondition>;
+  searchItem: Record<string, string>;
 }>();
+const emit = defineEmits(["update:searchItem"]);
 
-const conditions = {
+const conKinds = {
   codePopup: CCodePopup,
   select: CSelect,
   radio: CRadio,
@@ -32,16 +35,7 @@ const conditions = {
   date: CDate,
 };
 
-function getParentValue(field: string | undefined) {
-  if (typeof field == "undefined") return undefined;
-  const found = props.searchSetting.find((c) => c.field == field);
-  return found?.value;
-}
-
-function valueToRef() {
-  props.searchSetting.forEach((c) => {
-    c.value = ref(c.value);
-  });
-}
-valueToRef();
+const logSrch = () => {
+  console.log(props.searchItem);
+};
 </script>
