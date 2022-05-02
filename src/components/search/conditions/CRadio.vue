@@ -29,14 +29,22 @@ const props = defineProps<{
   value?: string;
   kind: "radio";
   options: Array<RadioOption>;
+
+  searchItem?: string;
 }>();
-const emit = defineEmits(["update:value"]);
+const emit = defineEmits(["update:searchItem"]);
 const checked = computed({
   get() {
     return props.value;
   },
   set(value) {
-    emit("update:value", value);
+    emit("update:searchItem", value);
   },
 });
+
+if (props.value !== undefined) {
+  emit("update:searchItem", props.value);
+} else {
+  emit("update:searchItem", "");
+}
 </script>

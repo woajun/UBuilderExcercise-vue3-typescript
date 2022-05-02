@@ -45,18 +45,18 @@ const selected = computed({
   },
 });
 
-if (props.parentVal !== undefined) {
-  watch(
-    () => props.parentVal,
-    () => {
-      emit("update:searchItem", "");
-    }
-  );
-}
-
 if (props.value !== undefined) {
   emit("update:searchItem", props.value);
+} else {
+  emit("update:searchItem", "");
 }
+
+watch(
+  () => props.parentVal,
+  () => {
+    emit("update:searchItem", "");
+  }
+);
 </script>
 <style>
 .inline {

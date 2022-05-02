@@ -2,14 +2,14 @@
   <div>
     <Datepicker
       style="display: inline-block"
-      v-model="value"
+      v-model="result"
       :format="format"
       position="left"
       :enable-time-picker="false"
     >
       <template #dp-input="{ value }">
-        <span v-if="cDate.label"> {{ cDate.label }} : </span>
-        <input type="text" :value="value" :placeholder="cDate.placeholder" />
+        <span v-if="label"> {{ label }} : </span>
+        <input type="text" :value="value" :placeholder="placeholder" />
       </template>
     </Datepicker>
   </div>
@@ -18,41 +18,44 @@
 <script setup lang="ts">
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
-import {
-  defineProps,
-  ref,
-  defineEmits,
-  computed,
-  WritableComputedRef,
-  onMounted,
-} from "vue";
-import { CDate } from "../Conditions";
+import { defineProps, defineEmits, computed, WritableComputedRef } from "vue";
 
 const props = defineProps<{
-  arg: CDate;
-  modelValue: any;
+  kind: "date";
+  date?: Date;
+  placeholder?: string;
+  inline?: boolean;
+  label?: string;
+  labelWidth?: string;
+  fullWidth?: string;
+  field: string;
+  value?: Date;
+  parentField?: string;
+  searchItem?: string;
 }>();
-const emit = defineEmits(["update:modelValue"]);
-const cDate = ref(props.arg);
+const emit = defineEmits(["update:searchItem"]);
 
-const value: WritableComputedRef<Date | undefined> = computed({
+const result: WritableComputedRef<string | undefined> = computed({
   get() {
-    return props.modelValue;
+    return props.searchItem;
   },
-  set(value) {
-    emit("update:modelValue", format(value));
+  set(newVal) {
+    emit("update:searchItem", format(newVal));
   },
 });
 
-const format = (date: Date | undefined) => {
-  if (typeof date === "undefined") return;
-  const day = date.getDate();
-  const month = date.getMonth() + 1;
-  const year = date.getFullYear();
-  return `${year}-${month}-${day}`;
+const format = (date: any) => {
+  if (date instanceof Date) {
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    return `${year}-${month}-${day}`;
+  }
 };
 
-onMounted(() => {
-  value.value = cDate.value.date;
-});
+if (props.value !== undefined) {
+  emit("update:searchItem", format(props.value));
+} else {
+  emit("update:searchItem", "");
+}
 </script>

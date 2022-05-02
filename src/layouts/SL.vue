@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, reactive, watch } from "vue";
+import { defineProps, reactive } from "vue";
 import Search from "@/components/search/Search.vue";
 // import Table from "@/components/list/Table.vue";
 import { ICondition } from "@/components/search/Conditions";

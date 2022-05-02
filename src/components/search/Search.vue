@@ -1,6 +1,5 @@
 <template>
   <div>
-    <button @click.prevent="logSrch">검색</button>
     <template v-for="con in conditions" :key="con.field">
       <component
         :is="conKinds[con.kind]"
@@ -21,7 +20,7 @@ import CRadio from "./conditions/CRadio.vue";
 import CText from "./conditions/CText.vue";
 import CDate from "./conditions/CDate.vue";
 
-const props = defineProps<{
+defineProps<{
   conditions: Array<ICondition>;
   searchItem: Record<string, string>;
 }>();
@@ -33,9 +32,5 @@ const conKinds = {
   radio: CRadio,
   text: CText,
   date: CDate,
-};
-
-const logSrch = () => {
-  console.log(props.searchItem);
 };
 </script>

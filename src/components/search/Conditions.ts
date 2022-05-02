@@ -13,20 +13,21 @@ interface ICondition {
   labelWidth?: string;
   fullWidth?: string;
   field: string;
-  value?: string | Ref<string | undefined>;
+  value?: string | Date;
   parentField?: string;
 }
 
 interface CDate extends ICondition {
   kind: "date";
-  date?: Date;
   placeholder?: string;
   inline?: boolean;
+  value?: Date;
 }
 
 interface Text extends ICondition {
   kind: "text";
   placeholder?: string;
+  value?: string;
 }
 
 interface CodePopup extends ICondition {
@@ -47,6 +48,7 @@ interface CodePopup extends ICondition {
 
 interface Select extends ICondition {
   kind: "select";
+  value?: string;
   options: Array<SelectOption>;
   endLabel?: string;
   width?: string;
@@ -61,6 +63,7 @@ interface SelectOption {
 
 interface Radio extends ICondition {
   kind: "radio";
+  value?: string;
   options: Array<RadioOption>;
 }
 
