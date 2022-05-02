@@ -1,3 +1,5 @@
+import { Ref } from "vue";
+
 interface ICondition {
   kind:
     | "codePopup"
@@ -11,7 +13,7 @@ interface ICondition {
   labelWidth?: string;
   fullWidth?: string;
   field: string;
-  value?: string;
+  value?: string | Ref<string | undefined>;
   parentField?: string;
 }
 

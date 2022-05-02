@@ -17,7 +17,7 @@ const searchSetting: SearchSetting = [
     kind: "select",
     parentField: "select1",
     value: "",
-    field: "select1-1",
+    field: "select2",
     options: [
       { description: "2차분류", value: "", disabled: true },
       { description: "Aa", value: "Aa", parent: "A" },
@@ -33,9 +33,9 @@ const searchSetting: SearchSetting = [
   },
   {
     kind: "select",
-    parentField: "select1-1",
+    parentField: "select2",
     value: "",
-    field: "select1-1-1",
+    field: "select3",
     options: [
       { description: "3차분류", value: "", disabled: true },
       { description: "Aa가", value: "Aa가", parent: "Aa" },

@@ -3,7 +3,7 @@
     <template v-if="label"> {{ label }} : </template>
     <select v-model="selected">
       <template v-for="option in options" :key="option.value">
-        <template v-if="option.parent == parent || !option.parent">
+        <template v-if="option.parent == parent?.value || !option.parent">
           <option :value="option.value" :disabled="option.disabled">
             {{ option.description }}
           </option>
@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmits, computed, ref } from "vue";
+import { defineProps, defineEmits, computed, Ref, watch } from "vue";
 import { SelectOption } from "../Conditions";
 
 const props = defineProps<{
@@ -29,19 +29,25 @@ const props = defineProps<{
   labelWidth?: string;
   fullWidth?: string;
   field: string;
-  value?: string;
-
-  parent: string;
+  value: Ref<string | undefined>;
+  parent: Ref<string | undefined>;
 }>();
+
 const emit = defineEmits(["update:value"]);
 const selected = computed({
   get() {
-    return props.value;
+    return props.value.value;
   },
   set(value) {
     emit("update:value", value);
   },
 });
+
+if (typeof props.parent !== "undefined") {
+  watch(props.parent, () => {
+    emit("update:value", "");
+  });
+}
 </script>
 <style>
 .inline {
