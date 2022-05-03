@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import { defineProps, defineEmits, computed, watch } from "vue";
-import { SelectOption } from "../Conditions";
+import { SelectOption } from "./Conditions";
 
 const props = defineProps<{
   kind: "select";

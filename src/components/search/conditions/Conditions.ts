@@ -54,7 +54,7 @@ interface Select extends ICondition {
   width?: string;
 }
 
-interface SelectOption {
+export interface SelectOption {
   value: string;
   description: string;
   disabled?: boolean;
@@ -67,7 +67,7 @@ interface Radio extends ICondition {
   options: Array<RadioOption>;
 }
 
-interface RadioOption {
+export interface RadioOption {
   value?: string;
   description: string;
   disabled?: boolean;

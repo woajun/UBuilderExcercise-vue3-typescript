@@ -19,7 +19,7 @@
 
 <script setup lang="ts">
 import { computed, defineProps, defineEmits } from "vue";
-import { RadioOption } from "../Conditions";
+import { RadioOption } from "./Conditions";
 
 const props = defineProps<{
   label?: string;
@@ -29,7 +29,6 @@ const props = defineProps<{
   value?: string;
   kind: "radio";
   options: Array<RadioOption>;
-
   searchItem?: string;
 }>();
 const emit = defineEmits(["update:searchItem"]);
