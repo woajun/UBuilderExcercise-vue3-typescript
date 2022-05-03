@@ -1,4 +1,4 @@
-import Conditions from "@/components/search/Conditions";
+import Conditions from "@/components/search/conditions/Conditions";
 
 const searchSetting: Conditions = [
   {

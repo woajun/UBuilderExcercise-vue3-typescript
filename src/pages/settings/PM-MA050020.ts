@@ -9,7 +9,11 @@ const searchSetting: SearchSetting = {
       label: "부서",
       value: "502010",
       firstResultVisible: true,
-      firstResultDefault: "운영본부 차량지원팀 일상파트",
+      firstResultDefault: "운영본부 차량원팀 일상파트",
+      event: () => {
+        alert("검수부서 팝업");
+        return ["A14325", "경영지원부"];
+      },
     },
     {
       kind: "radio",
@@ -29,6 +33,10 @@ const searchSetting: SearchSetting = {
       value: "",
       firstResultVisible: true,
       firstResultDefault: "",
+      event: () => {
+        alert("정수코드 팝업");
+        return ["321515", "정수물품"];
+      },
     },
     {
       kind: "date",

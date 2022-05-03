@@ -21,18 +21,30 @@ const searchSetting: SearchSetting = {
       value: "502010",
       firstResultVisible: true,
       firstResultDefault: "운영본부 차량지원팀 일상파트",
+      event: () => {
+        alert("검수부서 팝업");
+        return ["A14325", "경영지원부"];
+      },
     },
     {
       kind: "codePopup",
       field: "inspectNum",
       label: "검수입고번호",
       placeholder: " -    -",
+      event: () => {
+        alert("검수입고 팝업");
+        return ["321515"];
+      },
     },
     {
       kind: "codePopup",
       field: "inspector",
       label: "검수자",
       firstResultVisible: true,
+      event: () => {
+        alert("검수자 팝업");
+        return ["01013", "강준희"];
+      },
     },
     {
       kind: "text",

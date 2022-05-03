@@ -35,7 +35,7 @@ function addSearchItem(key: string, value: string) {
 }
 
 function submit() {
-  console.log(searchUrl);
+  console.log(searchUrl.value);
   console.log(searchItem);
 }
 </script>
