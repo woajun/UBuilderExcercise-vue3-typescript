@@ -1,6 +1,6 @@
-import { SearchSetting } from "@/components/search/Conditions";
+import Conditions from "@/components/search/Conditions";
 
-const searchSetting: SearchSetting = [
+const searchSetting: Conditions = [
   {
     label: "텍스트1",
     kind: "text",

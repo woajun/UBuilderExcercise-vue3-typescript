@@ -1,5 +1,3 @@
-import { Ref } from "vue";
-
 interface ICondition {
   kind:
     | "codePopup"
@@ -75,16 +73,6 @@ interface RadioOption {
   disabled?: boolean;
 }
 
-type SearchSetting = Array<CDate | CodePopup | Text | Select | Radio>;
+type Conditions = Array<CDate | CodePopup | Text | Select | Radio>;
 
-export {
-  ICondition,
-  CodePopup,
-  Select,
-  Radio,
-  RadioOption,
-  Text,
-  CDate,
-  SearchSetting,
-  SelectOption,
-};
+export default Conditions;

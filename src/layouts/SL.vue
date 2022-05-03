@@ -4,7 +4,7 @@
     <form>
       <button @click.prevent="submit">검색</button>
       <Search
-        :conditions="searchSetting"
+        :conditions="conditions"
         :search-item="searchItem"
         @update:search-item="addSearchItem"
       ></Search>
@@ -14,19 +14,20 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, reactive } from "vue";
+import { computed, defineProps, reactive } from "vue";
 import Search from "@/components/search/Search.vue";
 // import Table from "@/components/list/Table.vue";
-import { ICondition } from "@/components/search/Conditions";
 import { TableSetting } from "@/components/list/tableSetting";
+import SearchSetting from "@/components/search/SearchSetting";
 
-defineProps<{
-  searchSetting: Array<ICondition>;
+const props = defineProps<{
+  searchSetting: SearchSetting;
   tableSetting: TableSetting;
-  searchUrl: string;
 }>();
 // const data = [];
 
+const conditions = computed(() => props.searchSetting.conditions);
+const searchUrl = computed(() => props.searchSetting.searchUrl);
 const searchItem: Record<string, string> = reactive({});
 
 function addSearchItem(key: string, value: string) {
@@ -34,6 +35,7 @@ function addSearchItem(key: string, value: string) {
 }
 
 function submit() {
+  console.log(searchUrl);
   console.log(searchItem);
 }
 </script>
