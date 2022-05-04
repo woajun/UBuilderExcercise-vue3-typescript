@@ -34,7 +34,7 @@ const props = defineProps<{
 const emit = defineEmits(["update:searchItem"]);
 const checked = computed({
   get() {
-    return props.value;
+    return props.searchItem;
   },
   set(value) {
     emit("update:searchItem", value);

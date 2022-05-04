@@ -5,9 +5,15 @@ const searchSetting: Conditions = [
     kind: "radio",
     field: "type",
     label: "타입",
+    value: "A",
     options: [
-      { description: "전체" },
-      { description: "A", value: "A" },
+      {
+        description: "전체",
+      },
+      {
+        description: "A",
+        value: "A",
+      },
       {
         description: "B",
         value: "B",
@@ -24,7 +30,10 @@ const searchSetting: Conditions = [
     label: "타입2",
     options: [
       { description: "전체" },
-      { description: "A", value: "A" },
+      {
+        description: "A",
+        value: "A",
+      },
       {
         description: "B",
         value: "B",
