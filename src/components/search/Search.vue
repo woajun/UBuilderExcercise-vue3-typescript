@@ -14,7 +14,7 @@
 <script setup lang="ts">
 import { defineProps, defineEmits } from "vue";
 import Condition from "./conditions/Condition";
-import CCodePopup from "./conditions/CCodePopup.vue";
+import CMagnifier from "./conditions/CMagnifier.vue";
 import CSelect from "./conditions/CSelect.vue";
 import CRadio from "./conditions/CRadio.vue";
 import CText from "./conditions/CText.vue";
@@ -27,7 +27,7 @@ defineProps<{
 const emit = defineEmits(["update:searchItem"]);
 
 const conKinds = {
-  codePopup: CCodePopup,
+  magnifier: CMagnifier,
   select: CSelect,
   radio: CRadio,
   text: CText,

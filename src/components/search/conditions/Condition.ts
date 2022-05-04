@@ -1,6 +1,7 @@
+// request 용 인터페이스이다 - 그래서, response에 대한 프로퍼티는 정의하지 않는다.
 interface ICondition {
   kind:
-    | "codePopup"
+    | "magnifier"
     | "radio"
     | "text"
     | "select"
@@ -28,22 +29,39 @@ interface Text extends ICondition {
   default?: string;
 }
 
-interface CodePopup extends ICondition {
-  kind: "codePopup";
+interface Magnifier extends ICondition {
+  kind: "magnifier";
   default?: string;
   valueWidth?: string;
   valueClickEvent?: boolean;
   placeholder?: string;
   disabled?: boolean;
-  firstResultVisible?: boolean;
-  firstResultDefault?: string;
-  firstResultWidth?: string;
-  firstResultPlaceholder?: string;
-  secondResultVisible?: boolean;
-  secondResultDefault?: string;
-  secondResultWidth?: string;
-  secondResultPlaceholder?: string;
-  event?(value: string): Array<string>;
+  results?: Array<Result>;
+  modal: MagnifierModal;
+}
+
+interface MagnifierModal {
+  matchField?: string;
+  headers: Array<MagnifierHeader>;
+}
+
+interface MagnifierHeader {
+  field: string;
+  label: string;
+  width?: string;
+}
+interface MagnifierURL extends Magnifier {
+  optionsURL: string;
+}
+
+interface MagnifierOptions extends Magnifier {
+  options: Array<Record<string, any>>;
+}
+
+interface Result extends ICondition {
+  Default?: string;
+  Placeholder?: string;
+  Width?: string;
 }
 
 interface Select extends ICondition {
@@ -73,6 +91,12 @@ export interface RadioOption {
   disabled?: boolean;
 }
 
-type Condition = CDate | CodePopup | Text | Select | Radio;
+type Condition =
+  | CDate
+  | MagnifierOptions
+  | MagnifierURL
+  | Text
+  | Select
+  | Radio;
 
 export default Condition;
