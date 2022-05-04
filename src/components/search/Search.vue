@@ -13,7 +13,7 @@
 </template>
 <script setup lang="ts">
 import { defineProps, defineEmits } from "vue";
-import Conditions from "./conditions/Conditions";
+import Condition from "./conditions/Condition";
 import CCodePopup from "./conditions/CCodePopup.vue";
 import CSelect from "./conditions/CSelect.vue";
 import CRadio from "./conditions/CRadio.vue";
@@ -21,7 +21,7 @@ import CText from "./conditions/CText.vue";
 import CDate from "./conditions/CDate.vue";
 
 defineProps<{
-  conditions: Conditions;
+  conditions: Array<Condition>;
   searchItem: Record<string, string>;
 }>();
 const emit = defineEmits(["update:searchItem"]);

@@ -13,15 +13,24 @@
 <script setup lang="ts">
 import { defineProps, defineEmits } from "vue";
 
-defineProps<{
+const props = defineProps<{
   label?: string;
   labelWidth?: string;
   fullWidth?: string;
   field: string;
   kind: "text";
-  value?: string;
+  default?: string;
   placeholder?: string;
   searchItem?: string;
 }>();
 const emit = defineEmits(["update:searchItem"]);
+
+setDefault();
+function setDefault() {
+  if (props.default !== undefined) {
+    emit("update:searchItem", props.default);
+  } else {
+    emit("update:searchItem", "");
+  }
+}
 </script>

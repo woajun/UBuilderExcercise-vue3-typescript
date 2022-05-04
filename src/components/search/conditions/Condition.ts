@@ -11,7 +11,7 @@ interface ICondition {
   labelWidth?: string;
   fullWidth?: string;
   field: string;
-  value?: string | Date;
+  default?: string | Date;
   parentField?: string;
 }
 
@@ -19,18 +19,18 @@ interface CDate extends ICondition {
   kind: "date";
   placeholder?: string;
   inline?: boolean;
-  value?: Date;
+  default?: Date;
 }
 
 interface Text extends ICondition {
   kind: "text";
   placeholder?: string;
-  value?: string;
+  default?: string;
 }
 
 interface CodePopup extends ICondition {
   kind: "codePopup";
-  value?: string;
+  default?: string;
   valueWidth?: string;
   valueClickEvent?: boolean;
   placeholder?: string;
@@ -48,7 +48,7 @@ interface CodePopup extends ICondition {
 
 interface Select extends ICondition {
   kind: "select";
-  value?: string;
+  default?: string;
   options: Array<SelectOption>;
   endLabel?: string;
   width?: string;
@@ -63,7 +63,7 @@ export interface SelectOption {
 
 interface Radio extends ICondition {
   kind: "radio";
-  value?: string;
+  default?: string;
   options: Array<RadioOption>;
 }
 
@@ -73,6 +73,6 @@ export interface RadioOption {
   disabled?: boolean;
 }
 
-type Conditions = Array<CDate | CodePopup | Text | Select | Radio>;
+type Condition = CDate | CodePopup | Text | Select | Radio;
 
-export default Conditions;
+export default Condition;

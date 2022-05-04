@@ -19,14 +19,14 @@
 
 <script setup lang="ts">
 import { computed, defineProps, defineEmits } from "vue";
-import { RadioOption } from "./Conditions";
+import { RadioOption } from "./Condition";
 
 const props = defineProps<{
   label?: string;
   labelWidth?: string;
   fullWidth?: string;
   field: string;
-  value?: string;
+  default?: string;
   kind: "radio";
   options: Array<RadioOption>;
   searchItem?: string;
@@ -41,8 +41,8 @@ const checked = computed({
   },
 });
 
-if (props.value !== undefined) {
-  emit("update:searchItem", props.value);
+if (props.default !== undefined) {
+  emit("update:searchItem", props.default);
 } else {
   emit("update:searchItem", "");
 }

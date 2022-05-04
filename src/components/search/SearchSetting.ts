@@ -1,8 +1,8 @@
-import Conditions from "./conditions/Conditions";
+import Condition from "./conditions/Condition";
 
 interface SearchSetting {
   searchUrl: string;
-  conditions: Conditions;
+  conditions: Array<Condition>;
 }
 
 export default SearchSetting;

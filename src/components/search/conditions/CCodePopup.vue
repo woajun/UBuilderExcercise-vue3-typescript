@@ -22,7 +22,7 @@ import { defineProps, defineEmits, computed, ref } from "vue";
 
 const props = defineProps<{
   kind: "codePopup";
-  value?: string;
+  default?: string;
   valueWidth?: string;
   valueClickEvent?: boolean;
   placeholder?: string;
@@ -69,5 +69,11 @@ function clickEvent() {
     firstResult.value = resval[1];
     secondResult.value = resval[2];
   }
+}
+
+if (props.default !== undefined) {
+  emit("update:searchItem", props.default);
+} else {
+  emit("update:searchItem", "");
 }
 </script>

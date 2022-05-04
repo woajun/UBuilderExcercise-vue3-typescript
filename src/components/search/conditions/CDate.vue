@@ -29,7 +29,7 @@ const props = defineProps<{
   labelWidth?: string;
   fullWidth?: string;
   field: string;
-  value?: Date;
+  default?: Date;
   parentField?: string;
   searchItem?: string;
 }>();
@@ -53,8 +53,8 @@ const format = (date: any) => {
   }
 };
 
-if (props.value !== undefined) {
-  emit("update:searchItem", format(props.value));
+if (props.default !== undefined) {
+  emit("update:searchItem", format(props.default));
 } else {
   emit("update:searchItem", "");
 }

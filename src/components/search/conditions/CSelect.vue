@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import { defineProps, defineEmits, computed, watch } from "vue";
-import { SelectOption } from "./Conditions";
+import { SelectOption } from "./Condition";
 
 const props = defineProps<{
   kind: "select";
@@ -29,7 +29,7 @@ const props = defineProps<{
   labelWidth?: string;
   fullWidth?: string;
   field: string;
-  value?: string;
+  default?: string;
   parentVal?: string;
   searchItem?: string;
 }>();
@@ -45,8 +45,8 @@ const selected = computed({
   },
 });
 
-if (props.value !== undefined) {
-  emit("update:searchItem", props.value);
+if (props.default !== undefined) {
+  emit("update:searchItem", props.default);
 } else {
   emit("update:searchItem", "");
 }
