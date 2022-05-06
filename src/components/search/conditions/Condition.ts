@@ -40,16 +40,16 @@ interface Magnifier extends ICondition {
   disabled?: boolean;
   results?: Array<MagnifierResult>;
   modal: MagnifierModal;
+  fieldLinked?: string;
 }
 
 export interface MagnifierModal {
-  matchField?: string;
   conditions?: Array<Condition>;
   tableSetting: TableSetting;
 }
 
 export interface MagnifierResult {
-  field?: string;
+  field: string;
   Width?: string;
 }
 interface MagnifierURL extends Magnifier {
