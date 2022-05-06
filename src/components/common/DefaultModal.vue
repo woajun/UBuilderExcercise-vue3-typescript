@@ -12,8 +12,6 @@
 
           <div class="model-footer">
             <slot name="footer">
-              default footer
-              <button>선택</button>
               <button class="modal-default-button" @click="$emit('close')">
                 닫기
               </button>

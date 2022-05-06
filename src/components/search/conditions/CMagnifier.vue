@@ -7,7 +7,13 @@
       <input type="text" disabled :value="result[res.field]" />
     </template>
   </div>
-  <Modal v-bind="modal" :data="data" v-model:showModal="showModal"></Modal>
+  <Modal
+    v-bind="modal"
+    :data="data"
+    v-model:showModal="showModal"
+    :parentSelected="result"
+    @update:selected="modalSelected"
+  ></Modal>
 </template>
 
 <script setup lang="ts">
@@ -76,4 +82,13 @@ function doSearch(value: string | undefined) {
 onMounted(() => {
   value.value = props.default;
 });
+
+function modalSelected(newSelected: any) {
+  for (const key in newSelected) {
+    if (key == props.fieldLinked) {
+      emit("update:searchItem", newSelected[key]);
+    }
+    result[key] = newSelected[key];
+  }
+}
 </script>

@@ -14,7 +14,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="row in data" :key="row.id">
+        <tr
+          v-for="row in data"
+          :key="row.id"
+          @click="$emit('update:selected', row)"
+        >
           <td v-for="col in props.tableSetting.headers" :key="col.field">
             <template v-for="(value, key) of row">
               <template v-if="String(key) === col.field">
@@ -34,6 +38,7 @@ import { TableSetting } from "./tableSetting";
 const props = defineProps<{
   tableSetting: TableSetting;
   data?: Array<Record<string, string>>;
+  selected?: Record<string, any>;
 }>();
 </script>
 <style>

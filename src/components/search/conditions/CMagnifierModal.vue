@@ -1,6 +1,6 @@
 <template>
   <Teleport to="body">
-    <DefaultModal :show="showModal" @close="$emit('update:showModal', false)">
+    <DefaultModal :show="showModal">
       <template #header>
         <template v-if="conditions">
           {{ modalSearchItem }}
@@ -12,7 +12,26 @@
         </template>
       </template>
       <template #body>
-        <Table :table-setting="tableSetting" :data="modalData"></Table>
+        <Table
+          :table-setting="tableSetting"
+          :data="modalData"
+          v-model:selected="selected"
+        ></Table>
+      </template>
+      <template #footer>
+        <button
+          class="modal-default-button"
+          @click="$emit('update:selected', selected)"
+        >
+          선택
+        </button>
+        <button
+          class="modal-default-button"
+          @click="$emit('update:showModal', false)"
+        >
+          닫기
+        </button>
+        {{ selected }}
       </template>
     </DefaultModal>
   </Teleport>
@@ -22,20 +41,21 @@
 import DefaultModal from "@/components/common/DefaultModal.vue";
 import Search from "@/components/search/Search.vue";
 import Table from "@/components/list/Table.vue";
-import { defineProps, reactive, ref } from "vue";
+import { defineProps, onMounted, reactive, ref } from "vue";
 import { TableSetting } from "@/components/list/tableSetting"; // for MagnifierModal
 import Condition from "@/components/search/conditions/Condition";
 
 const props = defineProps<{
-  matchField?: string;
   conditions?: Array<Condition>;
   tableSetting: TableSetting;
   data?: Array<Record<string, string>>;
   showModal: boolean;
+  parentSelected?: Record<string, any>;
 }>();
 
 const modalSearchItem: Record<string, string> = reactive({});
 const modalData = ref();
+const selected = ref();
 
 function addModalSearchItem(key: string, value: string) {
   modalSearchItem[key] = value;
@@ -64,4 +84,8 @@ function doSearch(
     return false;
   }
 }
+
+onMounted(() => {
+  selected.value = props.parentSelected;
+});
 </script>
