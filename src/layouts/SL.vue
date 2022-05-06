@@ -24,6 +24,7 @@ const props = defineProps<{
   searchSetting: SearchSetting;
   tableSetting: TableSetting;
 }>();
+
 // const data = [];
 
 const conditions = computed(() => props.searchSetting.conditions);

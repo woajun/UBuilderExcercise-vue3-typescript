@@ -1,3 +1,5 @@
+import { TableSetting } from "@/components/list/tableSetting"; // for MagnifierModal
+
 // request 용 인터페이스이다 - 그래서, response에 대한 프로퍼티는 정의하지 않는다.
 interface ICondition {
   kind:
@@ -36,32 +38,26 @@ interface Magnifier extends ICondition {
   valueClickEvent?: boolean;
   placeholder?: string;
   disabled?: boolean;
-  results?: Array<Result>;
+  results?: Array<MagnifierResult>;
   modal: MagnifierModal;
 }
 
-interface MagnifierModal {
+export interface MagnifierModal {
   matchField?: string;
-  headers: Array<MagnifierHeader>;
+  conditions?: Array<Condition>;
+  tableSetting: TableSetting;
 }
 
-interface MagnifierHeader {
-  field: string;
-  label: string;
-  width?: string;
+export interface MagnifierResult {
+  field?: string;
+  Width?: string;
 }
 interface MagnifierURL extends Magnifier {
-  optionsURL: string;
+  dataURL: string;
 }
 
 interface MagnifierOptions extends Magnifier {
-  options: Array<Record<string, any>>;
-}
-
-interface Result extends ICondition {
-  Default?: string;
-  Placeholder?: string;
-  Width?: string;
+  data: Array<Record<string, any>>;
 }
 
 interface Select extends ICondition {

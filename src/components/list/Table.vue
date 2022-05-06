@@ -1,8 +1,7 @@
 <template>
   <div>
-    <br />====[리스트]====<br />
     <span> 검색결과 : </span>
-    <span> {{ data.length }} </span>
+    <span> {{ data?.length }} </span>
     <span> 건 </span>
     <table>
       <thead>
@@ -34,7 +33,7 @@ import { TableSetting } from "./tableSetting";
 
 const props = defineProps<{
   tableSetting: TableSetting;
-  data: Array<Record<string, string>>;
+  data?: Array<Record<string, string>>;
 }>();
 </script>
 <style>
