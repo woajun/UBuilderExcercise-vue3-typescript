@@ -22,7 +22,7 @@
         </template>
       </template>
       <template #body>
-        <Table :table-setting="modal.tableSetting" :data="data"></Table>
+        <Table :table-setting="modal.tableSetting" :data="modalData"></Table>
       </template>
     </modal>
   </Teleport>
@@ -57,6 +57,7 @@ const emit = defineEmits(["update:searchItem"]);
 
 const modalSearchItem: Record<string, string> = reactive({});
 
+const modalData = ref();
 const showModal = ref(false);
 const result = computed({
   get() {
@@ -75,5 +76,29 @@ if (props.default !== undefined) {
 
 function addModalSearchItem(key: string, value: string) {
   modalSearchItem[key] = value;
+  if (props.data) {
+    modalData.value = doSearch(props.data, modalSearchItem);
+  }
+}
+
+function doSearch(
+  dataArr: Array<Record<string, any>>,
+  searchObj: Record<string, any>
+) {
+  const filtered = dataArr.filter((e) => {
+    let flag = true;
+    for (const key in searchObj) {
+      flag = flag && isInclude(e[key], searchObj[key]);
+    }
+    if (flag) return e;
+  });
+  return filtered;
+
+  function isInclude(target: string, search: string): boolean {
+    if (target.includes(search)) {
+      return true;
+    }
+    return false;
+  }
 }
 </script>
