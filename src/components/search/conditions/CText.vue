@@ -25,12 +25,5 @@ const props = defineProps<{
 }>();
 const emit = defineEmits(["update:searchItem"]);
 
-setDefault();
-function setDefault() {
-  if (props.default !== undefined) {
-    emit("update:searchItem", props.default);
-  } else {
-    emit("update:searchItem", "");
-  }
-}
+if (props.default) emit("update:searchItem", props.default);
 </script>

@@ -7,6 +7,7 @@
             :conditions="conditions"
             :search-item="searchItem"
             @update:search-item="addSearchItem"
+            :id="formId"
           ></Search>
         </template>
       </template>
