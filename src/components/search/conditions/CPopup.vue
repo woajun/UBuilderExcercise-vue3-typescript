@@ -26,11 +26,11 @@ import {
   WritableComputedRef,
   onMounted,
 } from "vue";
-import Modal from "./CMagnifierModal.vue";
-import { MagnifierResult, MagnifierModal } from "./Condition";
+import Modal from "./CPopupModal.vue";
+import { PopupResult, PopupModal } from "./Condition";
 
 const props = defineProps<{
-  kind: "magnifier";
+  kind: "popup";
   label?: string;
   labelWidth?: string;
   fullWidth?: string;
@@ -41,8 +41,8 @@ const props = defineProps<{
   valueClickEvent?: boolean;
   placeholder?: string;
   disabled?: boolean;
-  results?: Array<MagnifierResult>;
-  modal: MagnifierModal;
+  results?: Array<PopupResult>;
+  modal: PopupModal;
   data?: Array<Record<string, string>>;
   dataURL?: string;
 

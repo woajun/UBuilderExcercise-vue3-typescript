@@ -5,7 +5,7 @@ const searchSetting: SearchSetting = {
   conditions: [
     {
       label: "검수부서",
-      kind: "magnifier",
+      kind: "popup",
       field: "inspectDep",
       fieldLinked: "code",
       default: "000001",
@@ -63,7 +63,7 @@ const searchSetting: SearchSetting = {
     },
     {
       label: "정수코드",
-      kind: "magnifier",
+      kind: "popup",
       field: "code",
       default: "",
       modal: {

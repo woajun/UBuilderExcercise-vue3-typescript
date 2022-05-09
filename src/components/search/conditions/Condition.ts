@@ -1,15 +1,8 @@
-import { TableSetting } from "@/components/list/tableSetting"; // for MagnifierModal
+import { TableSetting } from "@/components/list/tableSetting"; // for PopupModal
 
 // request 용 인터페이스이다 - 그래서, response에 대한 프로퍼티는 정의하지 않는다.
 interface ICondition {
-  kind:
-    | "magnifier"
-    | "radio"
-    | "text"
-    | "select"
-    | "subSelect"
-    | "date"
-    | "period";
+  kind: "popup" | "radio" | "text" | "select" | "subSelect" | "date" | "period";
   label?: string;
   labelWidth?: string;
   fullWidth?: string;
@@ -31,32 +24,32 @@ interface Text extends ICondition {
   default?: string;
 }
 
-interface Magnifier extends ICondition {
-  kind: "magnifier";
+interface Popup extends ICondition {
+  kind: "popup";
   default?: string;
   valueWidth?: string;
   valueClickEvent?: boolean;
   placeholder?: string;
   disabled?: boolean;
-  results?: Array<MagnifierResult>;
-  modal: MagnifierModal;
+  results?: Array<PopupResult>;
+  modal: PopupModal;
   fieldLinked?: string;
 }
 
-export interface MagnifierModal {
+export interface PopupModal {
   conditions?: Array<Condition>;
   tableSetting: TableSetting;
 }
 
-export interface MagnifierResult {
+export interface PopupResult {
   field: string;
   width?: string;
 }
-interface MagnifierURL extends Magnifier {
+interface PopupURL extends Popup {
   dataURL: string;
 }
 
-interface MagnifierOptions extends Magnifier {
+interface PopupOptions extends Popup {
   data: Array<Record<string, any>>;
 }
 
@@ -87,12 +80,6 @@ export interface RadioOption {
   disabled?: boolean;
 }
 
-type Condition =
-  | CDate
-  | MagnifierOptions
-  | MagnifierURL
-  | Text
-  | Select
-  | Radio;
+type Condition = CDate | PopupOptions | PopupURL | Text | Select | Radio;
 
 export default Condition;

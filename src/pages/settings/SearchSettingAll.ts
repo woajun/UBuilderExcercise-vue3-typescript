@@ -128,7 +128,7 @@ const searchSetting: SearchSetting = {
     },
     {
       label: "코드검색",
-      kind: "magnifier",
+      kind: "popup",
       field: "code",
       fieldLinked: "integerCode", // default는 field 이름과 매칭
       default: "001",

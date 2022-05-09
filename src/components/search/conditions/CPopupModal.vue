@@ -41,7 +41,7 @@ import DefaultModal from "@/components/common/DefaultModal.vue";
 import Search from "@/components/search/Search.vue";
 import Table from "@/components/list/Table.vue";
 import { defineProps, onMounted, reactive, ref } from "vue";
-import { TableSetting } from "@/components/list/tableSetting"; // for MagnifierModal
+import { TableSetting } from "@/components/list/tableSetting";
 import Condition from "@/components/search/conditions/Condition";
 
 const props = defineProps<{

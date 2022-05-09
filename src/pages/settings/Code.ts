@@ -5,7 +5,7 @@ const searchSetting: SearchSetting = {
   conditions: [
     {
       label: "코드검색",
-      kind: "magnifier",
+      kind: "popup",
       field: "code",
       fieldLinked: "integerCode",
       default: "001",

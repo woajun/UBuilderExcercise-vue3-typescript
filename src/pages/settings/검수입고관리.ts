@@ -16,7 +16,7 @@ const searchSetting: SearchSetting = {
     },
     {
       label: "검수부서",
-      kind: "magnifier",
+      kind: "popup",
       field: "inspectDep",
       fieldLinked: "code",
       default: "000001",
@@ -63,7 +63,7 @@ const searchSetting: SearchSetting = {
     },
     {
       label: "검수입고번호",
-      kind: "magnifier",
+      kind: "popup",
       field: "inspectNum",
       fieldLinked: "code",
       default: "",
@@ -110,7 +110,7 @@ const searchSetting: SearchSetting = {
 
     {
       label: "검수자",
-      kind: "magnifier",
+      kind: "popup",
       field: "inspector",
       fieldLinked: "code",
       default: "",
