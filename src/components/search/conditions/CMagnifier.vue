@@ -4,14 +4,14 @@
     <input type="text" :placeholder="placeholder" v-model="value" />
     <button @click.prevent="showModal = true">🔍</button>
     <template v-for="res in results" :key="res.field">
-      <input type="text" disabled :value="result[res.field]" />
+      <input type="text" disabled :value="selected[res.field]" />
     </template>
   </div>
   <Modal
     v-bind="modal"
     :data="data"
     v-model:showModal="showModal"
-    :parentSelected="result"
+    :selected="selected"
     @update:selected="modalSelected"
   ></Modal>
 </template>
@@ -51,7 +51,7 @@ const props = defineProps<{
 }>();
 const emit = defineEmits(["update:searchItem"]);
 const showModal = ref(false);
-const result: Record<string, any> = reactive({});
+const selected: Record<string, any> = reactive({});
 const field = props.fieldLinked ?? props.field;
 const value: WritableComputedRef<string | undefined> = computed({
   get() {
@@ -61,11 +61,11 @@ const value: WritableComputedRef<string | undefined> = computed({
     const found = doSearch(value);
     if (found) {
       for (const key in found) {
-        result[key] = found[key];
+        selected[key] = found[key];
       }
     } else {
-      for (const key in result) {
-        result[key] = "";
+      for (const key in selected) {
+        selected[key] = "";
       }
     }
     emit("update:searchItem", value);
@@ -88,7 +88,7 @@ function modalSelected(newSelected: any) {
     if (key == props.fieldLinked) {
       emit("update:searchItem", newSelected[key]);
     }
-    result[key] = newSelected[key];
+    selected[key] = newSelected[key];
   }
 }
 </script>

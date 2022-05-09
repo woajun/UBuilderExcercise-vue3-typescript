@@ -15,13 +15,13 @@
         <Table
           :table-setting="tableSetting"
           :data="modalData"
-          v-model:selected="selected"
+          v-model:selected="modalSelected"
         ></Table>
       </template>
       <template #footer>
         <button
           class="modal-default-button"
-          @click="$emit('update:selected', selected)"
+          @click="$emit('update:selected', modalSelected)"
         >
           선택
         </button>
@@ -31,7 +31,7 @@
         >
           닫기
         </button>
-        {{ selected }}
+        {{ modalSelected }}
       </template>
     </DefaultModal>
   </Teleport>
@@ -50,12 +50,12 @@ const props = defineProps<{
   tableSetting: TableSetting;
   data?: Array<Record<string, string>>;
   showModal: boolean;
-  parentSelected?: Record<string, any>;
+  selected?: Record<string, any>;
 }>();
 
 const modalSearchItem: Record<string, string> = reactive({});
 const modalData = ref();
-const selected = ref();
+const modalSelected = ref();
 
 function addModalSearchItem(key: string, value: string) {
   modalSearchItem[key] = value;
@@ -86,6 +86,6 @@ function doSearch(
 }
 
 onMounted(() => {
-  selected.value = props.parentSelected;
+  modalSelected.value = props.selected;
 });
 </script>
