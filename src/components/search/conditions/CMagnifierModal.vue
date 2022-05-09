@@ -1,12 +1,12 @@
 <template>
   <Teleport to="body">
-    <DefaultModal :show="showModal">
+    <DefaultModal :show="showModal" @close="$emit('update:showModal', false)">
       <template #header>
         <template v-if="conditions">
           <Search
             :conditions="conditions"
-            :search-item="modalSearchItem"
-            @update:search-item="addModalSearchItem"
+            :search-item="searchItem"
+            @update:search-item="addSearchItem"
             form-id="modalForm"
           ></Search>
         </template>
@@ -54,29 +54,29 @@ const props = defineProps<{
   selected?: Record<string, any>;
 }>();
 
-const modalSearchItem: Record<string, string> = reactive({});
+const searchItem: Record<string, string> = reactive({});
 const modalData = ref();
 const modalSelected = ref();
 
-function addModalSearchItem(key: string, value: string) {
-  modalSearchItem[key] = value;
+function addSearchItem(key: string, value: string) {
+  searchItem[key] = value;
   if (props.data) {
-    modalData.value = doSearch(props.data, modalSearchItem);
+    modalData.value = filtering(props.data, searchItem);
   }
 }
 
-function doSearch(
-  dataArr: Array<Record<string, any>>,
-  searchObj: Record<string, any>
+function filtering(
+  target: Array<Record<string, any>>,
+  searchItem: Record<string, any>
 ) {
-  const filtered = dataArr.filter((e) => {
+  const result = target.filter((e) => {
     let flag = true;
-    for (const key in searchObj) {
-      flag = flag && isInclude(e[key], searchObj[key]);
+    for (const key in searchItem) {
+      flag = flag && isInclude(e[key], searchItem[key]);
     }
     if (flag) return e;
   });
-  return filtered;
+  return result;
 
   function isInclude(target: string, search: string): boolean {
     if (target.includes(search)) {

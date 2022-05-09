@@ -58,21 +58,21 @@ const value: WritableComputedRef<string | undefined> = computed({
     return props.searchItem;
   },
   set(value) {
-    const found = doSearch(value);
-    if (found) {
-      Object.assign(selected, found);
-    } else {
-      emptyObj(selected);
-    }
+    assignSelected(search(value));
     emit("update:searchItem", value);
   },
 });
 
-function doSearch(value: string | undefined) {
+function search(value: string | undefined) {
   if (value) {
     return props.data?.find((e) => e[field] === value);
   }
   return undefined;
+}
+
+function assignSelected(object: Record<string, any> | undefined) {
+  emptyObj(selected);
+  if (object) Object.assign(selected, object);
 }
 
 function emptyObj(obj: Record<string, any>) {

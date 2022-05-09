@@ -235,6 +235,12 @@ const searchSetting: SearchSetting = {
       default: new Date(2022, 11, 31),
       inline: true,
     },
+    {
+      label: "텍스트3",
+      kind: "text",
+      field: "textField3",
+      placeholder: "텍스트 입력",
+    },
   ],
 };
 

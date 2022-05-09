@@ -1,6 +1,12 @@
 <template>
   <Transition name="modal">
-    <div v-if="show" class="modal-mask">
+    <div
+      v-if="show"
+      class="modal-mask"
+      @keyup.esc="$emit('close')"
+      tabindex="0"
+      ref="modal"
+    >
       <div class="modal-wrapper">
         <div class="modal-container">
           <div class="modal-header">
@@ -24,9 +30,14 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from "vue";
+import { defineProps, ref, watchPostEffect } from "vue";
 const props = defineProps({
   show: Boolean,
+});
+
+const modal = ref<HTMLElement | null>(null);
+watchPostEffect(() => {
+  modal.value?.focus();
 });
 </script>
 
