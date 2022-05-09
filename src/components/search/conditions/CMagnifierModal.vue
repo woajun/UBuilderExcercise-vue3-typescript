@@ -7,7 +7,6 @@
             :conditions="conditions"
             :search-item="searchItem"
             @update:search-item="addSearchItem"
-            form-id="modalForm"
           ></Search>
         </template>
       </template>
@@ -22,13 +21,12 @@
         <button
           class="modal-default-button"
           @click.prevent="$emit('update:selected', modalSelected)"
-          form="modalForm"
         >
           선택
         </button>
         <button
           class="modal-default-button"
-          @click="$emit('update:showModal', false)"
+          @click.prevent="$emit('update:showModal', false)"
         >
           닫기
         </button>
@@ -54,6 +52,7 @@ const props = defineProps<{
   selected?: Record<string, any>;
 }>();
 
+const formId = "id" + Math.random().toString(16).slice(2);
 const searchItem: Record<string, string> = reactive({});
 const modalData = ref();
 const modalSelected = ref();

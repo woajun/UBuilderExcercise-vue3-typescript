@@ -1,9 +1,9 @@
 <template>
   <div class="sl">
     {{ searchItem }}
-    <button @click.prevent="submit" form="myform">검색</button>
+    <button @click.prevent="submit" :form="formId">검색</button>
     <Search
-      form-id="myform"
+      :form-id="formId"
       :conditions="conditions"
       :search-item="searchItem"
       @update:search-item="addSearchItem"
@@ -26,6 +26,7 @@ const props = defineProps<{
 
 // const data = [];
 
+const formId = "id" + Math.random().toString(16).slice(2);
 const conditions = computed(() => props.searchSetting.conditions);
 const searchUrl = computed(() => props.searchSetting.searchUrl);
 const searchItem: Record<string, string> = reactive({});

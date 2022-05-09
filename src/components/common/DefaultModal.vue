@@ -31,7 +31,7 @@
 
 <script setup lang="ts">
 import { defineProps, ref, watchPostEffect } from "vue";
-const props = defineProps({
+defineProps({
   show: Boolean,
 });
 
