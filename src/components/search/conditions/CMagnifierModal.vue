@@ -3,7 +3,6 @@
     <DefaultModal :show="showModal">
       <template #header>
         <template v-if="conditions">
-          {{ modalSearchItem }}
           <Search
             :conditions="conditions"
             :search-item="modalSearchItem"

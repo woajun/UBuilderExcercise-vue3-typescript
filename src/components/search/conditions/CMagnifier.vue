@@ -51,7 +51,7 @@ const props = defineProps<{
 }>();
 const emit = defineEmits(["update:searchItem"]);
 const showModal = ref(false);
-const selected: Record<string, any> = reactive({});
+const selected: Record<string, string> = reactive({});
 const field = props.fieldLinked ?? props.field;
 const value: WritableComputedRef<string | undefined> = computed({
   get() {
@@ -60,13 +60,9 @@ const value: WritableComputedRef<string | undefined> = computed({
   set(value) {
     const found = doSearch(value);
     if (found) {
-      for (const key in found) {
-        selected[key] = found[key];
-      }
+      Object.assign(selected, found);
     } else {
-      for (const key in selected) {
-        selected[key] = "";
-      }
+      emptyObj(selected);
     }
     emit("update:searchItem", value);
   },
@@ -77,6 +73,12 @@ function doSearch(value: string | undefined) {
     return props.data?.find((e) => e[field] === value);
   }
   return undefined;
+}
+
+function emptyObj(obj: Record<string, any>) {
+  for (const key in obj) {
+    delete obj[key];
+  }
 }
 
 onMounted(() => {

@@ -9,12 +9,7 @@ const searchSetting: SearchSetting = {
       field: "code",
       fieldLinked: "integerCode", // default는 field 이름과 매칭
       default: "001",
-      results: [
-        { field: "name" },
-        { field: "standard" },
-        { field: "integer" },
-        { field: "date" },
-      ],
+      results: [{ field: "name" }, { field: "standard" }],
       modal: {
         conditions: [
           {
