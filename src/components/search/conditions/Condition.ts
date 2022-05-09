@@ -50,7 +50,7 @@ export interface MagnifierModal {
 
 export interface MagnifierResult {
   field: string;
-  Width?: string;
+  width?: string;
 }
 interface MagnifierURL extends Magnifier {
   dataURL: string;

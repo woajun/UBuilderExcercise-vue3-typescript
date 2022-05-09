@@ -3,7 +3,7 @@
     {{ searchItem }}
     <button @click.prevent="submit" :form="formId">검색</button>
     <Search
-      :form-id="formId"
+      :id="formId"
       :conditions="conditions"
       :search-item="searchItem"
       @update:search-item="addSearchItem"
