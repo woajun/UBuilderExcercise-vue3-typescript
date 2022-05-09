@@ -7,7 +7,7 @@ const searchSetting: SearchSetting = {
       label: "코드검색",
       kind: "magnifier",
       field: "code",
-      fieldLinked: "integerCode", // default는 field 이름과 매칭
+      fieldLinked: "integerCode",
       default: "001",
       results: [{ field: "name" }, { field: "standard" }],
       modal: {

@@ -85,12 +85,11 @@ onMounted(() => {
   value.value = props.default;
 });
 
-function modalSelected(newSelected: any) {
-  for (const key in newSelected) {
-    if (key == props.fieldLinked) {
-      emit("update:searchItem", newSelected[key]);
+function modalSelected(modalSelected: any) {
+  for (const key in modalSelected) {
+    if (field == key) {
+      value.value = modalSelected[key];
     }
-    selected[key] = newSelected[key];
   }
 }
 </script>

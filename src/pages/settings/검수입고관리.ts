@@ -15,36 +15,150 @@ const searchSetting: SearchSetting = {
       default: new Date(2017, 3, 30),
     },
     {
-      kind: "codePopup",
-      field: "inspectDep",
       label: "검수부서",
-      default: "502010",
-      firstResultVisible: true,
-      firstResultDefault: "운영본부 차량지원팀 일상파트",
-      event: () => {
-        alert("검수부서 팝업");
-        return ["A14325", "경영지원부"];
+      kind: "magnifier",
+      field: "inspectDep",
+      fieldLinked: "code",
+      default: "000001",
+      results: [{ field: "name" }],
+      modal: {
+        conditions: [
+          {
+            kind: "text",
+            field: "code",
+            label: "코드",
+          },
+        ],
+        tableSetting: {
+          headers: [
+            {
+              label: "코드",
+              field: "code",
+            },
+            {
+              label: "부서명",
+              field: "name",
+            },
+          ],
+        },
       },
+      data: [
+        {
+          code: "000001",
+          name: "운영본부 차량지원팀 일상파트",
+        },
+        {
+          code: "000002",
+          name: "영업부",
+        },
+        {
+          code: "000003",
+          name: "경영지원부",
+        },
+        {
+          code: "000004",
+          name: "개발부",
+        },
+      ],
     },
     {
-      kind: "codePopup",
-      field: "inspectNum",
       label: "검수입고번호",
-      placeholder: " -    -",
-      event: () => {
-        alert("검수입고 팝업");
-        return ["321515"];
+      kind: "magnifier",
+      field: "inspectNum",
+      fieldLinked: "code",
+      default: "",
+      modal: {
+        conditions: [
+          {
+            kind: "text",
+            field: "code",
+            label: "번호",
+          },
+        ],
+        tableSetting: {
+          headers: [
+            {
+              label: "번호",
+              field: "code",
+            },
+            {
+              label: "이름",
+              field: "name",
+            },
+          ],
+        },
       },
+      data: [
+        {
+          code: "1",
+          name: "입고1",
+        },
+        {
+          code: "2",
+          name: "입고2",
+        },
+        {
+          code: "3",
+          name: "입고3",
+        },
+        {
+          code: "4",
+          name: "입고4",
+        },
+      ],
     },
+
     {
-      kind: "codePopup",
-      field: "inspector",
       label: "검수자",
-      firstResultVisible: true,
-      event: () => {
-        alert("검수자 팝업");
-        return ["01013", "강준희"];
+      kind: "magnifier",
+      field: "inspector",
+      fieldLinked: "code",
+      default: "",
+      results: [{ field: "name" }],
+      modal: {
+        conditions: [
+          {
+            kind: "text",
+            field: "code",
+            label: "번호",
+          },
+          {
+            kind: "text",
+            field: "name",
+            label: "이름",
+          },
+        ],
+        tableSetting: {
+          headers: [
+            {
+              label: "사번",
+              field: "code",
+            },
+            {
+              label: "이름",
+              field: "name",
+            },
+          ],
+        },
       },
+      data: [
+        {
+          code: "1",
+          name: "강준희",
+        },
+        {
+          code: "2",
+          name: "홍길동",
+        },
+        {
+          code: "3",
+          name: "임꺽정",
+        },
+        {
+          code: "4",
+          name: "이순신",
+        },
+      ],
     },
     {
       kind: "text",

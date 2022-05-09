@@ -4,16 +4,51 @@ const searchSetting: SearchSetting = {
   searchUrl: "/api/sample",
   conditions: [
     {
-      kind: "codePopup",
-      field: "dep",
-      label: "부서",
-      default: "502010",
-      firstResultVisible: true,
-      firstResultDefault: "운영본부 차량원팀 일상파트",
-      event: () => {
-        alert("검수부서 팝업");
-        return ["A14325", "경영지원부"];
+      label: "검수부서",
+      kind: "magnifier",
+      field: "inspectDep",
+      fieldLinked: "code",
+      default: "000001",
+      results: [{ field: "name" }],
+      modal: {
+        conditions: [
+          {
+            kind: "text",
+            field: "code",
+            label: "코드",
+          },
+        ],
+        tableSetting: {
+          headers: [
+            {
+              label: "코드",
+              field: "code",
+            },
+            {
+              label: "부서명",
+              field: "name",
+            },
+          ],
+        },
       },
+      data: [
+        {
+          code: "000001",
+          name: "운영본부 차량지원팀 일상파트",
+        },
+        {
+          code: "000002",
+          name: "영업부",
+        },
+        {
+          code: "000003",
+          name: "경영지원부",
+        },
+        {
+          code: "000004",
+          name: "개발부",
+        },
+      ],
     },
     {
       kind: "radio",
@@ -27,16 +62,49 @@ const searchSetting: SearchSetting = {
       ],
     },
     {
-      kind: "codePopup",
-      field: "code",
       label: "정수코드",
+      kind: "magnifier",
+      field: "code",
       default: "",
-      firstResultVisible: true,
-      firstResultDefault: "",
-      event: () => {
-        alert("정수코드 팝업");
-        return ["321515", "정수물품"];
+      modal: {
+        conditions: [
+          {
+            kind: "text",
+            field: "code",
+            label: "정수코드",
+          },
+        ],
+        tableSetting: {
+          headers: [
+            {
+              label: "정수코드",
+              field: "code",
+            },
+            {
+              label: "품명",
+              field: "name",
+            },
+          ],
+        },
       },
+      data: [
+        {
+          code: "1",
+          name: "물품1",
+        },
+        {
+          code: "2",
+          name: "물품2",
+        },
+        {
+          code: "3",
+          name: "물품3",
+        },
+        {
+          code: "4",
+          name: "물품4",
+        },
+      ],
     },
     {
       kind: "date",
