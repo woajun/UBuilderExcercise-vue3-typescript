@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <form :id="formId">
     <template v-for="con in conditions" :key="con.field">
       <component
         :is="conKinds[con.kind]"
@@ -9,7 +9,7 @@
         :parent-val="searchItem[con.parentField as string]"
       ></component>
     </template>
-  </div>
+  </form>
 </template>
 <script setup lang="ts">
 import { defineProps, defineEmits } from "vue";
@@ -23,6 +23,7 @@ import CDate from "./conditions/CDate.vue";
 defineProps<{
   conditions: Array<Condition>;
   searchItem: Record<string, string>;
+  formId: string;
 }>();
 const emit = defineEmits(["update:searchItem"]);
 

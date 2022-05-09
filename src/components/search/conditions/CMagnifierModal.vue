@@ -7,6 +7,7 @@
             :conditions="conditions"
             :search-item="modalSearchItem"
             @update:search-item="addModalSearchItem"
+            form-id="modalForm"
           ></Search>
         </template>
       </template>
@@ -20,7 +21,8 @@
       <template #footer>
         <button
           class="modal-default-button"
-          @click="$emit('update:selected', modalSelected)"
+          @click.prevent="$emit('update:selected', modalSelected)"
+          form="modalForm"
         >
           선택
         </button>

@@ -1,14 +1,13 @@
 <template>
   <div class="sl">
     {{ searchItem }}
-    <form>
-      <button @click.prevent="submit">검색</button>
-      <Search
-        :conditions="conditions"
-        :search-item="searchItem"
-        @update:search-item="addSearchItem"
-      ></Search>
-    </form>
+    <button @click.prevent="submit" form="myform">검색</button>
+    <Search
+      form-id="myform"
+      :conditions="conditions"
+      :search-item="searchItem"
+      @update:search-item="addSearchItem"
+    ></Search>
     <!-- <Table :table-setting="tableSetting" :data="data"></Table> -->
   </div>
 </template>
