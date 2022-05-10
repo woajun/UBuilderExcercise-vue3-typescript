@@ -22,6 +22,29 @@ const searchSetting: SearchSetting = {
                 { description: "Aa다", value: "Aa다" },
               ],
             },
+          ],
+        },
+      ],
+    },
+    {
+      kind: "select",
+      label: "물품분류",
+      placeholder: "1차분류",
+      field: "select2",
+      options: [
+        {
+          description: "A",
+          value: "A",
+          children: [
+            {
+              description: "Aa",
+              value: "Aa",
+              children: [
+                { description: "Aa가", value: "Aa가" },
+                { description: "Aa나", value: "Aa나" },
+                { description: "Aa다", value: "Aa다" },
+              ],
+            },
             {
               description: "Ab",
               value: "Ab",

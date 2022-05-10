@@ -8,6 +8,7 @@ const searchSetting: SearchSetting = {
       field: "type",
       label: "타입",
       placeholder: "전체",
+      default: "B",
       options: [
         {
           description: "A",
