@@ -12,4 +12,4 @@ interface Header {
   type?: "search" | "label";
 }
 
-export { TableSetting };
+export { TableSetting, Header };

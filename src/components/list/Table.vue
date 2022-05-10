@@ -1,42 +1,35 @@
 <template>
-  <div>
-    <span> 검색결과 : </span>
-    <span> {{ data?.length }} </span>
-    <span> 건 </span>
-    <table>
-      <thead>
-        <tr>
-          <th v-for="col in props.tableSetting.headers" :key="col.field">
-            {{ col.label }}
-            <!-- TODO 정렬기능
-            <button>정렬</button> -->
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="row in data"
-          :key="row.id"
-          @click="$emit('update:selected', row)"
-        >
-          <td v-for="col in props.tableSetting.headers" :key="col.field">
-            <template v-for="(value, key) of row">
-              <template v-if="String(key) === col.field">
-                {{ value }}
-              </template>
+  <table>
+    <thead>
+      <tr>
+        <th v-for="col in props.headers" :key="col.field">
+          {{ col.label }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        v-for="row in data"
+        :key="row.id"
+        @click="$emit('update:selected', row)"
+      >
+        <td v-for="col in headers" :key="col.field">
+          <template v-for="(value, key) of row">
+            <template v-if="String(key) === col.field">
+              {{ value }}
             </template>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+          </template>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </template>
 <script setup lang="ts">
 import { defineProps } from "vue";
-import { TableSetting } from "./tableSetting";
+import { Header } from "./tableSetting";
 
 const props = defineProps<{
-  tableSetting: TableSetting;
+  headers: Array<Header>;
   data?: Array<Record<string, string>>;
   selected?: Record<string, any>;
 }>();

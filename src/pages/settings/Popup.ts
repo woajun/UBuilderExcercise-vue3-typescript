@@ -7,14 +7,9 @@ const searchSetting: SearchSetting = {
       label: "코드검색",
       kind: "popup",
       field: "code",
-      fieldLinked: "integerCode", // default는 field 이름과 매칭
+      valueField: "integerCode", // default는 field 이름과 매칭
+      displayFields: ["name", "standard", "integer", "date"],
       default: "001",
-      results: [
-        { field: "name" },
-        { field: "standard" },
-        { field: "integer" },
-        { field: "date" },
-      ],
       modal: {
         conditions: [
           {
@@ -28,30 +23,28 @@ const searchSetting: SearchSetting = {
             label: "물품명",
           },
         ],
-        tableSetting: {
-          headers: [
-            {
-              label: "정수코드",
-              field: "integerCode",
-            },
-            {
-              label: "물품명",
-              field: "name",
-            },
-            {
-              label: "규격",
-              field: "standard",
-            },
-            {
-              label: "정수",
-              field: "integer",
-            },
-            {
-              label: "기준일",
-              field: "date",
-            },
-          ],
-        },
+        headers: [
+          {
+            label: "정수코드",
+            field: "integerCode",
+          },
+          {
+            label: "물품명",
+            field: "name",
+          },
+          {
+            label: "규격",
+            field: "standard",
+          },
+          {
+            label: "정수",
+            field: "integer",
+          },
+          {
+            label: "기준일",
+            field: "date",
+          },
+        ],
       },
       data: [
         {

@@ -3,8 +3,8 @@
     <template v-if="label"> {{ label }} : </template>
     <input type="text" :placeholder="placeholder" v-model="value" />
     <button @click.prevent="showModal = true">🔍</button>
-    <template v-for="res in results" :key="res.field">
-      <input type="text" disabled :value="selected[res.field]" />
+    <template v-for="df in displayFields" :key="df">
+      <input type="text" disabled :value="selected[df]" />
     </template>
   </div>
   <Modal
@@ -27,7 +27,7 @@ import {
   onMounted,
 } from "vue";
 import Modal from "./CPopupModal.vue";
-import { PopupResult, PopupModal } from "./Condition";
+import { PopupModal } from "./Condition";
 
 const props = defineProps<{
   kind: "popup";
@@ -35,13 +35,13 @@ const props = defineProps<{
   labelWidth?: string;
   fullWidth?: string;
   field: string;
-  fieldLinked?: string;
+  valueField?: string;
   default?: string;
   valueWidth?: string;
   valueClickEvent?: boolean;
   placeholder?: string;
   disabled?: boolean;
-  results?: Array<PopupResult>;
+  displayFields?: string[];
   modal: PopupModal;
   data?: Array<Record<string, string>>;
   dataURL?: string;
@@ -52,7 +52,7 @@ const props = defineProps<{
 const emit = defineEmits(["update:searchItem"]);
 const showModal = ref(false);
 const selected: Record<string, string> = reactive({});
-const field = props.fieldLinked ?? props.field;
+const field = props.valueField ?? props.field;
 const value: WritableComputedRef<string | undefined> = computed({
   get() {
     return props.searchItem;
@@ -60,36 +60,34 @@ const value: WritableComputedRef<string | undefined> = computed({
   set(value) {
     assignSelected(search(value));
     emit("update:searchItem", value);
+
+    function search(value: string | undefined) {
+      if (value) {
+        return props.data?.find((e) => e[field] === value);
+      }
+      return undefined;
+    }
+
+    function assignSelected(object: Record<string, any> | undefined) {
+      emptyObj(selected);
+      if (object) Object.assign(selected, object);
+
+      function emptyObj(obj: Record<string, any>) {
+        for (const key in obj) {
+          delete obj[key];
+        }
+      }
+    }
   },
 });
 
-function search(value: string | undefined) {
-  if (value) {
-    return props.data?.find((e) => e[field] === value);
-  }
-  return undefined;
-}
-
-function assignSelected(object: Record<string, any> | undefined) {
-  emptyObj(selected);
-  if (object) Object.assign(selected, object);
-}
-
-function emptyObj(obj: Record<string, any>) {
-  for (const key in obj) {
-    delete obj[key];
-  }
-}
-
-onMounted(() => {
-  value.value = props.default;
-});
-
-function modalSelected(modalSelected: any) {
-  for (const key in modalSelected) {
+function modalSelected(aSelected: Record<string, string>) {
+  for (const key in aSelected) {
     if (field == key) {
-      value.value = modalSelected[key];
+      value.value = aSelected[key];
     }
   }
 }
+
+value.value = props.default ?? value.value;
 </script>

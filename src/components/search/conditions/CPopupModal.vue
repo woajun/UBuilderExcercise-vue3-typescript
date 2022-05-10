@@ -13,8 +13,8 @@
       </template>
       <template #body>
         <Table
-          :table-setting="tableSetting"
-          :data="modalData"
+          :headers="headers"
+          :data="filtered"
           v-model:selected="modalSelected"
         ></Table>
       </template>
@@ -42,12 +42,12 @@ import DefaultModal from "@/components/common/DefaultModal.vue";
 import Search from "@/components/search/Search.vue";
 import Table from "@/components/list/Table.vue";
 import { defineProps, onMounted, reactive, ref } from "vue";
-import { TableSetting } from "@/components/list/tableSetting";
+import { Header } from "@/components/list/tableSetting";
 import Condition from "@/components/search/conditions/Condition";
 
 const props = defineProps<{
   conditions?: Array<Condition>;
-  tableSetting: TableSetting;
+  headers: Array<Header>;
   data?: Array<Record<string, string>>;
   showModal: boolean;
   selected?: Record<string, any>;
@@ -55,13 +55,13 @@ const props = defineProps<{
 
 const formId = "id" + Math.random().toString(16).slice(2);
 const searchItem: Record<string, string> = reactive({});
-const modalData = ref();
+const filtered = ref();
 const modalSelected = ref();
 
 function addSearchItem(key: string, value: string) {
   searchItem[key] = value;
   if (props.data) {
-    modalData.value = filtering(props.data, searchItem);
+    filtered.value = filtering(props.data, searchItem);
   }
 }
 
@@ -88,5 +88,8 @@ function filtering(
 
 onMounted(() => {
   modalSelected.value = props.selected;
+  if (props.data) {
+    filtered.value = filtering(props.data, searchItem);
+  }
 });
 </script>

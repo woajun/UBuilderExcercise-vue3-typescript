@@ -1,6 +1,5 @@
-import { TableSetting } from "@/components/list/tableSetting"; // for PopupModal
+import { Header } from "@/components/list/tableSetting"; // for PopupModal
 
-// request 용 인터페이스이다 - 그래서, response에 대한 프로퍼티는 정의하지 않는다.
 interface ICondition {
   kind: "popup" | "radio" | "text" | "select" | "date" | "period";
   label?: string;
@@ -26,30 +25,23 @@ interface Text extends ICondition {
 interface Popup extends ICondition {
   kind: "popup";
   default?: string;
-  valueWidth?: string;
-  valueClickEvent?: boolean;
   placeholder?: string;
-  disabled?: boolean;
-  results?: Array<PopupResult>;
+  displayFields?: string[];
   modal: PopupModal;
-  fieldLinked?: string;
+  valueField?: string;
 }
 
 export interface PopupModal {
   conditions?: Array<Condition>;
-  tableSetting: TableSetting;
+  headers: Array<Header>;
 }
 
-export interface PopupResult {
-  field: string;
-  width?: string;
-}
 interface PopupURL extends Popup {
   dataURL: string;
 }
 
 interface PopupOptions extends Popup {
-  data: Array<Record<string, any>>;
+  data: Array<Record<string, string>>;
 }
 
 interface Select extends ICondition {
