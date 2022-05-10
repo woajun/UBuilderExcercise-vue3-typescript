@@ -59,11 +59,13 @@ interface Select extends ICondition {
   options: Array<Option>;
   endLabel?: string;
   width?: string;
+  placeholder?: string;
 }
 
 export interface Option {
   description: string;
   value: string;
+  children?: Array<Option>;
 }
 
 interface Radio extends ICondition {
