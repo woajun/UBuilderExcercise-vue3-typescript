@@ -1,21 +1,22 @@
 <template>
   <div class="inline">
-    {{ item }} <br />
+    {{ items }} <br />
     <template v-if="label"> {{ label }} : </template>
     <CSelectSelect
       :options="options"
-      :search-item="item"
-      @update:search-item="(v) => (item = v)"
+      :search-item="items"
+      @update:search-item="(v, i) => (items[i] = v)"
+      :index="0"
     ></CSelectSelect>
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps, ref } from "vue";
+import { defineProps, reactive, watch } from "vue";
 import { Option } from "./Condition";
 import CSelectSelect from "./CSelectSelect.vue";
 
-const props = defineProps<{
+defineProps<{
   kind: "select";
   label?: string;
   field: string;
@@ -25,7 +26,7 @@ const props = defineProps<{
   placeholder?: string;
   searchItem?: string;
 }>();
-const item = ref();
+const items = reactive([]);
 </script>
 <style>
 .inline {
