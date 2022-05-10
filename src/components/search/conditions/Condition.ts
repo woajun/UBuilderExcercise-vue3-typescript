@@ -2,7 +2,7 @@ import { TableSetting } from "@/components/list/tableSetting"; // for PopupModal
 
 // request 용 인터페이스이다 - 그래서, response에 대한 프로퍼티는 정의하지 않는다.
 interface ICondition {
-  kind: "popup" | "radio" | "text" | "select" | "subSelect" | "date" | "period";
+  kind: "popup" | "radio" | "text" | "select" | "date" | "period";
   label?: string;
   labelWidth?: string;
   fullWidth?: string;
@@ -56,16 +56,14 @@ interface PopupOptions extends Popup {
 interface Select extends ICondition {
   kind: "select";
   default?: string;
-  options: Array<SelectOption>;
+  options: Array<Option>;
   endLabel?: string;
   width?: string;
 }
 
-export interface SelectOption {
-  value: string;
+export interface Option {
   description: string;
-  disabled?: boolean;
-  parent?: string;
+  value: string;
 }
 
 interface Radio extends ICondition {
