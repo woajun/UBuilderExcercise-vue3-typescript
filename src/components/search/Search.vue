@@ -5,7 +5,7 @@
         :is="conKinds[con.kind]"
         v-bind="con"
         :search-item="searchItem[con.field]"
-        @update:search-item="(val:string) => emit('update:searchItem',con.field, val)"
+        @update:search-item="(val:string|string[]) => emit('update:searchItem',con.field, val)"
         :parent-val="searchItem[con.parentField as string]"
       ></component>
     </template>

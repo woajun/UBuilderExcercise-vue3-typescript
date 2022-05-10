@@ -31,7 +31,7 @@ const conditions = computed(() => props.searchSetting.conditions);
 const searchUrl = computed(() => props.searchSetting.searchUrl);
 const searchItem: Record<string, string | string[]> = reactive({});
 
-function addSearchItem(key: string, value: string) {
+function addSearchItem(key: string, value: string | string[]) {
   searchItem[key] = value;
 }
 

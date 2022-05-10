@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, reactive, watch } from "vue";
+import { defineProps, defineEmits, reactive, watch } from "vue";
 import { Option } from "./Condition";
 import CSelectSelect from "./CSelectSelect.vue";
 
@@ -24,9 +24,14 @@ defineProps<{
   options: Array<Option>;
   width?: string;
   placeholder?: string;
-  searchItem?: string;
+  searchItem?: string | string[];
 }>();
 const items = reactive([]);
+
+const emit = defineEmits(["update:searchItem"]);
+watch(items, (newItems) => {
+  emit("update:searchItem", newItems);
+});
 </script>
 <style>
 .inline {
