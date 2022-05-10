@@ -3,6 +3,7 @@
     <template v-if="label"> {{ label }} : </template>
     <CSelectSelect
       :placeholder="placeholder"
+      :initial-value="initialValue"
       :options="options"
       :search-item="items"
       @update:search-item="(v, i) => (items[i] = v)"
@@ -20,7 +21,7 @@ defineProps<{
   kind: "select";
   label?: string;
   field: string;
-  default?: string;
+  initialValue?: string | string[];
   options: Array<Option>;
   width?: string;
   placeholder?: string | string[];

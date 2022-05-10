@@ -1,12 +1,12 @@
 <template>
   <select v-model="selected">
     <template v-if="typeof placeholder == 'string'">
-      <option disabled>
+      <option disabled value="">
         {{ placeholder }}
       </option>
     </template>
     <template v-else-if="placeholder">
-      <option disabled>
+      <option disabled value="">
         {{ placeholder[index] }}
       </option>
     </template>
@@ -19,6 +19,7 @@
   <template v-if="children">
     <template v-if="children.length > 0">
       <CSelectSelect
+        :initial-value="initialValue"
         :placeholder="placeholder"
         :options="children"
         :search-item="searchItem"
@@ -34,6 +35,7 @@ import { defineProps, defineEmits, computed } from "vue";
 import { Option } from "./Condition";
 
 const props = defineProps<{
+  initialValue?: string | string[];
   options: Array<Option>;
   searchItem: string[];
   index: number;
@@ -58,4 +60,12 @@ const children = computed(() => {
   const option = props.options.find((op) => op.value === selected.value);
   return option?.children;
 });
+
+if (typeof props.initialValue == "string") {
+  selected.value = props.initialValue ?? "";
+} else if (props.initialValue) {
+  selected.value = props.initialValue[props.index] ?? "";
+} else {
+  selected.value = "";
+}
 </script>

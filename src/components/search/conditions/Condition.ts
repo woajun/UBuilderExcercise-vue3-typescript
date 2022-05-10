@@ -4,7 +4,7 @@ interface ICondition {
   kind: "popup" | "radio" | "text" | "select" | "date" | "period";
   label?: string;
   field: string;
-  default?: string | string[];
+  initialValue?: string | string[];
   placeholder?: string | string[];
 }
 
@@ -18,7 +18,6 @@ interface Text extends ICondition {
 
 interface Popup extends ICondition {
   kind: "popup";
-  default?: string;
   displayFields?: string[];
   modal: PopupModal;
   valueField?: string;
