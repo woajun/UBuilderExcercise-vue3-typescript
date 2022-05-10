@@ -3,34 +3,32 @@
     <template v-if="label"> {{ label }} : </template>
     <select v-model="selected">
       <template v-for="option in options" :key="option.value">
-        <template v-if="option.parent == parentVal || !option.parent">
-          <option :value="option.value" :disabled="option.disabled">
-            {{ option.description }}
-          </option>
-        </template>
+        <option :value="option.value">
+          {{ option.description }}
+        </option>
       </template>
     </select>
-    {{ endLabel }}
+    {{ children }}
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmits, computed, watch } from "vue";
-import { SelectOption } from "./Condition";
+import { defineProps, defineEmits, computed } from "vue";
+import { Option } from "./Condition";
 
 const props = defineProps<{
   kind: "select";
-  options: Array<SelectOption>;
-  endLabel?: string;
-  width?: string;
-  selectedValue?: string;
-  dependField?: string;
   label?: string;
   labelWidth?: string;
   fullWidth?: string;
   field: string;
+  parentField?: string;
   default?: string;
-  parentVal?: string;
+  options: Array<Option>;
+  endLabel?: string;
+  width?: string;
+  placeholder?: string;
+
   searchItem?: string;
 }>();
 
@@ -45,17 +43,8 @@ const selected = computed({
   },
 });
 
-if (props.default !== undefined) {
-  emit("update:searchItem", props.default);
-} else {
-  emit("update:searchItem", "");
-}
-
-watch(
-  () => props.parentVal,
-  () => {
-    emit("update:searchItem", "");
-  }
+const children = computed(() =>
+  props.options.filter((op) => op.value === selected.value)
 );
 </script>
 <style>

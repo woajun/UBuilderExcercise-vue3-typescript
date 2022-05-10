@@ -57,7 +57,6 @@ interface Select extends ICondition {
   kind: "select";
   default?: string;
   options: Array<Option>;
-  endLabel?: string;
   width?: string;
   placeholder?: string;
 }

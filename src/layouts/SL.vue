@@ -29,7 +29,7 @@ const props = defineProps<{
 const formId = "id" + Math.random().toString(16).slice(2);
 const conditions = computed(() => props.searchSetting.conditions);
 const searchUrl = computed(() => props.searchSetting.searchUrl);
-const searchItem: Record<string, string> = reactive({});
+const searchItem: Record<string, string | string[]> = reactive({});
 
 function addSearchItem(key: string, value: string) {
   searchItem[key] = value;

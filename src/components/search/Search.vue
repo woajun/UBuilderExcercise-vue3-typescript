@@ -22,7 +22,7 @@ import CDate from "./conditions/CDate.vue";
 
 defineProps<{
   conditions: Array<Condition>;
-  searchItem: Record<string, string>;
+  searchItem: Record<string, string | string[]>;
 }>();
 const emit = defineEmits(["update:searchItem"]);
 
