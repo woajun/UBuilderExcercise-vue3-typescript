@@ -1,5 +1,15 @@
 <template>
   <select v-model="selected">
+    <template v-if="typeof placeholder == 'string'">
+      <option disabled>
+        {{ placeholder }}
+      </option>
+    </template>
+    <template v-else-if="placeholder">
+      <option disabled>
+        {{ placeholder[index] }}
+      </option>
+    </template>
     <template v-for="option in options" :key="option.value">
       <option :value="option.value">
         {{ option.description }}
@@ -9,6 +19,7 @@
   <template v-if="children">
     <template v-if="children.length > 0">
       <CSelectSelect
+        :placeholder="placeholder"
         :options="children"
         :search-item="searchItem"
         @update:search-item="(v, i) => emit('update:searchItem', v, i)"
@@ -26,6 +37,7 @@ const props = defineProps<{
   options: Array<Option>;
   searchItem: string[];
   index: number;
+  placeholder?: string | string[];
 }>();
 
 const emit = defineEmits(["update:searchItem"]);

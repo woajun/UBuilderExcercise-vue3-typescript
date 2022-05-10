@@ -6,7 +6,7 @@ const searchSetting: SearchSetting = {
     {
       kind: "select",
       label: "물품분류",
-      placeholder: "1차분류",
+      placeholder: ["1차분류", "2차분류", "3차분류"],
       field: "select1",
       options: [
         {

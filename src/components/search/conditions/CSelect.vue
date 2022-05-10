@@ -1,8 +1,8 @@
 <template>
   <div>
-    {{ items }} <br />
     <template v-if="label"> {{ label }} : </template>
     <CSelectSelect
+      :placeholder="placeholder"
       :options="options"
       :search-item="items"
       @update:search-item="(v, i) => (items[i] = v)"
@@ -23,7 +23,7 @@ defineProps<{
   default?: string;
   options: Array<Option>;
   width?: string;
-  placeholder?: string;
+  placeholder?: string | string[];
   searchItem?: string | string[];
 }>();
 const items = reactive([]);
