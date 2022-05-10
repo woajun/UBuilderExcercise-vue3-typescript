@@ -4,11 +4,10 @@ import { TableSetting } from "@/components/list/tableSetting"; // for PopupModal
 interface ICondition {
   kind: "popup" | "radio" | "text" | "select" | "date" | "period";
   label?: string;
-  labelWidth?: string;
-  fullWidth?: string;
   field: string;
   default?: string | Date;
   parentField?: string;
+  placeholder?: string;
 }
 
 interface CDate extends ICondition {
@@ -70,13 +69,7 @@ export interface Option {
 interface Radio extends ICondition {
   kind: "radio";
   default?: string;
-  options: Array<RadioOption>;
-}
-
-export interface RadioOption {
-  value?: string;
-  description: string;
-  disabled?: boolean;
+  options: Array<Option>;
 }
 
 type Condition = CDate | PopupOptions | PopupURL | Text | Select | Radio;

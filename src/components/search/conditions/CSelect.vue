@@ -1,5 +1,5 @@
 <template>
-  <div class="inline">
+  <div>
     {{ items }} <br />
     <template v-if="label"> {{ label }} : </template>
     <CSelectSelect
@@ -33,8 +33,3 @@ watch(items, (newItems) => {
   emit("update:searchItem", newItems);
 });
 </script>
-<style>
-.inline {
-  display: inline;
-}
-</style>
