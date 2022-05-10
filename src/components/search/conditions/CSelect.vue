@@ -1,51 +1,31 @@
 <template>
   <div class="inline">
+    {{ item }} <br />
     <template v-if="label"> {{ label }} : </template>
-    <select v-model="selected">
-      <template v-for="option in options" :key="option.value">
-        <option :value="option.value">
-          {{ option.description }}
-        </option>
-      </template>
-    </select>
-    {{ children }}
+    <CSelectSelect
+      :options="options"
+      :search-item="item"
+      @update:search-item="(v) => (item = v)"
+    ></CSelectSelect>
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmits, computed } from "vue";
+import { defineProps, ref } from "vue";
 import { Option } from "./Condition";
+import CSelectSelect from "./CSelectSelect.vue";
 
 const props = defineProps<{
   kind: "select";
   label?: string;
-  labelWidth?: string;
-  fullWidth?: string;
   field: string;
-  parentField?: string;
   default?: string;
   options: Array<Option>;
-  endLabel?: string;
   width?: string;
   placeholder?: string;
-
   searchItem?: string;
 }>();
-
-const emit = defineEmits(["update:searchItem"]);
-
-const selected = computed({
-  get() {
-    return props.searchItem;
-  },
-  set(value) {
-    emit("update:searchItem", value);
-  },
-});
-
-const children = computed(() =>
-  props.options.filter((op) => op.value === selected.value)
-);
+const item = ref();
 </script>
 <style>
 .inline {
