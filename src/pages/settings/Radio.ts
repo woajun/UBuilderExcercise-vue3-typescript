@@ -7,7 +7,6 @@ const searchSetting: SearchSetting = {
       kind: "radio",
       field: "type",
       label: "타입",
-      default: "A",
       placeholder: "전체",
       options: [
         {
