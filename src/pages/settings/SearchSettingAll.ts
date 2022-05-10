@@ -1,6 +1,6 @@
 import SearchSetting from "@/components/search/SearchSetting";
 
-const searchSetting: SearchSetting = {
+const searchSetting: any = {
   searchUrl: "/api/sample",
   conditions: [
     {
