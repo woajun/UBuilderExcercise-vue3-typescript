@@ -1,16 +1,18 @@
 <template>
-  <Datepicker
-    style="display: inline-block"
-    v-model="result"
-    :format="format"
-    position="left"
-    :enable-time-picker="false"
-  >
-    <template #dp-input="{ value }">
-      <span v-if="label"> {{ label }} : </span>
-      <input type="text" :value="value" :placeholder="placeholder" />
-    </template>
-  </Datepicker>
+  <div>
+    <Datepicker
+      style="display: inline-block"
+      v-model="result"
+      :format="format"
+      position="left"
+      :enable-time-picker="false"
+    >
+      <template #dp-input="{ value }">
+        <span v-if="label"> {{ label }} : </span>
+        <input type="text" :value="value" :placeholder="placeholder" />
+      </template>
+    </Datepicker>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -20,10 +22,15 @@ import { defineProps, defineEmits, computed, WritableComputedRef } from "vue";
 
 const props = defineProps<{
   kind: "date";
-  label?: string;
-  field: string;
-  initialValue?: string;
+  date?: Date;
   placeholder?: string;
+  inline?: boolean;
+  label?: string;
+  labelWidth?: string;
+  fullWidth?: string;
+  field: string;
+  default?: Date;
+  parentField?: string;
   searchItem?: string;
 }>();
 const emit = defineEmits(["update:searchItem"]);
@@ -46,8 +53,8 @@ const format = (date: any) => {
   }
 };
 
-if (props.initialValue !== undefined) {
-  emit("update:searchItem", props.initialValue);
+if (props.default !== undefined) {
+  emit("update:searchItem", format(props.default));
 } else {
   emit("update:searchItem", "");
 }

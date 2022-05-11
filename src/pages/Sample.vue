@@ -19,6 +19,7 @@ import 코드 from "./settings/Code";
 import 셀렉트 from "./settings/Select";
 import 라디오 from "./settings/Radio";
 import 팝업 from "./settings/Popup";
+import 날짜 from "./settings/Date";
 import { tableSetting } from "./settings/sampleTableSetting";
 import sl from "../layouts/SL.vue";
 import { ref } from "vue";
@@ -26,7 +27,8 @@ import { ref } from "vue";
 const currentView = ref("All");
 
 const views = {
-  All: All,
+  날짜: 날짜,
+  // All: All,
   // 검수입고관리: 검수입고관리,
   // 정수물품책정현황: 정수물품책정현황,
   // 코드: 코드,

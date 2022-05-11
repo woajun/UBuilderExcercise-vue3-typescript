@@ -12,6 +12,10 @@ interface CDate extends ICondition {
   kind: "date";
 }
 
+interface CPeriod extends ICondition {
+  kind: "date";
+}
+
 interface Text extends ICondition {
   kind: "text";
 }
@@ -46,6 +50,6 @@ interface Radio extends ICondition {
   options: Array<Option>;
 }
 
-type Condition = CDate | Popup | Text | Select | Radio;
+type Condition = CDate | CPeriod | Popup | Text | Select | Radio;
 
 export default Condition;
