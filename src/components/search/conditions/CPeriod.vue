@@ -26,6 +26,7 @@ import { defineProps, defineEmits, watch, reactive } from "vue";
 
 const props = defineProps<{
   kind?: "period";
+  width?: string;
   field: string;
   label?: string;
   initialValue?: string | string[];

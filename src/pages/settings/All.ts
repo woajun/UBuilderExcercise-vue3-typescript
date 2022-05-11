@@ -4,6 +4,7 @@ const searchSetting: SearchSetting = {
   searchUrl: "/api/sample",
   conditions: [
     {
+      width: "500px",
       kind: "radio",
       field: "type",
       label: "타입",
@@ -25,6 +26,7 @@ const searchSetting: SearchSetting = {
       ],
     },
     {
+      width: "500px",
       kind: "radio",
       field: "type2",
       label: "타입2",
@@ -45,6 +47,7 @@ const searchSetting: SearchSetting = {
       ],
     },
     {
+      width: "500px",
       kind: "select",
       label: "물품분류",
       initialValue: ["A", "Aa", "Aa가"],
@@ -153,6 +156,7 @@ const searchSetting: SearchSetting = {
       ],
     },
     {
+      width: "500px",
       kind: "select",
       label: "물품분류",
       placeholder: "물품분류",
@@ -260,6 +264,7 @@ const searchSetting: SearchSetting = {
       ],
     },
     {
+      width: "500px",
       label: "텍스트1",
       kind: "text",
       field: "textField1",
@@ -267,13 +272,32 @@ const searchSetting: SearchSetting = {
       initialValue: "입력된 값",
     },
     {
+      width: "500px",
       initialValue: "ssss",
       label: "텍스트2",
       kind: "text",
       field: "textField2",
       placeholder: "텍스트 입력",
     },
+
     {
+      width: "500px",
+      kind: "date",
+      field: "date1",
+      label: "날짜",
+      placeholder: "날짜를 입력하시오",
+      initialValue: "2022-03-04",
+    },
+    {
+      width: "500px",
+      kind: "period",
+      field: "prd",
+      label: "기간",
+      placeholder: ["시작일", "종료일"],
+      initialValue: ["2022-01-01", "2022-12-31"],
+    },
+    {
+      width: "1000px",
       label: "코드검색",
       kind: "popup",
       field: "code",
@@ -353,20 +377,6 @@ const searchSetting: SearchSetting = {
           date: "2017-01-02",
         },
       ],
-    },
-    {
-      kind: "date",
-      field: "date1",
-      label: "날짜",
-      placeholder: "날짜를 입력하시오",
-      initialValue: "2022-03-04",
-    },
-    {
-      kind: "period",
-      field: "prd",
-      label: "기간",
-      placeholder: ["시작일", "종료일"],
-      initialValue: ["2022-01-01", "2022-12-31"],
     },
   ],
 };

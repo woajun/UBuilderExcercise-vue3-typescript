@@ -30,6 +30,7 @@ import { PopupModal } from "./Condition";
 
 const props = defineProps<{
   kind: "popup";
+  width?: string;
   label?: string;
   field: string;
   valueField?: string;

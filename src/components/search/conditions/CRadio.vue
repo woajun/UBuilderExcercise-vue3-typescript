@@ -34,6 +34,7 @@ import { Option } from "./Condition";
 
 const props = defineProps<{
   kind: "radio";
+  width?: string;
   label?: string;
   field: string;
   initialValue?: string;

@@ -6,6 +6,7 @@ interface ICondition {
   field: string;
   initialValue?: string | string[];
   placeholder?: string | string[];
+  width?: string;
 }
 
 interface CDate extends ICondition {

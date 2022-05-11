@@ -22,6 +22,7 @@ import { defineProps, defineEmits, computed, WritableComputedRef } from "vue";
 
 const props = defineProps<{
   kind?: "date";
+  width?: string;
   field?: string;
   label?: string;
   initialValue?: string;

@@ -2,6 +2,8 @@
   <form>
     <template v-for="con in conditions" :key="con.field">
       <component
+        class="condition"
+        :style="{ width: con.width }"
         :is="conKinds[con.kind]"
         v-bind="con"
         :search-item="searchItem[con.field]"
@@ -35,3 +37,8 @@ const conKinds = {
   period: CPeriod,
 };
 </script>
+<style>
+.condition {
+  display: inline-flex;
+}
+</style>

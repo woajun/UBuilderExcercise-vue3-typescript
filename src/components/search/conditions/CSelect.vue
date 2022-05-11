@@ -19,6 +19,7 @@ import CSelectSelect from "./CSelectSelect.vue";
 
 defineProps<{
   kind: "select";
+  width?: string;
   field: string;
   searchItem: string[];
   label?: string;
