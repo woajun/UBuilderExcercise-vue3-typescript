@@ -6,6 +6,27 @@ const searchSetting: SearchSetting = {
     {
       kind: "select",
       label: "물품분류",
+      field: "select5",
+      initialValue: "A",
+      placeholder: "분류",
+      options: [
+        {
+          description: "A",
+          value: "A",
+        },
+        {
+          description: "B",
+          value: "B",
+        },
+        {
+          description: "C",
+          value: "C",
+        },
+      ],
+    },
+    {
+      kind: "select",
+      label: "물품분류",
       initialValue: ["A", "Aa", "Aa가"],
       placeholder: ["1차분류", "2차분류", "3차분류"],
       field: "select1",
