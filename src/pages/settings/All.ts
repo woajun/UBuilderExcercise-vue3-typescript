@@ -357,14 +357,16 @@ const searchSetting: SearchSetting = {
     {
       kind: "date",
       field: "date1",
-      label: "날짜:",
+      label: "날짜",
       placeholder: "날짜를 입력하시오",
+      initialValue: "2022-03-04",
     },
     {
-      label: "텍스트3",
-      kind: "text",
-      field: "textField3",
-      placeholder: "텍스트 입력",
+      kind: "period",
+      field: "prd",
+      label: "기간",
+      placeholder: ["시작일", "종료일"],
+      initialValue: ["2022-01-01", "2022-12-31"],
     },
   ],
 };

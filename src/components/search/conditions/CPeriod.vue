@@ -1,11 +1,10 @@
 <template>
-  {{ period }}
   <div>
     <span v-if="label"> {{ label }} : </span>
     <CDate
       :search-item="period[0]"
       @update:search-item="(v) => (period[0] = v)"
-      :period="true"
+      :inline="true"
       :initial-value="getInitVal(0)"
       :placeholder="getPlaceholder(0)"
     ></CDate>
@@ -13,7 +12,7 @@
     <CDate
       :search-item="period[1]"
       @update:search-item="(v) => (period[1] = v)"
-      :period="true"
+      :inline="true"
       :initial-value="getInitVal(1)"
       :placeholder="getPlaceholder(1)"
     ></CDate>
@@ -26,15 +25,17 @@ import "@vuepic/vue-datepicker/dist/main.css";
 import { defineProps, defineEmits, watch, reactive } from "vue";
 
 const props = defineProps<{
-  kind: "period";
   label?: string;
-  field: string;
   initialValue?: string | string[];
   placeholder?: string | string[];
-  searchItem?: string | string[];
 }>();
+
 const emit = defineEmits(["update:searchItem"]);
 const period: string[] = reactive([]);
+
+watch(period, (v) => {
+  emit("update:searchItem", v);
+});
 
 function getInitVal(index: number) {
   if (Array.isArray(props.initialValue)) {
@@ -47,8 +48,4 @@ function getPlaceholder(index: number) {
     return props.placeholder[index];
   }
 }
-
-watch(period, (v) => {
-  emit("update:searchItem", v);
-});
 </script>

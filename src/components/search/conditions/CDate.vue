@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ inline: period }">
+  <div :class="{ inline: inline }">
     <Datepicker
       style="display: inline-block"
       v-model="result"
@@ -25,7 +25,7 @@ const props = defineProps<{
   initialValue?: string;
   placeholder?: string;
   searchItem?: string;
-  period?: boolean;
+  inline?: boolean;
 }>();
 const emit = defineEmits(["update:searchItem"]);
 

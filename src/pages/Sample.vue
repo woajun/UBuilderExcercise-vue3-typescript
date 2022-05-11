@@ -27,8 +27,8 @@ import { ref } from "vue";
 const currentView = ref("All");
 
 const views = {
-  날짜: 날짜,
-  // All: All,
+  All: All,
+  // 날짜: 날짜,
   // 검수입고관리: 검수입고관리,
   // 정수물품책정현황: 정수물품책정현황,
   // 코드: 코드,
