@@ -29,7 +29,7 @@ import Modal from "./CPopupModal.vue";
 import { PopupModal } from "./Condition";
 
 const props = defineProps<{
-  // kind: "popup";
+  kind: "popup";
   label?: string;
   field: string;
   valueField?: string;

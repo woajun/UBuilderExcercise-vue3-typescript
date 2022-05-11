@@ -25,9 +25,12 @@ import "@vuepic/vue-datepicker/dist/main.css";
 import { defineProps, defineEmits, watch, reactive } from "vue";
 
 const props = defineProps<{
+  kind?: "period";
+  field: string;
   label?: string;
   initialValue?: string | string[];
   placeholder?: string | string[];
+  searchItem?: string[];
 }>();
 
 const emit = defineEmits(["update:searchItem"]);

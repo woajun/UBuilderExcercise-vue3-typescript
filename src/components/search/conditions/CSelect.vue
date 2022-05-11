@@ -18,6 +18,9 @@ import { Option } from "./Condition";
 import CSelectSelect from "./CSelectSelect.vue";
 
 defineProps<{
+  kind: "select";
+  field: string;
+  searchItem: string[];
   label?: string;
   initialValue?: string | string[];
   options: Array<Option>;

@@ -21,6 +21,8 @@ import "@vuepic/vue-datepicker/dist/main.css";
 import { defineProps, defineEmits, computed, WritableComputedRef } from "vue";
 
 const props = defineProps<{
+  kind?: "date";
+  field?: string;
   label?: string;
   initialValue?: string;
   placeholder?: string;

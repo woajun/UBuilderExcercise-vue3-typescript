@@ -33,6 +33,7 @@ import { computed, defineProps, defineEmits } from "vue";
 import { Option } from "./Condition";
 
 const props = defineProps<{
+  kind: "radio";
   label?: string;
   field: string;
   initialValue?: string;
