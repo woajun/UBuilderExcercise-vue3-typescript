@@ -1,6 +1,6 @@
 <template>
   <Teleport to="body">
-    <DefaultModal :show="showModal" @close="$emit('update:showModal', false)">
+    <DefaultModal :show="showModal" @close="closeModal">
       <template #header>
         <template v-if="conditions">
           <Search
@@ -19,16 +19,10 @@
         ></Table>
       </template>
       <template #footer>
-        <button
-          class="modal-default-button"
-          @click.prevent="$emit('update:selected', modalSelected)"
-        >
+        <button class="modal-default-button" @click.prevent="selectBtn">
           선택
         </button>
-        <button
-          class="modal-default-button"
-          @click.prevent="$emit('update:showModal', false)"
-        >
+        <button class="modal-default-button" @click.prevent="closeModal">
           닫기
         </button>
         {{ modalSelected }}
@@ -41,7 +35,7 @@
 import DefaultModal from "@/components/common/DefaultModal.vue";
 import Search from "@/components/search/Search.vue";
 import Table from "@/components/list/Table.vue";
-import { defineProps, onMounted, reactive, ref } from "vue";
+import { defineProps, defineEmits, onMounted, reactive, ref } from "vue";
 import { Header } from "@/components/list/tableSetting";
 import Condition from "@/components/search/conditions/Condition";
 
@@ -57,6 +51,17 @@ const formId = "id" + Math.random().toString(16).slice(2);
 const searchItem: Record<string, string> = reactive({});
 const filtered = ref();
 const modalSelected = ref();
+
+const emit = defineEmits(["update:selected", "update:showModal"]);
+
+function selectBtn() {
+  emit("update:selected", modalSelected.value);
+  closeModal();
+}
+
+function closeModal() {
+  emit("update:showModal", false);
+}
 
 function addSearchItem(key: string, value: string) {
   searchItem[key] = value;

@@ -24,7 +24,6 @@ import {
   ref,
   reactive,
   WritableComputedRef,
-  onMounted,
 } from "vue";
 import Modal from "./CPopupModal.vue";
 import { PopupModal } from "./Condition";
@@ -82,6 +81,7 @@ const value: WritableComputedRef<string | undefined> = computed({
 });
 
 function modalSelected(aSelected: Record<string, string>) {
+  console.log(aSelected);
   for (const key in aSelected) {
     if (field == key) {
       value.value = aSelected[key];
