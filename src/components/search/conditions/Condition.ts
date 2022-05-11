@@ -13,7 +13,7 @@ interface CDate extends ICondition {
 }
 
 interface CPeriod extends ICondition {
-  kind: "date";
+  kind: "period";
 }
 
 interface Text extends ICondition {

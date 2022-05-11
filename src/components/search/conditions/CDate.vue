@@ -1,16 +1,18 @@
 <template>
-  <Datepicker
-    style="display: inline-block"
-    v-model="result"
-    :format="format"
-    position="left"
-    :enable-time-picker="false"
-  >
-    <template #dp-input="{ value }">
-      <span v-if="label"> {{ label }} : </span>
-      <input type="text" :value="value" :placeholder="placeholder" />
-    </template>
-  </Datepicker>
+  <div :class="{ inline: period }">
+    <Datepicker
+      style="display: inline-block"
+      v-model="result"
+      :format="format"
+      position="left"
+      :enable-time-picker="false"
+    >
+      <template #dp-input="{ value }">
+        <span v-if="label"> {{ label }} : </span>
+        <input type="text" :value="value" :placeholder="placeholder" />
+      </template>
+    </Datepicker>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -19,12 +21,11 @@ import "@vuepic/vue-datepicker/dist/main.css";
 import { defineProps, defineEmits, computed, WritableComputedRef } from "vue";
 
 const props = defineProps<{
-  kind: "date";
   label?: string;
-  field: string;
   initialValue?: string;
   placeholder?: string;
   searchItem?: string;
+  period?: boolean;
 }>();
 const emit = defineEmits(["update:searchItem"]);
 
@@ -52,3 +53,8 @@ if (props.initialValue !== undefined) {
   emit("update:searchItem", "");
 }
 </script>
+<style>
+.inline {
+  display: inline;
+}
+</style>

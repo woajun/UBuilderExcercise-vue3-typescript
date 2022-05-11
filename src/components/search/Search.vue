@@ -18,6 +18,7 @@ import CSelect from "./conditions/CSelect.vue";
 import CRadio from "./conditions/CRadio.vue";
 import CText from "./conditions/CText.vue";
 import CDate from "./conditions/CDate.vue";
+import CPeriod from "./conditions/CPeriod.vue";
 
 defineProps<{
   conditions: Array<Condition>;
@@ -31,5 +32,6 @@ const conKinds = {
   radio: CRadio,
   text: CText,
   date: CDate,
+  period: CPeriod,
 };
 </script>

@@ -1,61 +1,38 @@
 <template>
+  {{ period }}
   <div>
-    <Datepicker
-      style="display: inline-block"
-      v-model="result"
-      :format="format"
-      position="left"
-      :enable-time-picker="false"
-    >
-      <template #dp-input="{ value }">
-        <span v-if="label"> {{ label }} : </span>
-        <input type="text" :value="value" :placeholder="placeholder" />
-      </template>
-    </Datepicker>
+    <span v-if="label"> {{ label }} : </span>
+    <CDate
+      :search-item="period[0]"
+      @update:search-item="(v) => (period[0] = v)"
+      :period="true"
+    ></CDate>
+    ~
+    <CDate
+      :search-item="period[1]"
+      @update:search-item="(v) => (period[1] = v)"
+      :period="true"
+    ></CDate>
   </div>
 </template>
 
 <script setup lang="ts">
-import Datepicker from "@vuepic/vue-datepicker";
+import CDate from "./CDate.vue";
 import "@vuepic/vue-datepicker/dist/main.css";
-import { defineProps, defineEmits, computed, WritableComputedRef } from "vue";
+import { defineProps, defineEmits, watch, reactive } from "vue";
 
 const props = defineProps<{
-  kind: "date";
-  date?: Date;
-  placeholder?: string;
-  inline?: boolean;
+  kind: "period";
   label?: string;
-  labelWidth?: string;
-  fullWidth?: string;
   field: string;
-  default?: Date;
-  parentField?: string;
-  searchItem?: string;
+  initialValue?: string | string[];
+  placeholder?: string | string[];
+  searchItem?: string | string[];
 }>();
 const emit = defineEmits(["update:searchItem"]);
+const period: string[] = reactive([]);
 
-const result: WritableComputedRef<string | undefined> = computed({
-  get() {
-    return props.searchItem;
-  },
-  set(newVal) {
-    emit("update:searchItem", format(newVal));
-  },
+watch(period, (v) => {
+  emit("update:searchItem", v);
 });
-
-const format = (date: any) => {
-  if (date instanceof Date) {
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    return `${year}-${month}-${day}`;
-  }
-};
-
-if (props.default !== undefined) {
-  emit("update:searchItem", format(props.default));
-} else {
-  emit("update:searchItem", "");
-}
 </script>
