@@ -36,7 +36,7 @@ const props = defineProps<{
   labelWidth?: string;
   fullWidth?: string;
   field: string;
-  default?: string;
+  initialValue?: string;
   kind: "radio";
   options: Array<Option>;
   searchItem?: string;
@@ -52,8 +52,8 @@ const checked = computed({
   },
 });
 
-if (props.default !== undefined) {
-  emit("update:searchItem", props.default);
+if (props.initialValue !== undefined) {
+  emit("update:searchItem", props.initialValue);
 } else {
   emit("update:searchItem", "");
 }

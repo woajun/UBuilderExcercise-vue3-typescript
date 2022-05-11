@@ -27,7 +27,8 @@ defineProps<{
   placeholder?: string | string[];
   searchItem?: string | string[];
 }>();
-const items = reactive([]);
+
+const items: string[] = reactive([]);
 
 const emit = defineEmits(["update:searchItem"]);
 watch(items, (newItems) => {
