@@ -6,12 +6,16 @@
       :search-item="period[0]"
       @update:search-item="(v) => (period[0] = v)"
       :period="true"
+      :initial-value="getInitVal(0)"
+      :placeholder="getPlaceholder(0)"
     ></CDate>
     ~
     <CDate
       :search-item="period[1]"
       @update:search-item="(v) => (period[1] = v)"
       :period="true"
+      :initial-value="getInitVal(1)"
+      :placeholder="getPlaceholder(1)"
     ></CDate>
   </div>
 </template>
@@ -31,6 +35,18 @@ const props = defineProps<{
 }>();
 const emit = defineEmits(["update:searchItem"]);
 const period: string[] = reactive([]);
+
+function getInitVal(index: number) {
+  if (Array.isArray(props.initialValue)) {
+    return props.initialValue[index];
+  }
+}
+
+function getPlaceholder(index: number) {
+  if (Array.isArray(props.placeholder)) {
+    return props.placeholder[index];
+  }
+}
 
 watch(period, (v) => {
   emit("update:searchItem", v);

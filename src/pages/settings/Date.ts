@@ -14,7 +14,8 @@ const searchSetting: SearchSetting = {
       kind: "period",
       field: "prd",
       label: "기간",
-      initialValue: ["2022-03-04", "2022-12-31"],
+      placeholder: ["시작일", "종료일"],
+      initialValue: ["2022-01-01", "2022-12-31"],
     },
   ],
 };
