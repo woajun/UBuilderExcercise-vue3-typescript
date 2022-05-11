@@ -16,6 +16,7 @@
           :headers="headers"
           :data="filtered"
           v-model:selected="modalSelected"
+          @update:dblClkRow="dblSlkRowEvent"
         ></Table>
       </template>
       <template #footer>
@@ -53,6 +54,11 @@ const filtered = ref();
 const modalSelected = ref();
 
 const emit = defineEmits(["update:selected", "update:showModal"]);
+
+function dblSlkRowEvent(row: Record<string, any>) {
+  modalSelected.value = row;
+  selectBtn();
+}
 
 function selectBtn() {
   emit("update:selected", modalSelected.value);

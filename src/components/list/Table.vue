@@ -12,6 +12,7 @@
         v-for="row in data"
         :key="row.id"
         @click="$emit('update:selected', row)"
+        @dblclick="$emit('update:dblClkRow', row)"
       >
         <td v-for="col in headers" :key="col.field">
           <template v-for="(value, key) of row">
