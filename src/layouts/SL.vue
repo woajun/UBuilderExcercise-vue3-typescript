@@ -1,6 +1,7 @@
 <template>
   <div class="sl">
     {{ searchItem }}
+    <hr />
     <button @click.prevent="submit" :form="formId">검색</button>
     <Search
       :id="formId"

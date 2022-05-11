@@ -29,24 +29,16 @@ import Modal from "./CPopupModal.vue";
 import { PopupModal } from "./Condition";
 
 const props = defineProps<{
-  kind: "popup";
   label?: string;
-  labelWidth?: string;
-  fullWidth?: string;
   field: string;
   valueField?: string;
   initialValue?: string;
-  valueWidth?: string;
-  valueClickEvent?: boolean;
   placeholder?: string;
-  disabled?: boolean;
   displayFields?: string[];
   modal: PopupModal;
   data?: Array<Record<string, string>>;
-  dataURL?: string;
 
   searchItem?: string;
-  parentVal?: string;
 }>();
 const emit = defineEmits(["update:searchItem"]);
 const showModal = ref(false);
