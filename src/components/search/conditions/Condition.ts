@@ -36,7 +36,6 @@ export interface PopupModal {
 interface Select extends ICondition {
   kind: "select";
   options: Array<Option>;
-  width?: string;
 }
 
 export interface Option {

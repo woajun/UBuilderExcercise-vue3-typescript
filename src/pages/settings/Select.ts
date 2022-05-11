@@ -6,7 +6,27 @@ const searchSetting: SearchSetting = {
     {
       kind: "select",
       label: "물품분류",
-      field: "select5",
+      field: "slt4",
+      placeholder: "분류",
+      options: [
+        {
+          description: "A",
+          value: "A",
+        },
+        {
+          description: "B",
+          value: "B",
+        },
+        {
+          description: "C",
+          value: "C",
+        },
+      ],
+    },
+    {
+      kind: "select",
+      label: "물품분류",
+      field: "slt1",
       initialValue: "A",
       placeholder: "분류",
       options: [
@@ -29,7 +49,7 @@ const searchSetting: SearchSetting = {
       label: "물품분류",
       initialValue: ["A", "Aa", "Aa가"],
       placeholder: ["1차분류", "2차분류", "3차분류"],
-      field: "select1",
+      field: "slt2",
       options: [
         {
           description: "A",
@@ -136,7 +156,7 @@ const searchSetting: SearchSetting = {
       kind: "select",
       label: "물품분류",
       placeholder: "물품분류",
-      field: "select2",
+      field: "slt3",
       options: [
         {
           description: "A",
