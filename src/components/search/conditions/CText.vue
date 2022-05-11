@@ -15,8 +15,6 @@ import { defineProps, defineEmits } from "vue";
 
 const props = defineProps<{
   label?: string;
-  field: string;
-  kind: "text";
   initialValue?: string;
   placeholder?: string;
   searchItem?: string;

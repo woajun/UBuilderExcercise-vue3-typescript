@@ -18,14 +18,10 @@ import { Option } from "./Condition";
 import CSelectSelect from "./CSelectSelect.vue";
 
 defineProps<{
-  kind: "select";
   label?: string;
-  field: string;
   initialValue?: string | string[];
   options: Array<Option>;
-  width?: string;
   placeholder?: string | string[];
-  searchItem?: string | string[];
 }>();
 
 const items: string[] = reactive([]);

@@ -1,17 +1,18 @@
 <template>
   <div>
     <template v-if="label"> {{ label }} : </template>
-    <input
-      v-if="placeholder"
-      v-model="checked"
-      type="radio"
-      :name="field"
-      :id="field + placeholder"
-      value=""
-    />
-    <label :for="field + placeholder">
-      {{ placeholder }}
-    </label>
+    <template v-if="placeholder">
+      <input
+        v-model="checked"
+        type="radio"
+        :name="field"
+        :id="field + placeholder"
+        value=""
+      />
+      <label :for="field + placeholder">
+        {{ placeholder }}
+      </label>
+    </template>
     <template v-for="option in options" :key="option.value">
       <input
         v-model="checked"
@@ -33,11 +34,8 @@ import { Option } from "./Condition";
 
 const props = defineProps<{
   label?: string;
-  labelWidth?: string;
-  fullWidth?: string;
   field: string;
   initialValue?: string;
-  kind: "radio";
   options: Array<Option>;
   searchItem?: string;
   placeholder?: string;
