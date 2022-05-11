@@ -36,7 +36,7 @@ const props = defineProps<{
   fullWidth?: string;
   field: string;
   valueField?: string;
-  default?: string;
+  initialValue?: string;
   valueWidth?: string;
   valueClickEvent?: boolean;
   placeholder?: string;
@@ -89,5 +89,5 @@ function modalSelected(aSelected: Record<string, string>) {
   }
 }
 
-value.value = props.default ?? value.value;
+value.value = props.initialValue ?? value.value;
 </script>
