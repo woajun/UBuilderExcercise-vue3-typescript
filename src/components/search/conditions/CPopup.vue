@@ -6,14 +6,14 @@
     <template v-for="df in displayFields" :key="df">
       <input type="text" disabled :value="selected[df]" />
     </template>
+    <Modal
+      v-bind="modal"
+      :data="data"
+      v-model:showModal="showModal"
+      :selected="selected"
+      @update:selected="modalSelected"
+    ></Modal>
   </div>
-  <Modal
-    v-bind="modal"
-    :data="data"
-    v-model:showModal="showModal"
-    :selected="selected"
-    @update:selected="modalSelected"
-  ></Modal>
 </template>
 
 <script setup lang="ts">
@@ -29,7 +29,7 @@ import Modal from "./CPopupModal.vue";
 import { PopupModal } from "./Condition";
 
 const props = defineProps<{
-  kind: "popup";
+  // kind: "popup";
   label?: string;
   field: string;
   valueField?: string;

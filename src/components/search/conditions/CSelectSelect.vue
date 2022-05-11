@@ -65,7 +65,7 @@ if (typeof props.initialValue == "string") {
   selected.value = props.initialValue ?? "";
 } else if (props.initialValue) {
   selected.value = props.initialValue[props.index] ?? "";
-} else {
+} else if (!selected.value) {
   selected.value = "";
 }
 </script>
