@@ -1,13 +1,13 @@
 import SearchSetting from "@/components/search/SearchSetting";
 
-const searchSetting: any = {
+const searchSetting: SearchSetting = {
   searchUrl: "/api/sample",
   conditions: [
     {
       kind: "select",
       label: "물품분류",
       placeholder: "물품분류",
-      field: "slt3",
+      field: ["slt1", "slt2", "slt3"],
       description: "label",
       value: "value",
       children: "children",
