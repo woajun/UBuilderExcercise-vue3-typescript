@@ -8,6 +8,8 @@ const searchSetting: any = {
       label: "물품분류",
       placeholder: "물품분류",
       field: "slt3",
+      description: "integerCode",
+      value: "name",
       data: [
         {
           hold: [
