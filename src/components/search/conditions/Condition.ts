@@ -42,7 +42,7 @@ interface Select extends ICondition {
   data: Data;
 }
 
-interface NestedSelect {
+export interface NestedSelect {
   data: string;
   placeholder?: string;
   field: string;
@@ -51,7 +51,7 @@ interface NestedSelect {
   nestedSelect?: NestedSelect;
 }
 
-type Data = Array<Record<string, any>>;
+export type Data = Array<Record<string, any>>;
 
 export interface Option {
   description: string;
