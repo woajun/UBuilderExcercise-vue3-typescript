@@ -72,4 +72,10 @@ function changeNestData(newSelected: any) {
     nestData.value = [];
   }
 }
+
+if (typeof props.initialValue == "string") {
+  selected.value = props.initialValue ?? "";
+} else if (!selected.value) {
+  selected.value = "";
+}
 </script>
