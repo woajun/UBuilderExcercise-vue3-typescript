@@ -26,7 +26,7 @@ interface Popup extends ICondition {
   displayFields?: string[];
   modal: PopupModal;
   valueField?: string;
-  data: Array<Record<string, any>>;
+  data: Data;
 }
 
 export interface PopupModal {
@@ -36,8 +36,22 @@ export interface PopupModal {
 
 interface Select extends ICondition {
   kind: "select";
-  options: Array<Option>;
+  description: string;
+  value: string;
+  nestedSelect: NestedSelect;
+  data: Data;
 }
+
+interface NestedSelect {
+  data: string;
+  placeholder?: string;
+  field: string;
+  description: string;
+  value: string;
+  nestedSelect?: NestedSelect;
+}
+
+type Data = Array<Record<string, any>>;
 
 export interface Option {
   description: string;

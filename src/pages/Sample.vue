@@ -26,12 +26,12 @@ import { ref } from "vue";
 const currentView = ref("All");
 
 const views = {
-  All: All,
+  // All: All,
   // 검수입고관리: 검수입고관리,
   // 정수물품책정현황: 정수물품책정현황,
-  날짜: 날짜,
+  // 날짜: 날짜,
   셀렉트: 셀렉트,
-  라디오: 라디오,
-  팝업: 팝업,
+  // 라디오: 라디오,
+  // 팝업: 팝업,
 };
 </script>
