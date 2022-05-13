@@ -1,4 +1,5 @@
 <template>
+  {{ nestData }}
   <select v-model="selected">
     <option v-if="placeholder" disabled value="">
       {{ placeholder }}
@@ -10,17 +11,17 @@
     </template>
   </select>
   <template v-if="nestedSelect">
-    <!-- <CSelectSelect
-        :placeholder="placeholder"
-        :initial-value="initialValue"
-        :data="data"
-        :value="value"
-        :description="description"
-        :nestedSelect="nestedSelect"
-        :searchItem="searchItem"
-        :field="field"
-        @update:search-item="(v, i) => emit('update:searchItem', v, i)"
-      ></CSelectSelect> -->
+    <!-- :data="data.find((e) => e[value] == selected)[nestedSelect.data]" -->
+    <CSelectSelect
+      :data="nestData"
+      :placeholder="nestedSelect.placeholder"
+      :value="nestedSelect.value"
+      :description="nestedSelect.description"
+      :nestedSelect="nestedSelect.nestedSelect"
+      :searchItem="searchItem"
+      :field="nestedSelect.field"
+      @update:search-item="(f, v) => emit('update:searchItem', f, v)"
+    ></CSelectSelect>
   </template>
 </template>
 
@@ -28,10 +29,20 @@
 import { defineProps, defineEmits, computed } from "vue";
 import { NestedSelect, Data } from "./Condition";
 
+const nestData = computed(() => {
+  const a = props.data?.find((e) => e[props.value] === selected.value);
+  console.log(a);
+  if (props.nestedSelect && a !== undefined) {
+    console.log(a[props.nestedSelect.data]);
+    return a[props.nestedSelect.data];
+  }
+  return undefined;
+});
+
 const props = defineProps<{
   placeholder?: string;
   initialValue?: string;
-  data: Data;
+  data?: Data;
   value: string;
   description: string;
   nestedSelect?: NestedSelect;
