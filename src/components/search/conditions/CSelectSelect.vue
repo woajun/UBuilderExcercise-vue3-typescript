@@ -1,5 +1,4 @@
 <template>
-  {{ nestData }}
   <select v-model="selected">
     <option v-if="placeholder" disabled value="">
       {{ placeholder }}
@@ -11,7 +10,6 @@
     </template>
   </select>
   <template v-if="nestedSelect">
-    <!-- :data="data.find((e) => e[value] == selected)[nestedSelect.data]" -->
     <CSelectSelect
       :data="nestData"
       :placeholder="nestedSelect.placeholder"
@@ -26,18 +24,10 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmits, computed } from "vue";
+import { defineProps, defineEmits, computed, watch, ref } from "vue";
 import { NestedSelect, Data } from "./Condition";
 
-const nestData = computed(() => {
-  const a = props.data?.find((e) => e[props.value] === selected.value);
-  console.log(a);
-  if (props.nestedSelect && a !== undefined) {
-    console.log(a[props.nestedSelect.data]);
-    return a[props.nestedSelect.data];
-  }
-  return undefined;
-});
+const nestData = ref([]);
 
 const props = defineProps<{
   placeholder?: string;
@@ -54,10 +44,27 @@ const emit = defineEmits(["update:searchItem"]);
 
 const selected = computed({
   get() {
-    return props.searchItem[props.value];
+    return props.searchItem[props.field];
   },
   set(value) {
     emit("update:searchItem", props.field, value);
   },
 });
+
+watch(props.searchItem, (newValue) => {
+  const selected = newValue[props.field];
+  changeNestData(selected);
+});
+
+function changeNestData(newSelected: any) {
+  console.log(newSelected);
+  const selectedObject = props.data?.find(
+    (e) => e[props.value] === newSelected
+  );
+  if (props.nestedSelect && selectedObject !== undefined) {
+    nestData.value = selectedObject[props.nestedSelect.data];
+  } else {
+    nestData.value = [];
+  }
+}
 </script>

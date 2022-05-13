@@ -42,7 +42,7 @@ const searchSetting: SearchSetting = {
                   id: 10102,
                 },
                 {
-                  label: "유재석",
+                  name: "유재석",
                   id: 10103,
                 },
               ],
@@ -60,7 +60,7 @@ const searchSetting: SearchSetting = {
                   id: 10202,
                 },
                 {
-                  label: "가나다",
+                  name: "가나다",
                   id: 10203,
                 },
               ],
@@ -78,7 +78,7 @@ const searchSetting: SearchSetting = {
                   id: 10302,
                 },
                 {
-                  label: "가다다",
+                  name: "가다다",
                   id: 10303,
                 },
               ],
@@ -102,7 +102,7 @@ const searchSetting: SearchSetting = {
                   id: 20102,
                 },
                 {
-                  label: "나가다",
+                  name: "나가다",
                   id: 20103,
                 },
               ],
@@ -120,7 +120,7 @@ const searchSetting: SearchSetting = {
                   id: 20202,
                 },
                 {
-                  label: "나나다",
+                  name: "나나다",
                   id: 20203,
                 },
               ],
@@ -138,7 +138,7 @@ const searchSetting: SearchSetting = {
                   id: 20302,
                 },
                 {
-                  label: "나다다",
+                  name: "나다다",
                   id: 20303,
                 },
               ],
