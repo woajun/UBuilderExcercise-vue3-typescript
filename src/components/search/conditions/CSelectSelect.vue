@@ -51,13 +51,18 @@ const selected = computed({
   },
 });
 
-watch(props.searchItem, (newValue) => {
-  const selected = newValue[props.field];
-  changeNestData(selected);
+watch(selected, (newSelected) => {
+  changeNestData(newSelected);
+  removeNestSelectValue();
 });
 
+function removeNestSelectValue() {
+  if (props.nestedSelect) {
+    emit("update:searchItem", props.nestedSelect.field, "");
+  }
+}
+
 function changeNestData(newSelected: any) {
-  console.log(newSelected);
   const selectedObject = props.data?.find(
     (e) => e[props.value] === newSelected
   );

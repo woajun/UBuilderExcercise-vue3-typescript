@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ searchItem }}
     <template v-if="label"> {{ label }} : </template>
     <CSelectSelect
       :placeholder="placeholder"

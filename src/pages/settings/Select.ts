@@ -34,15 +34,15 @@ const searchSetting: SearchSetting = {
               class: 1,
               students: [
                 {
-                  name: "홍길동",
+                  name: "10101-홍길동",
                   id: 10101,
                 },
                 {
-                  name: "이순신",
+                  name: "10102-이순신",
                   id: 10102,
                 },
                 {
-                  name: "유재석",
+                  name: "10103-유재석",
                   id: 10103,
                 },
               ],
@@ -52,15 +52,15 @@ const searchSetting: SearchSetting = {
               class: 2,
               students: [
                 {
-                  name: "가나가",
+                  name: "10201-가나가",
                   id: 10201,
                 },
                 {
-                  name: "가나나",
+                  name: "10202-가나나",
                   id: 10202,
                 },
                 {
-                  name: "가나다",
+                  name: "10203-가나다",
                   id: 10203,
                 },
               ],
@@ -70,15 +70,15 @@ const searchSetting: SearchSetting = {
               class: 3,
               students: [
                 {
-                  name: "가다가",
+                  name: "10301-가다가",
                   id: 10301,
                 },
                 {
-                  name: "가다나",
+                  name: "10302-가다나",
                   id: 10302,
                 },
                 {
-                  name: "가다다",
+                  name: "10303-가다다",
                   id: 10303,
                 },
               ],
@@ -94,15 +94,15 @@ const searchSetting: SearchSetting = {
               class: 1,
               students: [
                 {
-                  name: "나가가",
+                  name: "20101-나가가",
                   id: 20101,
                 },
                 {
-                  name: "나가나",
+                  name: "20102-나가나",
                   id: 20102,
                 },
                 {
-                  name: "나가다",
+                  name: "20103-나가다",
                   id: 20103,
                 },
               ],
@@ -112,15 +112,15 @@ const searchSetting: SearchSetting = {
               class: 2,
               students: [
                 {
-                  name: "나나가",
+                  name: "20201-나나가",
                   id: 20201,
                 },
                 {
-                  name: "나나나",
+                  name: "20202-나나나",
                   id: 20202,
                 },
                 {
-                  name: "나나다",
+                  name: "20203-나나다",
                   id: 20203,
                 },
               ],
@@ -130,15 +130,15 @@ const searchSetting: SearchSetting = {
               class: 3,
               students: [
                 {
-                  name: "나다가",
+                  name: "20301-나다가",
                   id: 20301,
                 },
                 {
-                  name: "나다나",
+                  name: "20302-나다나",
                   id: 20302,
                 },
                 {
-                  name: "나다다",
+                  name: "20303-나다다",
                   id: 20303,
                 },
               ],
