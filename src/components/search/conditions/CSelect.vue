@@ -10,7 +10,8 @@
       :description="description"
       :nestedSelect="nestedSelect"
       :searchItem="searchItem"
-      @update:search-item="(key, value) => (searchItem[key] = value)"
+      :field="field"
+      @update:search-item="(field, value) => (searchItem[field] = value)"
     ></CSelectSelect>
   </div>
 </template>

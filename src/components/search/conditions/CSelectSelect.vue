@@ -1,71 +1,52 @@
 <template>
   <select v-model="selected">
-    <template v-if="typeof placeholder == 'string'">
-      <option disabled value="">
-        {{ placeholder }}
-      </option>
-    </template>
-    <template v-else-if="placeholder">
-      <option disabled value="">
-        {{ placeholder[index] }}
-      </option>
-    </template>
-    <template v-for="option in options" :key="option.value">
-      <option :value="option.value">
-        {{ option.description }}
+    <option v-if="placeholder" disabled value="">
+      {{ placeholder }}
+    </option>
+    <template v-for="option in data" :key="option[value]">
+      <option :value="option[value]">
+        {{ option[description] }}
       </option>
     </template>
   </select>
-  <template v-if="children">
-    <template v-if="children.length > 0">
-      <CSelectSelect
-        :initial-value="initialValue"
+  <template v-if="nestedSelect">
+    <!-- <CSelectSelect
         :placeholder="placeholder"
-        :options="children"
-        :search-item="searchItem"
+        :initial-value="initialValue"
+        :data="data"
+        :value="value"
+        :description="description"
+        :nestedSelect="nestedSelect"
+        :searchItem="searchItem"
+        :field="field"
         @update:search-item="(v, i) => emit('update:searchItem', v, i)"
-        :index="index + 1"
-      ></CSelectSelect>
-    </template>
+      ></CSelectSelect> -->
   </template>
 </template>
 
 <script setup lang="ts">
 import { defineProps, defineEmits, computed } from "vue";
-import { Option } from "./Condition";
+import { NestedSelect, Data } from "./Condition";
 
 const props = defineProps<{
-  initialValue?: string | string[];
-  options: Array<Option>;
-  searchItem: string[];
-  index: number;
-  placeholder?: string | string[];
+  placeholder?: string;
+  initialValue?: string;
+  data: Data;
+  value: string;
+  description: string;
+  nestedSelect?: NestedSelect;
+  searchItem: Record<string, any>;
+  field: string;
 }>();
 
 const emit = defineEmits(["update:searchItem"]);
 
 const selected = computed({
   get() {
-    return props.searchItem[props.index];
+    return props.searchItem[props.value];
   },
   set(value) {
-    emit("update:searchItem", value, props.index);
-    for (let i = props.index + 1; i < props.searchItem.length; i++) {
-      emit("update:searchItem", "", i);
-    }
+    emit("update:searchItem", props.field, value);
   },
 });
-
-const children = computed(() => {
-  const option = props.options.find((op) => op.value === selected.value);
-  return option?.children;
-});
-
-if (typeof props.initialValue == "string") {
-  selected.value = props.initialValue ?? "";
-} else if (props.initialValue) {
-  selected.value = props.initialValue[props.index] ?? "";
-} else if (!selected.value) {
-  selected.value = "";
-}
 </script>
