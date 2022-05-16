@@ -37,7 +37,7 @@ const props = defineProps<{
   field: string;
   initialValue?: string;
   data: Data;
-  searchItem?: Record<string, any>;
+  searchItem: Record<string, any>;
   placeholder?: string;
   description: string;
   value: string;
@@ -45,7 +45,7 @@ const props = defineProps<{
 const emit = defineEmits(["update:searchItem"]);
 const checked = computed({
   get() {
-    return props.searchItem;
+    return props.searchItem[props.field];
   },
   set(value) {
     emit("update:searchItem", props.field, value);
@@ -56,6 +56,8 @@ const checked = computed({
 onMounted(() => {
   if (props.initialValue) {
     checked.value = props.initialValue;
+  } else if (!checked.value) {
+    checked.value = "";
   }
 });
 </script>

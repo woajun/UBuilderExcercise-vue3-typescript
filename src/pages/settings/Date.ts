@@ -12,10 +12,14 @@ const searchSetting: SearchSetting = {
     },
     {
       kind: "period",
-      field: "prd",
+      field: "prd-start",
       label: "기간",
-      placeholder: ["시작일", "종료일"],
-      initialValue: ["2022-01-01", "2022-12-31"],
+      placeholder: "시작일",
+      initialValue: "2022-01-01",
+      endField: "prd-end",
+      endPlaceholder: "종료일",
+      // placeholder: ["시작일", "종료일"],
+      // initialValue: ["2022-01-01", "2022-12-31"],
     },
   ],
 };

@@ -4,8 +4,8 @@ interface ICondition {
   kind: "popup" | "radio" | "text" | "select" | "date" | "period";
   label?: string;
   field: string;
-  initialValue?: string | string[];
-  placeholder?: string | string[];
+  initialValue?: string;
+  placeholder?: string;
   width?: string;
 }
 
@@ -15,6 +15,9 @@ interface CDate extends ICondition {
 
 interface CPeriod extends ICondition {
   kind: "period";
+  endField: string;
+  endPlaceholder?: string;
+  endInitialValue?: string;
 }
 
 interface Text extends ICondition {
