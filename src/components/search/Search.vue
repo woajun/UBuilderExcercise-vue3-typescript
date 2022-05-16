@@ -6,8 +6,8 @@
         :style="{ width: con.width }"
         :is="conKinds[con.kind]"
         v-bind="con"
-        :search-item="searchItem[con.field]"
-        @update:search-item="(val:string|string[]) => emit('update:searchItem',con.field, val)"
+        :search-item="searchItem"
+        @update:search-item="(f:string,v:any) => emit('update:searchItem',f, v)"
       ></component>
     </template>
   </form>
@@ -24,7 +24,7 @@ import CPeriod from "./conditions/CPeriod.vue";
 
 defineProps<{
   conditions: Array<Condition>;
-  searchItem: Record<string, string | string[]>;
+  searchItem: Record<string, any>;
 }>();
 const emit = defineEmits(["update:searchItem"]);
 

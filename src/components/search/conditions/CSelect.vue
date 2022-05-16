@@ -10,13 +10,13 @@
       :nestedSelect="nestedSelect"
       :searchItem="searchItem"
       :field="field"
-      @update:search-item="(field, value) => (searchItem[field] = value)"
+      @update:search-item="(f, v) => emit('update:searchItem', f, v)"
     ></CSelectSelect>
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmits, reactive, watch } from "vue";
+import { defineProps, defineEmits } from "vue";
 import { NestedSelect, Data } from "./Condition";
 import CSelectSelect from "./CSelectSelect.vue";
 
@@ -31,7 +31,8 @@ defineProps<{
   value: string;
   nestedSelect: NestedSelect;
   data: Data;
+  searchItem: Record<string, any>;
 }>();
 
-const searchItem = reactive({});
+const emit = defineEmits(["update:searchItem"]);
 </script>

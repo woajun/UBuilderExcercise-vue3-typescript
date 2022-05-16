@@ -7,7 +7,7 @@
       :id="formId"
       :conditions="conditions"
       :search-item="searchItem"
-      @update:search-item="addSearchItem"
+      @update:search-item="(field, value) => (searchItem[field] = value)"
     ></Search>
     <!-- <Table :table-setting="tableSetting" :data="data"></Table> -->
   </div>
@@ -30,11 +30,7 @@ const props = defineProps<{
 const formId = "id" + Math.random().toString(16).slice(2);
 const conditions = computed(() => props.searchSetting.conditions);
 const searchUrl = computed(() => props.searchSetting.searchUrl);
-const searchItem: Record<string, string | string[]> = reactive({});
-
-function addSearchItem(key: string, value: string | string[]) {
-  searchItem[key] = value;
-}
+const searchItem: Record<string, any> = reactive({});
 
 function submit() {
   console.log(searchUrl.value);
