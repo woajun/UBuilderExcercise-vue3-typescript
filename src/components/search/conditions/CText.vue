@@ -4,8 +4,8 @@
     <input
       type="text"
       :placeholder="placeholder"
-      :value="searchItem"
-      @input="emit('update:searchItem', ($event.target as HTMLInputElement).value)"
+      :value="searchItem[field]"
+      @input="emit('update:searchItem', field, ($event.target as HTMLInputElement).value)"
     />
   </div>
 </template>
@@ -20,9 +20,10 @@ const props = defineProps<{
   label?: string;
   initialValue?: string;
   placeholder?: string;
-  searchItem?: string;
+  searchItem: Record<string, any>;
 }>();
 const emit = defineEmits(["update:searchItem"]);
 
-if (props.initialValue) emit("update:searchItem", props.initialValue);
+if (props.initialValue)
+  emit("update:searchItem", props.field, props.initialValue);
 </script>

@@ -40,7 +40,7 @@ const props = defineProps<{
   modal: PopupModal;
   data?: Array<Record<string, string>>;
 
-  searchItem?: string;
+  searchItem: Record<string, any>;
 }>();
 const emit = defineEmits(["update:searchItem"]);
 const showModal = ref(false);
@@ -48,11 +48,11 @@ const selected: Record<string, string> = reactive({});
 const field = props.valueField ?? props.field;
 const value: WritableComputedRef<string | undefined> = computed({
   get() {
-    return props.searchItem;
+    return props.searchItem[field];
   },
   set(value) {
     assignSelected(search(value));
-    emit("update:searchItem", value);
+    emit("update:searchItem", field, value);
 
     function search(value: string | undefined) {
       if (value) {
