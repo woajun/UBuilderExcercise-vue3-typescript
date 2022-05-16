@@ -1,38 +1,85 @@
 <template>
-  <div>
-    <template v-if="label"> {{ label }} : </template>
-    <CSelectSelect
-      :placeholder="placeholder"
-      :initial-value="initialValue"
-      :data="data"
-      :value="value"
-      :description="description"
-      :nestedSelect="nestedSelect"
+  <template v-if="label"> {{ label }} : </template>
+  <select v-model="selected">
+    <option v-if="placeholder" disabled value="">
+      {{ placeholder }}
+    </option>
+    <template v-for="option in data" :key="option[value]">
+      <option :value="option[value]">
+        {{ option[description] }}
+      </option>
+    </template>
+  </select>
+  <template v-if="nestedSelect">
+    <CSelect
+      :data="nestData"
+      :placeholder="nestedSelect.placeholder"
+      :value="nestedSelect.value"
+      :description="nestedSelect.description"
+      :nestedSelect="nestedSelect.nestedSelect"
       :searchItem="searchItem"
-      :field="field"
+      :field="nestedSelect.field"
       @update:search-item="(f, v) => emit('update:searchItem', f, v)"
-    ></CSelectSelect>
-  </div>
+    ></CSelect>
+  </template>
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmits } from "vue";
+import { defineProps, defineEmits, computed, watch, ref } from "vue";
 import { NestedSelect, Data } from "./Condition";
-import CSelectSelect from "./CSelectSelect.vue";
 
-defineProps<{
-  kind: "select";
-  width?: string;
-  field: string;
+const nestData = ref([]);
+
+const props = defineProps<{
+  kind?: "select";
   label?: string;
-  initialValue?: string;
+
   placeholder?: string;
-  description: string;
+  initialValue?: string;
+  data?: Data;
   value: string;
-  nestedSelect: NestedSelect;
-  data: Data;
+  description: string;
+  nestedSelect?: NestedSelect;
   searchItem: Record<string, any>;
+  field: string;
 }>();
 
 const emit = defineEmits(["update:searchItem"]);
+
+const selected = computed({
+  get() {
+    return props.searchItem[props.field];
+  },
+  set(value) {
+    emit("update:searchItem", props.field, value);
+  },
+});
+
+watch(selected, (newSelected) => {
+  changeNestData(newSelected);
+  removeNestSelectValue();
+});
+
+function removeNestSelectValue() {
+  if (props.nestedSelect) {
+    emit("update:searchItem", props.nestedSelect.field, "");
+  }
+}
+
+function changeNestData(newSelected: any) {
+  const selectedObject = props.data?.find(
+    (e) => e[props.value] === newSelected
+  );
+  if (props.nestedSelect && selectedObject !== undefined) {
+    nestData.value = selectedObject[props.nestedSelect.data];
+  } else {
+    nestData.value = [];
+  }
+}
+
+if (typeof props.initialValue == "string") {
+  selected.value = props.initialValue ?? "";
+} else if (!selected.value) {
+  selected.value = "";
+}
 </script>

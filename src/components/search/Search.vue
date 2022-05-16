@@ -1,14 +1,14 @@
 <template>
   <form>
     <template v-for="con in conditions" :key="con.field">
-      <component
-        class="condition"
-        :style="{ width: con.width }"
-        :is="conKinds[con.kind]"
-        v-bind="con"
-        :search-item="searchItem"
-        @update:search-item="(f:string,v:any) => emit('update:searchItem',f, v)"
-      ></component>
+      <div class="condition" :style="{ width: con.width }">
+        <component
+          :is="conKinds[con.kind]"
+          v-bind="con"
+          :search-item="searchItem"
+          @update:search-item="(f:string,v:any) => emit('update:searchItem',f, v)"
+        ></component>
+      </div>
     </template>
   </form>
 </template>
