@@ -6,7 +6,7 @@ const searchSetting: SearchSetting = {
     {
       kind: "select",
       label: "학년선택",
-      placeholder: "이름",
+      placeholder: "학년",
       field: "fld_grade",
       description: "name",
       value: "grade",

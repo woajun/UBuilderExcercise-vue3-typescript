@@ -33,7 +33,6 @@ const nestData = ref([]);
 const props = defineProps<{
   kind?: "select";
   label?: string;
-
   placeholder?: string;
   initialValue?: string;
   data?: Data;
@@ -56,26 +55,26 @@ const selected = computed({
 });
 
 watch(selected, (newSelected) => {
-  changeNestData(newSelected);
+  changeNestOptions(newSelected);
   removeNestSelectValue();
+
+  function changeNestOptions(newSelected: any) {
+    const selectedObject = props.data?.find(
+      (e) => e[props.value] === newSelected
+    );
+    if (props.nestedSelect && selectedObject) {
+      nestData.value = selectedObject[props.nestedSelect.data];
+    } else {
+      nestData.value = [];
+    }
+  }
+
+  function removeNestSelectValue() {
+    if (props.nestedSelect) {
+      emit("update:searchItem", props.nestedSelect.field, "");
+    }
+  }
 });
-
-function removeNestSelectValue() {
-  if (props.nestedSelect) {
-    emit("update:searchItem", props.nestedSelect.field, "");
-  }
-}
-
-function changeNestData(newSelected: any) {
-  const selectedObject = props.data?.find(
-    (e) => e[props.value] === newSelected
-  );
-  if (props.nestedSelect && selectedObject !== undefined) {
-    nestData.value = selectedObject[props.nestedSelect.data];
-  } else {
-    nestData.value = [];
-  }
-}
 
 if (typeof props.initialValue == "string") {
   selected.value = props.initialValue ?? "";
