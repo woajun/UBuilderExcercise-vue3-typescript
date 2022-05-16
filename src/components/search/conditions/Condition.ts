@@ -56,12 +56,6 @@ export interface NestedSelect {
 
 export type Data = Array<Record<string, any>>;
 
-export interface Option {
-  description: string;
-  value: string;
-  children?: Array<Option>;
-}
-
 interface Radio extends ICondition {
   kind: "radio";
   description: string;
