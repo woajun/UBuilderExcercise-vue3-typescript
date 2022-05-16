@@ -45,18 +45,18 @@ const props = defineProps<{
 const emit = defineEmits(["update:searchItem"]);
 const showModal = ref(false);
 const selected: Record<string, string> = reactive({});
-const field = props.valueField ?? props.field;
+const valueField = props.valueField ?? props.field;
 const value: WritableComputedRef<string | undefined> = computed({
   get() {
-    return props.searchItem[field];
+    return props.searchItem[props.field];
   },
   set(value) {
     assignSelected(search(value));
-    emit("update:searchItem", field, value);
+    emit("update:searchItem", props.field, value);
 
     function search(value: string | undefined) {
       if (value) {
-        return props.data?.find((e) => e[field] === value);
+        return props.data?.find((e) => e[valueField] === value);
       }
       return undefined;
     }
@@ -76,7 +76,7 @@ const value: WritableComputedRef<string | undefined> = computed({
 
 function modalSelected(aSelected: Record<string, string>) {
   for (const key in aSelected) {
-    if (field == key) {
+    if (valueField == key) {
       value.value = aSelected[key];
     }
   }

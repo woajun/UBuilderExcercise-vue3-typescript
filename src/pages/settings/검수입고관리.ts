@@ -4,23 +4,22 @@ const searchSetting: SearchSetting = {
   searchUrl: "/api/sample",
   conditions: [
     {
-      kind: "date",
+      kind: "period",
       field: "strDate",
       label: "기간",
-      default: new Date(2017, 2, 1),
+      initialValue: "2017-03-01",
+      endField: "endDate",
+      endInitialValue: "2017-03-31",
+      width: "500px",
     },
     {
-      kind: "date",
-      field: "endDate",
-      default: new Date(2017, 3, 30),
-    },
-    {
+      width: "500px",
       label: "검수부서",
       kind: "popup",
       field: "inspectDep",
-      fieldLinked: "code",
-      default: "000001",
-      results: [{ field: "name" }],
+      valueField: "code",
+      initialValue: "000001",
+      displayFields: ["name"],
       modal: {
         conditions: [
           {
@@ -29,18 +28,16 @@ const searchSetting: SearchSetting = {
             label: "코드",
           },
         ],
-        tableSetting: {
-          headers: [
-            {
-              label: "코드",
-              field: "code",
-            },
-            {
-              label: "부서명",
-              field: "name",
-            },
-          ],
-        },
+        headers: [
+          {
+            label: "코드",
+            field: "code",
+          },
+          {
+            label: "부서명",
+            field: "name",
+          },
+        ],
       },
       data: [
         {
@@ -62,11 +59,11 @@ const searchSetting: SearchSetting = {
       ],
     },
     {
+      width: "500px",
       label: "검수입고번호",
       kind: "popup",
       field: "inspectNum",
-      fieldLinked: "code",
-      default: "",
+      valueField: "code",
       modal: {
         conditions: [
           {
@@ -75,18 +72,16 @@ const searchSetting: SearchSetting = {
             label: "번호",
           },
         ],
-        tableSetting: {
-          headers: [
-            {
-              label: "번호",
-              field: "code",
-            },
-            {
-              label: "이름",
-              field: "name",
-            },
-          ],
-        },
+        headers: [
+          {
+            label: "번호",
+            field: "code",
+          },
+          {
+            label: "이름",
+            field: "name",
+          },
+        ],
       },
       data: [
         {
@@ -109,12 +104,12 @@ const searchSetting: SearchSetting = {
     },
 
     {
+      width: "500px",
       label: "검수자",
       kind: "popup",
       field: "inspector",
-      fieldLinked: "code",
-      default: "",
-      results: [{ field: "name" }],
+      valueField: "code",
+      displayFields: ["name"],
       modal: {
         conditions: [
           {
@@ -128,18 +123,16 @@ const searchSetting: SearchSetting = {
             label: "이름",
           },
         ],
-        tableSetting: {
-          headers: [
-            {
-              label: "사번",
-              field: "code",
-            },
-            {
-              label: "이름",
-              field: "name",
-            },
-          ],
-        },
+        headers: [
+          {
+            label: "사번",
+            field: "code",
+          },
+          {
+            label: "이름",
+            field: "name",
+          },
+        ],
       },
       data: [
         {
@@ -161,11 +154,13 @@ const searchSetting: SearchSetting = {
       ],
     },
     {
+      width: "500px",
       kind: "text",
       field: "client",
       label: "거래처명",
     },
     {
+      width: "500px",
       kind: "text",
       field: "note",
       label: "비고",

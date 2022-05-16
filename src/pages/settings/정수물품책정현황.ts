@@ -4,12 +4,13 @@ const searchSetting: SearchSetting = {
   searchUrl: "/api/sample",
   conditions: [
     {
+      width: "500px",
       label: "검수부서",
       kind: "popup",
       field: "inspectDep",
-      fieldLinked: "code",
-      default: "000001",
-      results: [{ field: "name" }],
+      valueField: "code",
+      initialValue: "000001",
+      displayFields: ["name"],
       modal: {
         conditions: [
           {
@@ -18,18 +19,16 @@ const searchSetting: SearchSetting = {
             label: "코드",
           },
         ],
-        tableSetting: {
-          headers: [
-            {
-              label: "코드",
-              field: "code",
-            },
-            {
-              label: "부서명",
-              field: "name",
-            },
-          ],
-        },
+        headers: [
+          {
+            label: "코드",
+            field: "code",
+          },
+          {
+            label: "부서명",
+            field: "name",
+          },
+        ],
       },
       data: [
         {
@@ -51,21 +50,24 @@ const searchSetting: SearchSetting = {
       ],
     },
     {
+      width: "500px",
       kind: "radio",
       field: "useFor",
       label: "사용구분",
-      default: "all",
-      options: [
+      initialValue: "all",
+      description: "description",
+      value: "value",
+      data: [
         { description: "전체", value: "all" },
         { description: "사업용", value: "business" },
         { description: "사무용", value: "office" },
       ],
     },
     {
+      width: "500px",
       label: "정수코드",
       kind: "popup",
       field: "code",
-      default: "",
       modal: {
         conditions: [
           {
@@ -74,18 +76,16 @@ const searchSetting: SearchSetting = {
             label: "정수코드",
           },
         ],
-        tableSetting: {
-          headers: [
-            {
-              label: "정수코드",
-              field: "code",
-            },
-            {
-              label: "품명",
-              field: "name",
-            },
-          ],
-        },
+        headers: [
+          {
+            label: "정수코드",
+            field: "code",
+          },
+          {
+            label: "품명",
+            field: "name",
+          },
+        ],
       },
       data: [
         {
@@ -107,17 +107,21 @@ const searchSetting: SearchSetting = {
       ],
     },
     {
+      width: "500px",
       kind: "date",
       field: "standDate",
       label: "기준일자",
-      default: new Date(2017, 2, 31),
+      initialValue: "2017-03-31",
     },
     {
+      width: "500px",
       kind: "radio",
       field: "findFor",
       label: "조회구분",
-      default: "amount",
-      options: [
+      initialValue: "amount",
+      description: "description",
+      value: "value",
+      data: [
         { description: "정수별", value: "amount" },
         { description: "물품별", value: "product" },
       ],
