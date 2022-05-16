@@ -61,7 +61,9 @@ export interface Option {
 
 interface Radio extends ICondition {
   kind: "radio";
-  options: Array<Option>;
+  description: string;
+  value: string;
+  data: Data;
 }
 
 type Condition = CDate | CPeriod | Popup | Text | Select | Radio;

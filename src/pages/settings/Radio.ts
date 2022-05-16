@@ -4,12 +4,15 @@ const searchSetting: SearchSetting = {
   searchUrl: "/api/sample",
   conditions: [
     {
+      width: "300px",
       kind: "radio",
       field: "type",
       label: "타입",
       placeholder: "전체",
-      initialValue: "B",
-      options: [
+      initialValue: "A",
+      description: "description",
+      value: "value",
+      data: [
         {
           description: "A",
           value: "A",
@@ -29,7 +32,9 @@ const searchSetting: SearchSetting = {
       field: "type2",
       label: "타입2",
       placeholder: "전체",
-      options: [
+      description: "description",
+      value: "value",
+      data: [
         {
           description: "A",
           value: "A",
