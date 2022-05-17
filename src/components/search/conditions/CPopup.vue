@@ -76,7 +76,7 @@ const value: WritableComputedRef<string | undefined> = computed({
 
 function modalSelected(aSelected: Record<string, string>) {
   for (const key in aSelected) {
-    if (valueField == key) {
+    if (valueField === key) {
       value.value = aSelected[key];
     }
   }

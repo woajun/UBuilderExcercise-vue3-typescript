@@ -3,7 +3,14 @@ import { Header } from "@/components/list/tableSetting"; // for PopupModal
 export type Data = Array<Record<string, any>>;
 
 interface ICondition {
-  kind: "popup" | "radio" | "text" | "select" | "date" | "period";
+  kind:
+    | "popup"
+    | "radio"
+    | "text"
+    | "select"
+    | "date"
+    | "period"
+    | "singleSelect";
   label?: string;
   field: string;
   initialValue?: string;
@@ -40,6 +47,13 @@ export interface PopupModal {
   headers: Array<Header>;
 }
 
+interface SingleSelect extends ICondition {
+  kind: "singleSelect";
+  descriptionKey: string;
+  valueKey: string;
+  data: Data;
+}
+
 interface Select extends ICondition {
   kind: "select";
   description: string;
@@ -64,6 +78,6 @@ interface Radio extends ICondition {
   data: Data;
 }
 
-type Condition = CDate | CPeriod | Popup | Text | Select | Radio;
+type Condition = CDate | CPeriod | Popup | Text | Select | Radio | SingleSelect;
 
 export default Condition;

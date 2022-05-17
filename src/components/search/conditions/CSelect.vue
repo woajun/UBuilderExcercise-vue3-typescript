@@ -76,7 +76,7 @@ watch(selected, (newSelected) => {
   }
 });
 
-if (typeof props.initialValue == "string") {
+if (typeof props.initialValue === "string") {
   selected.value = props.initialValue ?? "";
 } else if (!selected.value) {
   selected.value = "";

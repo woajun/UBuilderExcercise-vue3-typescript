@@ -16,6 +16,7 @@ import All from "./settings/All";
 import 검수입고관리 from "./settings/검수입고관리";
 import 정수물품책정현황 from "./settings/정수물품책정현황";
 import 셀렉트 from "./settings/Select";
+import 싱글셀렉트 from "./settings/SingleSelect";
 import 라디오 from "./settings/Radio";
 import 팝업 from "./settings/Popup";
 import 날짜 from "./settings/Date";
@@ -31,6 +32,7 @@ const views = {
   정수물품책정현황: 정수물품책정현황,
   날짜: 날짜,
   라디오: 라디오,
+  싱글셀렉트: 싱글셀렉트,
   셀렉트: 셀렉트,
   팝업: 팝업,
 };

@@ -10,12 +10,14 @@ const searchSetting: SearchSetting = {
       field: "fld_grade",
       description: "name",
       value: "grade",
+
       nestedSelect: {
         data: "classes",
         placeholder: "반",
         field: "fld_class",
         description: "name",
         value: "class",
+
         nestedSelect: {
           data: "students",
           placeholder: "이름",

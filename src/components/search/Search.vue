@@ -17,6 +17,7 @@ import { defineProps, defineEmits } from "vue";
 import Condition from "./conditions/Condition";
 import CPopup from "./conditions/CPopup.vue";
 import CSelect from "./conditions/CSelect.vue";
+import CSingleSelect from "./conditions/CSingleSelect.vue";
 import CRadio from "./conditions/CRadio.vue";
 import CText from "./conditions/CText.vue";
 import CDate from "./conditions/CDate.vue";
@@ -35,6 +36,7 @@ const conKinds = {
   text: CText,
   date: CDate,
   period: CPeriod,
+  singleSelect: CSingleSelect,
 };
 </script>
 <style>
