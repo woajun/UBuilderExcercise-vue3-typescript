@@ -1,35 +1,27 @@
 <template>
   <div>
     {{ selectValue }}
-    <c-single-select v-model="selectValue" v-bind="singleSelectSetting" />
+    <c-single-select
+      v-model="selectValue"
+      label="학년선택"
+      kind="singleSelect"
+      descriptionKey="name"
+      valueKey="id"
+      :data="data"
+    />
+    <button @click="dataChange">data change</button>
+    {{ data }}
   </div>
 </template>
 
 <script setup lang="ts">
 import CSingleSelect from "@/components/search/conditions/CSingleSelect.vue";
-import Condition from "@/components/search/conditions/Condition";
 import { ref } from "vue";
 
 const selectValue = ref(1);
-
-const singleSelectSetting: Condition = {
-  kind: "singleSelect",
-  descriptionKey: "name",
-  field: "slt",
-  valueKey: "grade",
-  data: [
-    {
-      name: "1학년",
-      grade: 1,
-    },
-    {
-      name: "2학년",
-      grade: 2,
-    },
-    {
-      name: "3학년",
-      grade: 3,
-    },
-  ],
-};
+const data = ref();
+data.value = "https://jsonplaceholder.typicode.com/users";
+function dataChange() {
+  data.value = "https://jsonplaceholder.typicode.com/comments";
+}
 </script>

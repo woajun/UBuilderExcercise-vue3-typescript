@@ -1,6 +1,6 @@
 import { Header } from "@/components/list/tableSetting"; // for PopupModal
 
-export type Data = Array<Record<string, any>>;
+export type Data = Array<Record<string, any>> | string;
 
 interface ICondition {
   kind:
@@ -12,7 +12,6 @@ interface ICondition {
     | "period"
     | "singleSelect";
   label?: string;
-  field: string;
   initialValue?: string;
   placeholder?: string;
   width?: string;
