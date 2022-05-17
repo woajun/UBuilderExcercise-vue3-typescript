@@ -11,18 +11,16 @@
         </option>
       </template>
     </select>
-    {{ networkStatus }}
   </label>
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmits, computed, watch, ref, onMounted } from "vue";
-import { Data } from "./Condition";
+import { defineProps, defineEmits, computed, ref, watchEffect } from "vue";
 
 const props = defineProps<{
   label?: string;
   placeholder?: string;
-  data?: Data;
+  data: Array<Record<string, any>> | Promise<any>;
   valueKey: string;
   descriptionKey: string;
   modelValue: string | number;
@@ -36,26 +34,20 @@ const selected = computed({
     emit("update:modelValue", value);
   },
 });
-const dataURL = ref("");
 const options = ref();
-const networkStatus = ref("");
 
-watch(dataURL, async (url) => {
-  networkStatus.value = "Loading...";
+async function fetchData() {
   try {
-    const res = await fetch(url);
-    options.value = await res.json();
-    networkStatus.value = "";
+    const response = await fetch(props.data);
+    const json = await response.json();
+    return json;
   } catch (error) {
-    networkStatus.value = "Error! Could not reach the API. " + error;
+    console.log("It's not API");
+    return props.data;
   }
-});
+}
 
-onMounted(() => {
-  if (typeof props.data === "string") {
-    dataURL.value = props.data;
-  } else {
-    options.value = props.data;
-  }
+watchEffect(async () => {
+  options.value = await fetchData();
 });
 </script>
