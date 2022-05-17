@@ -1,5 +1,7 @@
 import { Header } from "@/components/list/tableSetting"; // for PopupModal
 
+export type Data = Array<Record<string, any>>;
+
 interface ICondition {
   kind: "popup" | "radio" | "text" | "select" | "date" | "period";
   label?: string;
@@ -22,6 +24,7 @@ interface CPeriod extends ICondition {
 
 interface Text extends ICondition {
   kind: "text";
+  // regex?: "phone" | "name" | "number";
 }
 
 interface Popup extends ICondition {
@@ -53,8 +56,6 @@ export interface NestedSelect {
   value: string;
   nestedSelect?: NestedSelect;
 }
-
-export type Data = Array<Record<string, any>>;
 
 interface Radio extends ICondition {
   kind: "radio";
