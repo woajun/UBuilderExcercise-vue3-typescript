@@ -11,16 +11,18 @@
         </option>
       </template>
     </select>
+    <span v-show="loading">Loading...</span>
   </label>
 </template>
 
 <script setup lang="ts">
+import { isArray } from "@vue/shared";
 import { defineProps, defineEmits, computed, ref, watchEffect } from "vue";
-
+import { Data } from "./Condition";
 const props = defineProps<{
   label?: string;
   placeholder?: string;
-  data: Array<Record<string, any>> | Promise<any>;
+  data: Promise<Data> | Data;
   valueKey: string;
   descriptionKey: string;
   modelValue: string | number;
@@ -35,19 +37,25 @@ const selected = computed({
   },
 });
 const options = ref();
-
-async function fetchData() {
-  try {
-    const response = await fetch(props.data);
-    const json = await response.json();
-    return json;
-  } catch (error) {
-    console.log("It's not API");
-    return props.data;
-  }
-}
+const loading = ref(false);
 
 watchEffect(async () => {
-  options.value = await fetchData();
+  loading.value = true;
+  const response = await props.data;
+  updateOptions(response);
+  loading.value = false;
+
+  function updateOptions(newOptions: Data) {
+    if (isArray(newOptions)) {
+      emit("update:modelValue", newOptions[0][props.valueKey]);
+      options.value = newOptions;
+    } else {
+      emit("update:modelValue", "");
+      options.value = [
+        { [props.valueKey]: "", [props.descriptionKey]: "유효하지 않음" },
+      ];
+      console.log("array가 아닙니다.");
+    }
+  }
 });
 </script>

@@ -9,39 +9,35 @@
       valueKey="id"
       :data="data"
     />
-    <button @click="dataChange">URL</button>
-    <button @click="dataChangeArray">Array</button>
-    {{ data }}
   </div>
+  <button @click="dataChange">URL</button>
+  <button @click="dataChange2">unvalid array</button>
+  {{ data }}
 </template>
 
 <script setup lang="ts">
 import CSingleSelect from "@/components/search/conditions/CSingleSelect.vue";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 
 const selectValue = ref(1);
+
 const data = ref();
 
-data.value = "https://jsonplaceholder.typicode.com/users";
-
 function dataChange() {
-  data.value = "https://jsonplaceholder.typicode.com/comments";
+  data.value = fetch("https://jsonplaceholder.typicode.com/users").then(
+    (res) => {
+      return res.json();
+    }
+  );
+  console.log(data.value);
 }
 
-function dataChangeArray() {
-  data.value = [
-    {
-      name: "10201-가나가",
-      id: 1,
-    },
-    {
-      name: "10202-가나나",
-      id: 2,
-    },
-    {
-      name: "10203-가나다",
-      id: 3,
-    },
-  ];
+function dataChange2() {
+  data.value = fetch("https://jsonplaceholder.typicode.com/user").then(
+    (res) => {
+      return res.json();
+    }
+  );
+  console.log(data.value);
 }
 </script>

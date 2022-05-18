@@ -1,6 +1,6 @@
 import { Header } from "@/components/list/tableSetting"; // for PopupModal
 
-export type Data = Array<Record<string, any>> | string;
+export type Data = Array<Record<string, any>>;
 
 interface ICondition {
   kind:
