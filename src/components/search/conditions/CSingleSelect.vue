@@ -26,7 +26,7 @@ const props = defineProps<{
   data: Promise<Data> | Data;
   valueKey: string;
   descriptionKey: string;
-  modelValue: string | number;
+  modelValue: unknown;
 }>();
 const emit = defineEmits(["update:modelValue"]);
 const selected = computed({
@@ -51,7 +51,6 @@ async function updateData(newData: Promise<Data> | Data) {
   } catch (error) {
     console.log(error);
     updateOptions([]);
-    setSelected("");
     isError.value = true;
   } finally {
     loading.value = false;
@@ -67,7 +66,7 @@ function setOptions(newOptions: Data) {
   options.value = newOptions;
 }
 
-function setSelected(newValue: string | unknown) {
+function setSelected(newValue: unknown) {
   emit("update:modelValue", newValue);
 }
 

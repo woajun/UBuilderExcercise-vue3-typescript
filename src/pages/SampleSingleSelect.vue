@@ -1,6 +1,10 @@
 <template>
   <div>
-    {{ selectValue }}
+    <span> 선택값 : </span>
+    <span v-show="selectValue">{{ typeof selectValue }} </span>
+    <span v-if="selectValue">{{ selectValue.id }} </span>
+    <span v-if="selectValue">{{ selectValue.name }} </span>
+    <br />
     <c-single-select
       v-model="selectValue"
       label="학년선택"
@@ -8,6 +12,7 @@
       descriptionKey="name"
       valueKey="id"
       :data="data"
+      placeholder="선택하세요"
     />
   </div>
   <button @click="btnURL1">URL1</button>
@@ -23,7 +28,7 @@ import { Ref, ref } from "vue";
 
 type Data = Array<Record<string, any>>;
 
-const selectValue = ref("1");
+const selectValue = ref();
 
 const data: Ref<Promise<Data> | Data> = ref(
   fetchJson("https://jsonplaceholder.typicode.com/users")
@@ -52,10 +57,13 @@ function btnUnvalidArray() {
 function btnStaticArray() {
   data.value = [
     { id: 1, name: 1 },
-    { id: 2, name: 2 },
-    { id: 3, name: 3 },
-    { id: 4, name: 4 },
-    { id: 5, name: 5 },
+    { id: "이", name: 2 },
+    { id: 3, name: "숫자3" },
+    { id: "사", name: 4 },
+    { id: { id: "가", name: "A" }, name: "A" },
+    { id: { id: "나", name: "B" }, name: "B" },
+    { id: [], name: 6 },
+    { id: new Date(), name: 7 },
   ];
 }
 </script>
