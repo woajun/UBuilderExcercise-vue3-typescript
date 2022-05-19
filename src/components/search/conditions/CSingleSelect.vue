@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 import { isArray } from "@vue/shared";
-import { defineProps, defineEmits, computed, ref, watchEffect } from "vue";
+import { defineProps, defineEmits, computed, ref, watch } from "vue";
 import { Data } from "./Condition";
 const props = defineProps<{
   label?: string;
@@ -41,11 +41,13 @@ const options = ref();
 const loading = ref(false);
 const isError = ref(false);
 
-watchEffect(async () => {
+watch(() => props.data, updateData);
+
+async function updateData(newData: Promise<Data> | Data) {
   try {
     loading.value = true;
     isError.value = false;
-    updateOptions(await props.data);
+    updateOptions(await newData);
   } catch (error) {
     console.log(error);
     updateOptions([]);
@@ -54,7 +56,7 @@ watchEffect(async () => {
   } finally {
     loading.value = false;
   }
-});
+}
 
 function updateOptions(newOptions: Data) {
   if (!isArray(newOptions)) throw new Error("Is not Array : " + newOptions);
@@ -68,4 +70,6 @@ function setOptions(newOptions: Data) {
 function setSelected(newValue: string | unknown) {
   emit("update:modelValue", newValue);
 }
+
+updateData(props.data);
 </script>
