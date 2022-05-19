@@ -5,6 +5,7 @@
       <option v-if="placeholder" disabled value="">
         {{ placeholder }}
       </option>
+      <option v-if="isError" disabled value="">에러 발생</option>
       <template v-for="option in options" :key="option[valueKey]">
         <option :value="option[valueKey]">
           {{ option[descriptionKey] }}
@@ -38,30 +39,27 @@ const selected = computed({
 });
 const options = ref();
 const loading = ref(false);
+const isError = ref(false);
 
 watchEffect(async () => {
   try {
     loading.value = true;
+    isError.value = false;
     updateOptions(await props.data);
   } catch (error) {
     console.log(error);
-    const unvalidOptions = [
-      {
-        [props.valueKey]: "",
-        [props.descriptionKey]: "유효하지 않음",
-      },
-    ];
-    updateOptions(unvalidOptions);
+    updateOptions([]);
+    setSelected("");
+    isError.value = true;
   } finally {
     loading.value = false;
   }
-
-  function updateOptions(newOptions: Data) {
-    if (!isArray(newOptions)) throw new Error("Is not Array : " + newOptions);
-    setOptions(newOptions);
-    setSelected(newOptions[0][props.valueKey]);
-  }
 });
+
+function updateOptions(newOptions: Data) {
+  if (!isArray(newOptions)) throw new Error("Is not Array : " + newOptions);
+  setOptions(newOptions);
+}
 
 function setOptions(newOptions: Data) {
   options.value = newOptions;

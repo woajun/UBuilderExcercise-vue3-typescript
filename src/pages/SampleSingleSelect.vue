@@ -14,6 +14,7 @@
   <button @click="btnURL2">URL2</button>
   <button @click="btnURL3">URL3</button>
   <button @click="btnUnvalidArray">unvalid array</button>
+  <button @click="btnStaticArray">static array</button>
 </template>
 
 <script setup lang="ts">
@@ -22,9 +23,9 @@ import { Ref, ref } from "vue";
 
 type Data = Array<Record<string, any>>;
 
-const selectValue = ref(1);
+const selectValue = ref("1");
 
-const data: Ref<Promise<Data>> = ref(
+const data: Ref<Promise<Data> | Data> = ref(
   fetchJson("https://jsonplaceholder.typicode.com/users")
 );
 
@@ -46,5 +47,15 @@ function btnURL3() {
 
 function btnUnvalidArray() {
   data.value = fetchJson("https://aaaaaaaa.bbbbbbbbbbb");
+}
+
+function btnStaticArray() {
+  data.value = [
+    { id: 1, name: 1 },
+    { id: 2, name: 2 },
+    { id: 3, name: 3 },
+    { id: 4, name: 4 },
+    { id: 5, name: 5 },
+  ];
 }
 </script>
