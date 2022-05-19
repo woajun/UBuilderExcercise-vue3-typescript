@@ -10,14 +10,15 @@
       :data="data"
     />
   </div>
-  <button @click="dataChange">URL</button>
-  <button @click="dataChange2">unvalid array</button>
-  {{ data }}
+  <button @click="dataChange">URL1</button>
+  <button @click="dataChange2">URL2</button>
+  <button @click="dataChange3">unvalid array</button>
+  <button @click="dataChange4">empty array</button>
 </template>
 
 <script setup lang="ts">
 import CSingleSelect from "@/components/search/conditions/CSingleSelect.vue";
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 
 const selectValue = ref(1);
 
@@ -29,15 +30,24 @@ function dataChange() {
       return res.json();
     }
   );
-  console.log(data.value);
 }
 
 function dataChange2() {
+  data.value = fetch("https://jsonplaceholder.typicode.com/comments").then(
+    (res) => {
+      return res.json();
+    }
+  );
+}
+
+function dataChange3() {
   data.value = fetch("https://jsonplaceholder.typicode.com/user").then(
     (res) => {
       return res.json();
     }
   );
-  console.log(data.value);
+}
+function dataChange4() {
+  data.value = [];
 }
 </script>

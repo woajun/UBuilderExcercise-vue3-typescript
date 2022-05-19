@@ -33,7 +33,7 @@ const selected = computed({
     return props.modelValue;
   },
   set(value) {
-    emit("update:modelValue", value);
+    setSelected(value);
   },
 });
 const options = ref();
@@ -41,21 +41,29 @@ const loading = ref(false);
 
 watchEffect(async () => {
   loading.value = true;
-  const response = await props.data;
-  updateOptions(response);
+  try {
+    updateOptions(await props.data);
+  } catch (error) {
+    console.log(error);
+    const invalidOptions = [
+      { [props.valueKey]: "", [props.descriptionKey]: "유효하지 않음" },
+    ];
+    updateOptions(invalidOptions);
+  }
   loading.value = false;
 
   function updateOptions(newOptions: Data) {
-    if (isArray(newOptions)) {
-      emit("update:modelValue", newOptions[0][props.valueKey]);
-      options.value = newOptions;
-    } else {
-      emit("update:modelValue", "");
-      options.value = [
-        { [props.valueKey]: "", [props.descriptionKey]: "유효하지 않음" },
-      ];
-      console.log("array가 아닙니다.");
-    }
+    if (!isArray(newOptions)) throw new Error("Is not Array");
+    setOptions(newOptions);
+    setSelected(newOptions[0][props.valueKey]);
   }
 });
+
+function setOptions(newOptions: Data) {
+  options.value = newOptions;
+}
+
+function setSelected(newValue: string | unknown) {
+  emit("update:modelValue", newValue);
+}
 </script>
