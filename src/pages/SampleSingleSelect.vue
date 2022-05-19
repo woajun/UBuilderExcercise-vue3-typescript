@@ -24,29 +24,24 @@ const selectValue = ref(1);
 
 const data = ref();
 
+function fetchURL(url: string) {
+  data.value = fetch(url).then((res) => {
+    return res.json();
+  });
+}
+
 function dataChange() {
-  data.value = fetch("https://jsonplaceholder.typicode.com/users").then(
-    (res) => {
-      return res.json();
-    }
-  );
+  return fetchURL("https://jsonplaceholder.typicode.com/users");
 }
 
 function dataChange2() {
-  data.value = fetch("https://jsonplaceholder.typicode.com/comments").then(
-    (res) => {
-      return res.json();
-    }
-  );
+  return fetchURL("https://jsonplaceholder.typicode.com/comments");
 }
 
 function dataChange3() {
-  data.value = fetch("https://jsonplaceholder.typicode.com/user").then(
-    (res) => {
-      return res.json();
-    }
-  );
+  return fetchURL("https://aaaaaaaa.bbbbbbbbbbb");
 }
+
 function dataChange4() {
   data.value = [];
 }
