@@ -10,39 +10,41 @@
       :data="data"
     />
   </div>
-  <button @click="dataChange">URL1</button>
-  <button @click="dataChange2">URL2</button>
-  <button @click="dataChange3">unvalid array</button>
-  <button @click="dataChange4">empty array</button>
+  <button @click="btnURL1">URL1</button>
+  <button @click="btnURL2">URL2</button>
+  <button @click="btnURL3">URL3</button>
+  <button @click="btnUnvalidArray">unvalid array</button>
 </template>
 
 <script setup lang="ts">
 import CSingleSelect from "@/components/search/conditions/CSingleSelect.vue";
-import { ref } from "vue";
+import { Ref, ref } from "vue";
+
+type Data = Array<Record<string, any>>;
 
 const selectValue = ref(1);
 
-const data = ref();
+const data: Ref<Promise<Data>> = ref(
+  fetchJson("https://jsonplaceholder.typicode.com/users")
+);
 
-function fetchURL(url: string) {
-  data.value = fetch(url).then((res) => {
-    return res.json();
-  });
+async function fetchJson(url: string): Promise<Data> {
+  const response = await fetch(url);
+  return await response.json();
 }
 
-function dataChange() {
-  return fetchURL("https://jsonplaceholder.typicode.com/users");
+function btnURL1() {
+  data.value = fetchJson("https://jsonplaceholder.typicode.com/users");
 }
 
-function dataChange2() {
-  return fetchURL("https://jsonplaceholder.typicode.com/comments");
+function btnURL2() {
+  data.value = fetchJson("https://jsonplaceholder.typicode.com/comments");
+}
+function btnURL3() {
+  data.value = fetchJson("https://jsonplaceholder.typicode.com/posts/1");
 }
 
-function dataChange3() {
-  return fetchURL("https://aaaaaaaa.bbbbbbbbbbb");
-}
-
-function dataChange4() {
-  data.value = [];
+function btnUnvalidArray() {
+  data.value = fetchJson("https://aaaaaaaa.bbbbbbbbbbb");
 }
 </script>

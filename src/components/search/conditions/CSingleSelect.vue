@@ -40,20 +40,24 @@ const options = ref();
 const loading = ref(false);
 
 watchEffect(async () => {
-  loading.value = true;
   try {
+    loading.value = true;
     updateOptions(await props.data);
   } catch (error) {
     console.log(error);
-    const invalidOptions = [
-      { [props.valueKey]: "", [props.descriptionKey]: "유효하지 않음" },
+    const unvalidOptions = [
+      {
+        [props.valueKey]: "",
+        [props.descriptionKey]: "유효하지 않음",
+      },
     ];
-    updateOptions(invalidOptions);
+    updateOptions(unvalidOptions);
+  } finally {
+    loading.value = false;
   }
-  loading.value = false;
 
   function updateOptions(newOptions: Data) {
-    if (!isArray(newOptions)) throw new Error("Is not Array");
+    if (!isArray(newOptions)) throw new Error("Is not Array : " + newOptions);
     setOptions(newOptions);
     setSelected(newOptions[0][props.valueKey]);
   }
