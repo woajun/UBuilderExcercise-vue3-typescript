@@ -1,6 +1,6 @@
 <template>
-  <label v-if="label"
-    >{{ label }} :
+  <label>
+    <template v-if="label"> {{ label }} : </template>
     <select v-model="selected">
       <option v-if="placeholder" disabled value="">
         {{ placeholder }}

@@ -48,9 +48,9 @@ export interface PopupModal {
 
 interface SingleSelect extends ICondition {
   kind: "singleSelect";
-  descriptionKey: string;
   valueKey: string;
-  data: Data;
+  descriptionKey: string;
+  data: Promise<Data> | Data;
 }
 
 interface Select extends ICondition {
