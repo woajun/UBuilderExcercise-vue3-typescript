@@ -1,12 +1,6 @@
-<template>
-  <div>
-    <c-multi-select :selects="selects" />
-  </div>
-</template>
-<script setup lang="ts">
-import CMultiSelect from "@/components/search/conditions/CMultiSelect.vue";
+type Data = Array<Record<string, any>>;
 
-const selects = [
+export const selects = [
   {
     valueKey: "value",
     descriptionKey: "value",
@@ -27,14 +21,15 @@ const selects = [
     data: loadSlt3Data,
   },
 ];
-function loadSlt1Data() {
+
+function loadSlt1Data(): Data {
   return [
     { description: "users", value: "users" },
     { description: "comments", value: "comments" },
   ];
 }
 
-function loadSlt2Data(selecteds: Record<string, any>) {
+function loadSlt2Data(selecteds: Record<string, any>): Promise<Data> {
   const slt1 = selecteds["slt1"];
   return searchFor(`https://jsonplaceholder.typicode.com/${slt1}`);
 
@@ -44,11 +39,10 @@ function loadSlt2Data(selecteds: Record<string, any>) {
   }
 }
 
-function loadSlt3Data(selecteds: Record<string, any>) {
+function loadSlt3Data(selecteds: Record<string, any>): Data {
   const slt1 = selecteds["slt1"];
   const slt2 = selecteds["slt2"];
   if (slt1 !== "users") return [];
   if (!slt2) return [];
   return [{ value: "male" }, { value: "female" }];
 }
-</script>

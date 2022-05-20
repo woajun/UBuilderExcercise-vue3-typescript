@@ -28,7 +28,7 @@ interface multiSelectItem extends singleSelect {
   data: (selecteds: Selected) => Data | Promise<Data>;
   field: string;
 }
-const props = defineProps<{
+defineProps<{
   selects: Array<multiSelectItem>;
 }>();
 const selected: Selected = reactive({});
