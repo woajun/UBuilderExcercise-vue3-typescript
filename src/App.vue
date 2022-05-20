@@ -5,5 +5,5 @@
 </template>
 
 <script lang="ts" setup>
-import sample from "@/pages/SampleMultiSelect.vue";
+import sample from "@/pages/SampleMultiSelect2.vue";
 </script>

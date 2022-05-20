@@ -22,6 +22,7 @@
     <hr />
     {{ slt1 }}
     {{ slt2 }}
+    {{ slt3 }}
   </div>
 </template>
 <script setup lang="ts">
