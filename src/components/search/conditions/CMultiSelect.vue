@@ -43,14 +43,6 @@ const isError = ref(false);
 
 watch(() => props.data, updateData);
 
-function setOptions(newOptions: Data) {
-  options.value = newOptions;
-}
-
-function setSelected(newValue: unknown) {
-  emit("update:modelValue", newValue);
-}
-
 async function updateData(newData: Promise<Data> | Data) {
   try {
     loading.value = true;
@@ -68,6 +60,14 @@ async function updateData(newData: Promise<Data> | Data) {
 function updateOptions(newOptions: Data) {
   if (!isArray(newOptions)) throw new Error("Is not Array : " + newOptions);
   setOptions(newOptions);
+}
+
+function setOptions(newOptions: Data) {
+  options.value = newOptions;
+}
+
+function setSelected(newValue: unknown) {
+  emit("update:modelValue", newValue);
 }
 
 updateData(props.data);
