@@ -5,7 +5,7 @@
       :placeholder="select.placeholder"
       :valueKey="select.valueKey"
       :descriptionKey="select.descriptionKey"
-      :data="select.data"
+      :data="select.data(selected)"
       v-model="selected[select.field]"
     />
   </template>
@@ -16,19 +16,20 @@ import CSingleSelect from "./CSingleSelect.vue";
 import { defineProps, reactive } from "vue";
 
 import { Data } from "./Condition";
+type Selected = Record<string, any>;
 
 interface singleSelect {
   label?: string;
   placeholder?: string;
-  data: Promise<Data> | Data;
   valueKey: string;
   descriptionKey: string;
 }
 interface multiSelectItem extends singleSelect {
+  data: (selecteds: Selected) => Data | Promise<Data>;
   field: string;
 }
 const props = defineProps<{
   selects: Array<multiSelectItem>;
 }>();
-const selected: Record<string, any> = reactive({});
+const selected: Selected = reactive({});
 </script>
