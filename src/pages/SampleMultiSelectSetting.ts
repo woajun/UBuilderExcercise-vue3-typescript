@@ -1,36 +1,37 @@
 type Data = Array<Record<string, any>>;
+type Selected = Record<string, any>;
 
 export const selects = [
   {
     valueKey: "value",
     descriptionKey: "value",
     field: "slt1",
-    data: loadSlt1Data,
+    data: data1,
     label: "선택",
   },
   {
     valueKey: "id",
     descriptionKey: "name",
     field: "slt2",
-    data: loadSlt2Data,
+    data: data2,
   },
   {
     valueKey: "value",
     descriptionKey: "value",
     field: "slt3",
-    data: loadSlt3Data,
+    data: data3,
   },
 ];
 
-function loadSlt1Data(): Data {
+function data1(): Data {
   return [
     { description: "users", value: "users" },
     { description: "comments", value: "comments" },
   ];
 }
 
-function loadSlt2Data(selecteds: Record<string, any>): Promise<Data> {
-  const slt1 = selecteds["slt1"];
+function data2(selected: Selected): Promise<Data> {
+  const slt1 = selected["slt1"];
   return searchFor(`https://jsonplaceholder.typicode.com/${slt1}`);
 
   async function searchFor(url: string) {
@@ -39,9 +40,10 @@ function loadSlt2Data(selecteds: Record<string, any>): Promise<Data> {
   }
 }
 
-function loadSlt3Data(selecteds: Record<string, any>): Data {
-  const slt1 = selecteds["slt1"];
-  const slt2 = selecteds["slt2"];
+function data3(selected: Selected): Data {
+  const slt1 = selected["slt1"];
+  const slt2 = selected["slt2"];
+
   if (slt1 !== "users") return [];
   if (!slt2) return [];
   return [{ value: "male" }, { value: "female" }];
