@@ -1,10 +1,7 @@
 <template>
   <div>
     {{ searchItem }}
-    <c-multi-select
-      :selects="selects"
-      @update:searchItem="(newSearchItem) => (searchItem = newSearchItem)"
-    />
+    <c-multi-select :selects="selects" v-model="searchItem" />
   </div>
 </template>
 <script setup lang="ts">

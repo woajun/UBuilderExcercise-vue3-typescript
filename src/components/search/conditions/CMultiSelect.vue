@@ -1,5 +1,4 @@
 <template>
-  {{ selected }}
   <hr />
   <template v-for="select in selects" :key="select.field">
     <c-single-select
@@ -7,7 +6,7 @@
       :placeholder="select.placeholder"
       :valueKey="select.valueKey"
       :descriptionKey="select.descriptionKey"
-      :data="select.data(selected)"
+      :data="select.data(modelValue)"
       v-model="selected[select.field]"
     />
   </template>
@@ -34,11 +33,12 @@ interface MultiSelectItem extends SingleSelect {
 
 defineProps<{
   selects: Array<MultiSelectItem>;
+  modelValue: Record<string, any>;
 }>();
 
-const emit = defineEmits(["update:searchItem"]);
+const emit = defineEmits(["update:modelValue"]);
 
 const selected: Selected = reactive({});
 
-watch(selected, (newSelected) => emit("update:searchItem", newSelected));
+watch(selected, (newSelected) => emit("update:modelValue", newSelected));
 </script>
