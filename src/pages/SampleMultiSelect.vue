@@ -9,9 +9,12 @@ import CMultiSelect from "@/components/search/conditions/CMultiSelect.vue";
 import { ref } from "vue";
 
 type Data = Array<Record<string, any>>;
-type Selected = Record<string, any>;
 
-const searchItem = ref({});
+const searchItem = ref({
+  slt1: null,
+  slt2: null,
+  slt3: null,
+});
 
 const selects = [
   {
@@ -42,8 +45,8 @@ function data1(): Data {
   ];
 }
 
-function data2(selected: Selected): Promise<Data> {
-  const slt1 = selected["slt1"];
+function data2(): Promise<Data> {
+  const slt1 = searchItem.value.slt1;
   return searchFor(`https://jsonplaceholder.typicode.com/${slt1}`);
 
   async function searchFor(url: string) {
@@ -52,9 +55,9 @@ function data2(selected: Selected): Promise<Data> {
   }
 }
 
-function data3(selected: Selected): Data {
-  const slt1 = selected["slt1"];
-  const slt2 = selected["slt2"];
+function data3(): Data {
+  const slt1 = searchItem.value.slt1;
+  const slt2 = searchItem.value.slt2;
 
   if (slt1 !== "users") return [];
   if (!slt2) return [];

@@ -6,7 +6,7 @@
       :placeholder="select.placeholder"
       :valueKey="select.valueKey"
       :descriptionKey="select.descriptionKey"
-      :data="select.data(modelValue)"
+      :data="select.data()"
       v-model="selected[select.field]"
     />
   </template>
@@ -27,7 +27,7 @@ interface SingleSelect {
 }
 
 interface MultiSelectItem extends SingleSelect {
-  data: (selecteds: Selected) => Data | Promise<Data>;
+  data: () => Data | Promise<Data>;
   field: string;
 }
 
