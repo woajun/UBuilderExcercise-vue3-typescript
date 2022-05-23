@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 import CSingleSelect from "./CSingleSelect.vue";
-import { defineProps, reactive } from "vue";
+import { defineProps, reactive, watch, defineEmits } from "vue";
 import { Data } from "./Condition";
 
 type Selected = Record<string, any>;
@@ -35,5 +35,10 @@ interface MultiSelectItem extends SingleSelect {
 defineProps<{
   selects: Array<MultiSelectItem>;
 }>();
+
+const emit = defineEmits(["update:searchItem"]);
+
 const selected: Selected = reactive({});
+
+watch(selected, (newSelected) => emit("update:searchItem", newSelected));
 </script>

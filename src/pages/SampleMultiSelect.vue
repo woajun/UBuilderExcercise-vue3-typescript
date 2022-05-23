@@ -1,13 +1,20 @@
 <template>
   <div>
-    <c-multi-select :selects="selects" />
+    {{ searchItem }}
+    <c-multi-select
+      :selects="selects"
+      @update:searchItem="(newSearchItem) => (searchItem = newSearchItem)"
+    />
   </div>
 </template>
 <script setup lang="ts">
 import CMultiSelect from "@/components/search/conditions/CMultiSelect.vue";
+import { ref } from "vue";
 
 type Data = Array<Record<string, any>>;
 type Selected = Record<string, any>;
+
+const searchItem = ref({});
 
 const selects = [
   {
