@@ -11,7 +11,7 @@ import { reactive, ref, watch } from "vue";
 type Data = Array<Record<string, any>>;
 
 const searchItem = ref({
-  slt1: "",
+  slt1: "users",
   slt2: "",
   slt3: "",
 });
