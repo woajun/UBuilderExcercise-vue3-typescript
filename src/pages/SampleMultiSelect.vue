@@ -6,22 +6,35 @@
 </template>
 <script setup lang="ts">
 import CMultiSelect from "@/components/search/conditions/CMultiSelect.vue";
-import { reactive, ref, watch } from "vue";
-
-type Data = Array<Record<string, any>>;
+import { computed, reactive, ref } from "vue";
 
 const searchItem = ref({
   slt1: "users",
   slt2: "",
   slt3: "",
 });
+const getSlt1 = () => searchItem.value.slt1;
+const getSlt2 = () => searchItem.value.slt2;
 
 const dataOne = [
   { description: "users", value: "users" },
   { description: "comments", value: "comments" },
+  { description: "error", value: "error" },
 ];
-const dataTwo = ref();
-const dataThree = ref();
+
+const dataTwo = computed(() => {
+  return searchFor(`https://jsonplaceholder.typicode.com/${getSlt1()}`);
+
+  async function searchFor(url: string) {
+    const resp = await fetch(url);
+    return await resp.json();
+  }
+});
+
+const dataThree = computed(() => {
+  if (getSlt1() !== "users" || !getSlt2()) return [];
+  return [{ value: "male" }, { value: "female" }];
+});
 
 const selects = reactive([
   {
@@ -44,29 +57,4 @@ const selects = reactive([
     data: dataThree,
   },
 ]);
-
-watch(
-  () => {
-    return { slt1: searchItem.value.slt1, slt2: searchItem.value.slt2 };
-  },
-  ({ slt1, slt2 }) => {
-    dataTwo.value = data2(slt1);
-    dataThree.value = data3(slt1, slt2);
-  }
-);
-
-function data2(slt1: string): Promise<Data> {
-  return searchFor(`https://jsonplaceholder.typicode.com/${slt1}`);
-
-  async function searchFor(url: string) {
-    const resp = await fetch(url);
-    return await resp.json();
-  }
-}
-
-function data3(slt1: string, slt2: string): Data {
-  if (slt1 !== "users") return [];
-  if (!slt2) return [];
-  return [{ value: "male" }, { value: "female" }];
-}
 </script>
