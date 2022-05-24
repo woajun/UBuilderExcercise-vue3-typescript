@@ -10,7 +10,7 @@ import { computed, reactive, ref } from "vue";
 
 const searchItem = ref({
   slt1: "users",
-  slt2: "",
+  slt2: undefined,
   slt3: "",
 });
 

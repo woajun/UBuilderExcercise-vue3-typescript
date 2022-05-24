@@ -2,9 +2,23 @@
   <label>
     <template v-if="label"> {{ label }} : </template>
     <select v-model="selected" :disabled="isError || disabled">
-      <option v-if="placeholder" disabled value="placeholder">
-        {{ placeholder }}
-      </option>
+      <template v-if="placeholder">
+        <template v-if="selected === null">
+          <option disabled :value="null">
+            {{ placeholder }}
+          </option>
+        </template>
+        <template v-else-if="selected === undefined">
+          <option disabled :value="undefined">
+            {{ placeholder }}
+          </option>
+        </template>
+        <template v-else-if="selected === ''">
+          <option disabled value="">
+            {{ placeholder }}
+          </option>
+        </template>
+      </template>
       <option v-if="isError" disabled value="error">
         데이터를 불러오지 못했습니다.
       </option>
