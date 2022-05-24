@@ -1,7 +1,7 @@
 <template>
   <label>
     <template v-if="label"> {{ label }} : </template>
-    <select v-model="selected" :disabled="disabled">
+    <select v-model="selected" :disabled="isError || disabled">
       <option v-if="placeholder" disabled value="placeholder">
         {{ placeholder }}
       </option>
@@ -29,8 +29,9 @@ const props = defineProps<{
   valueKey: string;
   descriptionKey: string;
   modelValue: unknown;
+  disabled?: boolean;
 }>();
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits(["update:modelValue", "update:disabled"]);
 const selected = computed({
   get() {
     return props.modelValue;
@@ -42,7 +43,6 @@ const selected = computed({
 const options = ref();
 const loading = ref(false);
 const isError = ref(false);
-const disabled = ref(false);
 
 watch(() => props.data, updateData);
 
@@ -57,14 +57,12 @@ function setSelected(newValue: unknown) {
 async function updateData(newData: Promise<Data> | Data) {
   try {
     loading.value = true;
-    disabled.value = false;
     isError.value = false;
     updateOptions(await newData);
   } catch (error) {
     console.log(error);
     setSelected("error");
     updateOptions([]);
-    disabled.value = true;
     isError.value = true;
   } finally {
     loading.value = false;
