@@ -1,11 +1,13 @@
 <template>
   <label>
     <template v-if="label"> {{ label }} : </template>
-    <select v-model="selected">
-      <option v-if="placeholder" disabled value="">
+    <select v-model="selected" :disabled="disabled">
+      <option v-if="placeholder" disabled value="placeholder">
         {{ placeholder }}
       </option>
-      <option v-if="isError" disabled value="">에러 발생</option>
+      <option v-if="isError" disabled value="error">
+        데이터를 불러오지 못했습니다.
+      </option>
       <template v-for="option in options" :key="option[valueKey]">
         <option :value="option[valueKey]">
           {{ option[descriptionKey] }}
@@ -40,6 +42,7 @@ const selected = computed({
 const options = ref();
 const loading = ref(false);
 const isError = ref(false);
+const disabled = ref(false);
 
 watch(() => props.data, updateData);
 
@@ -54,11 +57,14 @@ function setSelected(newValue: unknown) {
 async function updateData(newData: Promise<Data> | Data) {
   try {
     loading.value = true;
+    disabled.value = false;
     isError.value = false;
     updateOptions(await newData);
   } catch (error) {
     console.log(error);
+    setSelected("error");
     updateOptions([]);
+    disabled.value = true;
     isError.value = true;
   } finally {
     loading.value = false;
