@@ -5,16 +5,16 @@
       v-model="selected"
       :disabled="isError || disabled || isDependsOnNull"
     >
-      <template v-if="placeholder">
+      <option v-if="isError" disabled :value="undefined">
+        데이터를 불러오지 못했습니다.
+      </option>
+      <template v-else-if="placeholder">
         <template v-if="!selected">
           <option disabled :value="selected">
             {{ placeholder }}
           </option>
         </template>
       </template>
-      <option v-if="isError" disabled :value="undefined">
-        데이터를 불러오지 못했습니다.
-      </option>
       <template v-for="option in options" :key="option[valueKey]">
         <option :value="option[valueKey]">
           {{ option[descriptionKey] }}
@@ -54,7 +54,6 @@ const isError = ref(false);
 const isDependsOnNull = ref(false);
 
 watch(() => props.data, updateData);
-
 watch(() => props.dependsOn, dependOnEvent);
 
 function dependOnEvent(newValue: unknown) {
