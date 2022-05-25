@@ -33,12 +33,5 @@ const props = defineProps<{
 
 const emit = defineEmits(["update:modelValue"]);
 
-const selected = computed<Record<string, any>>({
-  get() {
-    return props.modelValue;
-  },
-  set(value) {
-    emit("update:modelValue", value);
-  },
-});
+const selected = computed<Record<string, any>>(() => props.modelValue);
 </script>
