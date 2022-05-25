@@ -7,8 +7,7 @@
       :valueKey="select.valueKey"
       :descriptionKey="select.descriptionKey"
       :data="select.data"
-      :modelValue="getSelected(select.field)"
-      @update:modelValue="(v) => setSelected(v, select.field)"
+      v-model="selected[select.field]"
     />
   </template>
 </template>
@@ -25,6 +24,7 @@ interface SelectItem {
   descriptionKey: string;
   data: Data | Promise<Data>;
   field: string;
+  dependField: string;
 }
 
 const props = defineProps<{
@@ -35,13 +35,4 @@ const props = defineProps<{
 const emit = defineEmits(["update:modelValue"]);
 
 const selected = computed<Record<string, any>>(() => props.modelValue);
-
-function getSelected(field: string) {
-  return selected.value[field];
-}
-
-function setSelected(value: any, field: string) {
-  console.log(field);
-  selected.value[field] = value;
-}
 </script>
