@@ -157,7 +157,7 @@ const selects = reactive([
     descriptionKey: "name",
     field: "fld_grade",
     data: dataOne,
-    label: "학생찾기",
+    label: "학생선택",
     placeholder: "학년",
   },
   {
@@ -169,7 +169,7 @@ const selects = reactive([
     dependsOn: "fld_grade",
   },
   {
-    valueKey: "students",
+    valueKey: "id",
     descriptionKey: "name",
     field: "fld_student",
     placeholder: "이름",

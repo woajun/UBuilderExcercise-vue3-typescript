@@ -96,5 +96,6 @@ async function updateData(newData: Promise<Data> | Data) {
 
 updateData(props.data);
 // 부모가 있고, 초기값이 없으면 실행.
-if (props.dependsOn && !props.modelValue) dependOnEvent(props.dependsOn);
+if (props.dependsOn !== undefined && !props.modelValue)
+  dependOnEvent(props.dependsOn);
 </script>
