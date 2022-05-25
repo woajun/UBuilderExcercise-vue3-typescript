@@ -6,11 +6,15 @@
 </template>
 <script setup lang="ts">
 import CMultiSelect from "@/components/search/conditions/CMultiSelect.vue";
-import { reactive } from "vue";
+import { computed, reactive } from "vue";
 
-const searchItem = reactive({});
+const searchItem = reactive({
+  fld_grade: null,
+  fld_class: null,
+  fld_student: null,
+});
 
-const data = [
+const dataOne = [
   {
     name: "1학년",
     grade: 1,
@@ -133,12 +137,26 @@ const data = [
   },
 ];
 
+const dataTwo = computed(() => {
+  const dataOneSelectedObj = dataOne.find(
+    (e) => e.grade === searchItem.fld_grade
+  );
+  return dataOneSelectedObj ? dataOneSelectedObj.classes : [];
+});
+
+const dataThree = computed(() => {
+  const dataTwoSelectedObj = dataTwo.value.find(
+    (e) => e.class === searchItem.fld_class
+  );
+  return dataTwoSelectedObj ? dataTwoSelectedObj.students : [];
+});
+
 const selects = reactive([
   {
     valueKey: "grade",
     descriptionKey: "name",
     field: "fld_grade",
-    data: data,
+    data: dataOne,
     label: "학생찾기",
     placeholder: "학년",
   },
@@ -147,16 +165,16 @@ const selects = reactive([
     descriptionKey: "name",
     field: "fld_class",
     placeholder: "반",
-    data: "classes",
+    data: dataTwo,
     dependsOn: "fld_grade",
   },
   {
     valueKey: "students",
     descriptionKey: "name",
-    field: "fld_class",
+    field: "fld_student",
     placeholder: "이름",
-    data: "students",
-    dependsOn: "fld_student",
+    data: dataThree,
+    dependsOn: "fld_class",
   },
 ]);
 </script>
