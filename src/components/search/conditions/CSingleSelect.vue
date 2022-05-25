@@ -1,7 +1,10 @@
 <template>
   <label>
     <template v-if="label"> {{ label }} : </template>
-    <select v-model="selected" :disabled="isError || disabled">
+    <select
+      v-model="selected"
+      :disabled="isError || disabled || isDependsOnNull"
+    >
       <template v-if="placeholder">
         <template v-if="!selected">
           <option disabled :value="selected">
@@ -18,7 +21,7 @@
         </option>
       </template>
     </select>
-    <span v-show="loading">Loading...</span>
+    <span v-show="isLoading">Loading...</span>
   </label>
 </template>
 
@@ -34,6 +37,7 @@ const props = defineProps<{
   descriptionKey: string;
   modelValue: unknown;
   disabled?: boolean;
+  dependsOn?: unknown;
 }>();
 const emit = defineEmits(["update:modelValue", "update:disabled"]);
 const selected = computed({
@@ -45,10 +49,23 @@ const selected = computed({
   },
 });
 const options = ref();
-const loading = ref(false);
+const isLoading = ref(false);
 const isError = ref(false);
+const isDependsOnNull = ref(false);
 
 watch(() => props.data, updateData);
+
+watch(() => props.dependsOn, dependOnEvent);
+
+function dependOnEvent(newValue: unknown) {
+  setSelected(undefined);
+  console.log("부모값:", newValue);
+  if (newValue) {
+    isDependsOnNull.value = false;
+  } else {
+    isDependsOnNull.value = true;
+  }
+}
 
 function setOptions(newOptions: Data) {
   options.value = newOptions;
@@ -60,7 +77,7 @@ function setSelected(newValue: unknown) {
 
 async function updateData(newData: Promise<Data> | Data) {
   try {
-    loading.value = true;
+    isLoading.value = true;
     isError.value = false;
     updateOptions(await newData);
   } catch (error) {
@@ -69,7 +86,7 @@ async function updateData(newData: Promise<Data> | Data) {
     updateOptions([]);
     isError.value = true;
   } finally {
-    loading.value = false;
+    isLoading.value = false;
   }
 }
 
@@ -79,4 +96,5 @@ function updateOptions(newOptions: Data) {
 }
 
 updateData(props.data);
+if (props.dependsOn) dependOnEvent(props.dependsOn);
 </script>

@@ -8,6 +8,7 @@
       :descriptionKey="select.descriptionKey"
       :data="select.data"
       v-model="selected[select.field]"
+      :dependsOn="select.dependField ? selected[select.dependField] : undefined"
     />
   </template>
 </template>

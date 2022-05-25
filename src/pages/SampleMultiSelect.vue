@@ -10,7 +10,7 @@ import { computed, reactive } from "vue";
 
 const searchItem = reactive({
   slt1: "users",
-  slt2: undefined,
+  slt2: "",
   slt3: "",
 });
 
