@@ -45,8 +45,11 @@ function getSelected(field: string, index: number) {
 
 function setSelected(value: any, index: number) {
   selected.value[fields[index]] = value;
-  for (let i = index + 1; i < fields.length; i++) {
-    selected.value[fields[i]] = "";
-  }
+
+  fields
+    .filter((e, i) => i > index)
+    .forEach((field) => {
+      selected.value[field] = "";
+    });
 }
 </script>
