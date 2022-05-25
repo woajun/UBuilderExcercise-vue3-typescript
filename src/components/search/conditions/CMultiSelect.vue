@@ -8,7 +8,7 @@
       :descriptionKey="select.descriptionKey"
       :data="select.data"
       :modelValue="selected[select.field]"
-      @update:modelValue="(v) => (selected[select.field] = v)"
+      @update:modelValue="(v) => setSelected(v, select.field)"
     />
   </template>
 </template>
@@ -35,4 +35,9 @@ const props = defineProps<{
 const emit = defineEmits(["update:modelValue"]);
 
 const selected = computed<Record<string, any>>(() => props.modelValue);
+
+function setSelected(value: any, field: string) {
+  console.log(field);
+  selected.value[field] = value;
+}
 </script>
