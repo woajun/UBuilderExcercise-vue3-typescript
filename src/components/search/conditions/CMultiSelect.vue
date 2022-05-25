@@ -18,7 +18,6 @@ import CSingleSelect from "./CSingleSelect.vue";
 import { defineProps, defineEmits, computed } from "vue";
 import { Data } from "./Condition";
 
-//TODO data 가 비어있고 dependsOn만 있으면 dependsOn의 데이터 넘기기
 interface SelectItem {
   label?: string;
   placeholder?: string;

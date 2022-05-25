@@ -147,6 +147,7 @@ const selects = reactive([
     descriptionKey: "name",
     field: "fld_class",
     placeholder: "반",
+    data: "classes",
     dependsOn: "fld_grade",
   },
   {
@@ -154,6 +155,7 @@ const selects = reactive([
     descriptionKey: "name",
     field: "fld_class",
     placeholder: "이름",
+    data: "students",
     dependsOn: "fld_student",
   },
 ]);
