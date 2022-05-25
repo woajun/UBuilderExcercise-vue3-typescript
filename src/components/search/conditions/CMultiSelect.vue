@@ -7,7 +7,8 @@
       :valueKey="select.valueKey"
       :descriptionKey="select.descriptionKey"
       :data="select.data"
-      v-model="selected[select.field]"
+      :modelValue="selected[select.field]"
+      @update:modelValue="(v) => (selected[select.field] = v)"
     />
   </template>
 </template>
