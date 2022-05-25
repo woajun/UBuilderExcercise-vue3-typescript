@@ -8,7 +8,7 @@
       :descriptionKey="select.descriptionKey"
       :data="select.data"
       v-model="selected[select.field]"
-      :dependsOn="select.dependField ? selected[select.dependField] : undefined"
+      :dependsOn="select.dependsOn ? selected[select.dependsOn] : undefined"
     />
   </template>
 </template>
@@ -26,7 +26,7 @@ interface SelectItem {
   descriptionKey: string;
   data: Data | Promise<Data>;
   field: string;
-  dependField?: string;
+  dependsOn?: string;
 }
 
 const props = defineProps<{
