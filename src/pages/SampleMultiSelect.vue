@@ -9,9 +9,9 @@ import CMultiSelect from "@/components/search/conditions/CMultiSelect.vue";
 import { computed, reactive } from "vue";
 
 const searchItem = reactive({
-  slt1: null,
-  slt2: null,
-  slt3: null,
+  slt1: "",
+  slt2: "",
+  slt3: "",
 });
 
 const dataOne = [
@@ -30,8 +30,18 @@ const dataTwo = computed(() => {
 });
 
 const dataThree = computed(() => {
-  if (searchItem.slt1 !== "users" || !searchItem.slt1) return [];
-  return [{ value: "male" }, { value: "female" }];
+  switch (searchItem.slt1) {
+    case "users":
+      return [{ value: "male" }, { value: "female" }];
+    case "comments":
+      return [
+        { value: "전체공개" },
+        { value: "주인공개" },
+        { value: "비공개" },
+      ];
+    default:
+      return [];
+  }
 });
 
 const selects = reactive([
