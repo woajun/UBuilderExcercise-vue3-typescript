@@ -9,7 +9,7 @@
           </option>
         </template>
       </template>
-      <option v-if="isError" disabled value="error">
+      <option v-if="isError" disabled :value="undefined">
         데이터를 불러오지 못했습니다.
       </option>
       <template v-for="option in options" :key="option[valueKey]">
@@ -65,7 +65,7 @@ async function updateData(newData: Promise<Data> | Data) {
     updateOptions(await newData);
   } catch (error) {
     console.log(error);
-    setSelected("error");
+    setSelected(undefined);
     updateOptions([]);
     isError.value = true;
   } finally {

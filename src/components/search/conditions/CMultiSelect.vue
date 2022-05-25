@@ -24,7 +24,7 @@ interface SelectItem {
   descriptionKey: string;
   data: Data | Promise<Data>;
   field: string;
-  dependField: string;
+  dependField?: string;
 }
 
 const props = defineProps<{
