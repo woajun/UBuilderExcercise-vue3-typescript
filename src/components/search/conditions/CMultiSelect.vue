@@ -1,13 +1,13 @@
 <template>
   <hr />
-  <template v-for="select in selects" :key="select.field">
+  <template v-for="(select, i) in selects" :key="select.field">
     <c-single-select
       :label="select.label"
       :placeholder="select.placeholder"
       :valueKey="select.valueKey"
       :descriptionKey="select.descriptionKey"
       :data="select.data"
-      :modelValue="getSelected(select.field)"
+      :modelValue="getSelected(select.field, i)"
       @update:modelValue="(v) => setSelected(v, select.field)"
     />
   </template>
@@ -36,7 +36,11 @@ const emit = defineEmits(["update:modelValue"]);
 
 const selected = computed<Record<string, any>>(() => props.modelValue);
 
-function getSelected(field: string) {
+const fields: string[] = [];
+
+function getSelected(field: string, index: number) {
+  fields[index] = field;
+  console.log(fields);
   return selected.value[field];
 }
 
