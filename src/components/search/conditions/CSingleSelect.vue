@@ -14,6 +14,11 @@
             {{ placeholder }}
           </option>
         </template>
+        <template v-else>
+          <option disabled>
+            {{ placeholder }}
+          </option>
+        </template>
       </template>
       <template v-for="option in options" :key="option[valueKey]">
         <option :value="option[valueKey]">
@@ -56,22 +61,17 @@ const isDependsOnNull = ref(false);
 watch(() => props.data, updateData);
 watch(() => props.dependsOn, dependOnEvent);
 
-function dependOnEvent(newValue: unknown) {
-  setSelected(undefined);
-  console.log("부모값:", newValue);
-  if (newValue) {
-    isDependsOnNull.value = false;
-  } else {
-    isDependsOnNull.value = true;
-  }
-}
-
 function setOptions(newOptions: Data) {
   options.value = newOptions;
 }
 
 function setSelected(newValue: unknown) {
   emit("update:modelValue", newValue);
+}
+
+function dependOnEvent(newValue: unknown) {
+  setSelected(undefined);
+  isDependsOnNull.value = newValue ? false : true;
 }
 
 async function updateData(newData: Promise<Data> | Data) {
@@ -87,13 +87,14 @@ async function updateData(newData: Promise<Data> | Data) {
   } finally {
     isLoading.value = false;
   }
-}
 
-function updateOptions(newOptions: Data) {
-  if (!isArray(newOptions)) throw new Error("Is not Array : " + newOptions);
-  setOptions(newOptions);
+  function updateOptions(newOptions: Data) {
+    if (!isArray(newOptions)) throw new Error("Is not Array : " + newOptions);
+    setOptions(newOptions);
+  }
 }
 
 updateData(props.data);
-if (props.dependsOn) dependOnEvent(props.dependsOn);
+// 부모가 있고, 초기값이 없으면...
+if (props.dependsOn && !props.modelValue) dependOnEvent(props.dependsOn);
 </script>

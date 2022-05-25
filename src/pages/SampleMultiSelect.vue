@@ -9,9 +9,9 @@ import CMultiSelect from "@/components/search/conditions/CMultiSelect.vue";
 import { computed, reactive } from "vue";
 
 const searchItem = reactive({
-  slt1: "users",
-  slt2: "",
-  slt3: "",
+  slt1: null,
+  slt2: null,
+  slt3: null,
 });
 
 const dataOne = [
