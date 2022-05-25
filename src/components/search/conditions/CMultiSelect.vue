@@ -8,7 +8,7 @@
       :descriptionKey="select.descriptionKey"
       :data="select.data"
       :modelValue="getSelected(select.field, i)"
-      @update:modelValue="(v) => setSelected(v, select.field, i)"
+      @update:modelValue="(v) => setSelected(v, i)"
     />
   </template>
 </template>
@@ -43,8 +43,8 @@ function getSelected(field: string, index: number) {
   return selected.value[field];
 }
 
-function setSelected(value: any, field: string, index: number) {
-  selected.value[field] = value;
+function setSelected(value: any, index: number) {
+  selected.value[fields[index]] = value;
   for (let i = index + 1; i < fields.length; i++) {
     selected.value[fields[i]] = "";
   }
