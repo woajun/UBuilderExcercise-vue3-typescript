@@ -138,18 +138,24 @@ const dataOne = [
 ];
 
 const dataTwo = computed(() => {
-  const dataOneSelectedObj = dataOne.find(
-    (e) => e.grade === searchItem.fld_grade
-  );
-  return dataOneSelectedObj ? dataOneSelectedObj.classes : [];
+  return dataFor(dataOne, "grade", "fld_grade", "classes");
 });
 
 const dataThree = computed(() => {
-  const dataTwoSelectedObj = dataTwo.value.find(
-    (e) => e.class === searchItem.fld_class
-  );
-  return dataTwoSelectedObj ? dataTwoSelectedObj.students : [];
+  return dataFor(dataTwo.value, "class", "fld_class", "students");
 });
+
+function dataFor(
+  parentData: any[],
+  parentKey: string,
+  parentField: "fld_grade" | "fld_class" | "fld_student",
+  dataKey: string
+) {
+  const result = parentData.find(
+    (e) => e[parentKey] === searchItem[parentField]
+  );
+  return result ? result[dataKey] : [];
+}
 
 const selects = reactive([
   {
