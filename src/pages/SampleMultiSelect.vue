@@ -6,9 +6,9 @@
 </template>
 <script setup lang="ts">
 import CMultiSelect from "@/components/search/conditions/CMultiSelect.vue";
-import { computed, reactive, ref } from "vue";
+import { computed, reactive } from "vue";
 
-const searchItem = ref({
+const searchItem = reactive({
   slt1: "users",
   slt2: undefined,
   slt3: "",
@@ -21,9 +21,7 @@ const dataOne = [
 ];
 
 const dataTwo = computed(() => {
-  return searchFor(
-    `https://jsonplaceholder.typicode.com/${searchItem.value.slt1}`
-  );
+  return searchFor(`https://jsonplaceholder.typicode.com/${searchItem.slt1}`);
 
   async function searchFor(url: string) {
     const resp = await fetch(url);
@@ -32,7 +30,7 @@ const dataTwo = computed(() => {
 });
 
 const dataThree = computed(() => {
-  if (searchItem.value.slt1 !== "users" || !searchItem.value.slt1) return [];
+  if (searchItem.slt1 !== "users" || !searchItem.slt1) return [];
   return [{ value: "male" }, { value: "female" }];
 });
 

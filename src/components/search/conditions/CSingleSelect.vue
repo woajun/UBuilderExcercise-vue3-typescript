@@ -3,18 +3,8 @@
     <template v-if="label"> {{ label }} : </template>
     <select v-model="selected" :disabled="isError || disabled">
       <template v-if="placeholder">
-        <template v-if="selected === null">
-          <option disabled :value="null">
-            {{ placeholder }}
-          </option>
-        </template>
-        <template v-else-if="selected === undefined">
-          <option disabled :value="undefined">
-            {{ placeholder }}
-          </option>
-        </template>
-        <template v-else-if="selected === ''">
-          <option disabled value="">
+        <template v-if="!selected">
+          <option disabled :value="selected">
             {{ placeholder }}
           </option>
         </template>
