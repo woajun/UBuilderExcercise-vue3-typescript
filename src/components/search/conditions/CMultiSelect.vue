@@ -36,7 +36,7 @@ interface ReceiveSelectSetting extends SelectSetting {
 
 interface ReferenceSelectSetting extends SelectSetting {
   data: string;
-  dpendsOn: string;
+  dependsOn: string;
 }
 
 const props = defineProps<{
@@ -48,50 +48,8 @@ const emit = defineEmits(["update:modelValue"]);
 
 const selected = computed<Obj>(() => props.modelValue);
 
-class DataReturner {}
-
-class ReceiveReturner extends DataReturner {
-  aData: Obj[] | Promise<Obj[]>;
-
-  constructor(aData: Obj[] | Promise<Obj[]>) {
-    super();
-    this.aData = aData;
-  }
-
-  get data(): Obj[] | Promise<Obj[]> {
-    return this.aData;
-  }
-}
-
-class ReferenceReturner extends DataReturner {
-  aData: string;
-  dependsOn: string;
-  constructor(aData: string, dependsOn: string) {
-    super();
-    this.aData = aData;
-    this.dependsOn = dependsOn;
-  }
-
-  get data(): Obj[] | Promise<Obj[]> {
-    return [];
-  }
-}
-
-function createReturner(data: Data, dependsOn?: string) {
-  switch (typeof data) {
-    case "string":
-      if (dependsOn) {
-        return new ReferenceReturner(data, dependsOn);
-      } else {
-        throw new Error(`Data is string. But, don't have dependsOn`);
-      }
-    default:
-      return new ReceiveReturner(data);
-  }
-}
 async function dataFor(data: Data, dependsOn?: string): Promise<Obj[]> {
-  const returner = createReturner(data, dependsOn);
-  if (typeof data !== "string") return returner.data;
+  if (typeof data !== "string") return data;
   try {
     if (!dependsOn)
       throw new Error(`Data is string. But, don't have dependsOn`);
