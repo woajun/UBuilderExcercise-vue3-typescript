@@ -137,25 +137,25 @@ const dataOne = [
   },
 ];
 
-const dataTwo = computed(() => {
-  return dataFor(dataOne, "grade", "fld_grade", "classes");
-});
+// const dataTwo = computed(() => {
+//   return dataFor(dataOne, "grade", "fld_grade", "classes");
+// });
 
-const dataThree = computed(() => {
-  return dataFor(dataTwo.value, "class", "fld_class", "students");
-});
+// const dataThree = computed(() => {
+//   return dataFor(dataTwo.value, "class", "fld_class", "students");
+// });
 
-function dataFor(
-  parentData: any[],
-  parentKey: string,
-  parentField: "fld_grade" | "fld_class" | "fld_student",
-  dataKey: string
-) {
-  const prntSltObj = parentData.find(
-    (e) => e[parentKey] === searchItem[parentField]
-  );
-  return prntSltObj ? prntSltObj[dataKey] : [];
-}
+// function dataFor(
+//   parentData: any[],
+//   parentKey: string,
+//   parentField: "fld_grade" | "fld_class" | "fld_student",
+//   dataKey: string
+// ) {
+//   const prntSltObj = parentData.find(
+//     (e) => e[parentKey] === searchItem[parentField]
+//   );
+//   return prntSltObj ? prntSltObj[dataKey] : [];
+// }
 
 const selects = reactive([
   {
