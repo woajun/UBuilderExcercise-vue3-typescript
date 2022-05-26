@@ -50,10 +50,8 @@ const selected = computed<Obj>(() => props.modelValue);
 
 async function dataFor(data: Data, dependsOn?: string): Promise<Obj[]> {
   if (typeof data !== "string") return data;
+  if (!dependsOn) throw new Error(`Data is string. But, don't have dependsOn`);
   try {
-    if (!dependsOn)
-      throw new Error(`Data is string. But, don't have dependsOn`);
-
     const prntSetting = settingFindBy(dependsOn);
     const prntSelectedObj = await selectedObjFor(prntSetting);
     return prntSelectedObj[data];
@@ -62,23 +60,27 @@ async function dataFor(data: Data, dependsOn?: string): Promise<Obj[]> {
     return [];
   }
 
-  function settingFindBy(dependsOn: string): SelectSetting {
-    const result = props.selects.find((e) => e.field === dependsOn);
-    if (!result)
-      throw new Error(`doesn't have SelectSetting for : ${dependsOn}`);
+  function settingFindBy(field: string): SelectSetting {
+    const result = props.selects.find((e) => e.field === field);
+    if (!result) throw new Error(`doesn't have SelectSetting for : ${field}`);
     return result;
   }
 
   async function selectedObjFor(setting: SelectSetting): Promise<Obj> {
-    const dependsOn = setting.dependsOn;
-    const data = await dataFor(setting.data, dependsOn);
-    const prntSltValue = selected.value[setting.field];
-    if (!prntSltValue)
-      throw new Error(`has not been chosen yet : ${setting.field}`);
-    const result = data.find((e) => e[setting.valueKey] === prntSltValue);
+    const settingData = await dataFor(setting.data, setting.dependsOn);
+    const result = settingData.find(
+      (e) => e[setting.valueKey] === selectedFor(setting)
+    );
     if (!result)
-      throw new Error(`doesn't have selected object for : ${setting}`);
+      throw new Error(`doesn't have selected object for : ${setting.field}`);
     return result;
+
+    function selectedFor(setting: SelectSetting) {
+      const result = selected.value[setting.field];
+      if (!result)
+        throw new Error(`has not been chosen yet : ${setting.field}`);
+      return result;
+    }
   }
 }
 </script>
