@@ -20,7 +20,7 @@ const dataOne = [
     grade: 1,
     classes: [
       {
-        name: "무지개반",
+        name: "1-무지개반",
         class: 1,
         students: [
           {
@@ -38,7 +38,7 @@ const dataOne = [
         ],
       },
       {
-        name: "늘푸른반",
+        name: "1-늘푸른반",
         class: 2,
         students: [
           {
@@ -56,7 +56,7 @@ const dataOne = [
         ],
       },
       {
-        name: "해돋이반",
+        name: "1-해돋이반",
         class: 3,
         students: [
           {
@@ -80,7 +80,7 @@ const dataOne = [
     grade: 2,
     classes: [
       {
-        name: "무지개반",
+        name: "2-무지개반",
         class: 1,
         students: [
           {
@@ -98,7 +98,7 @@ const dataOne = [
         ],
       },
       {
-        name: "늘푸른반",
+        name: "2-늘푸른반",
         class: 2,
         students: [
           {
@@ -116,7 +116,7 @@ const dataOne = [
         ],
       },
       {
-        name: "해돋이반",
+        name: "2-해돋이반",
         class: 3,
         students: [
           {
@@ -151,10 +151,10 @@ function dataFor(
   parentField: "fld_grade" | "fld_class" | "fld_student",
   dataKey: string
 ) {
-  const result = parentData.find(
+  const prntSltObj = parentData.find(
     (e) => e[parentKey] === searchItem[parentField]
   );
-  return result ? result[dataKey] : [];
+  return prntSltObj ? prntSltObj[dataKey] : [];
 }
 
 const selects = reactive([
@@ -171,7 +171,7 @@ const selects = reactive([
     descriptionKey: "name",
     field: "fld_class",
     placeholder: "반",
-    data: dataTwo,
+    data: "classes",
     dependsOn: "fld_grade",
   },
   {
@@ -179,7 +179,7 @@ const selects = reactive([
     descriptionKey: "name",
     field: "fld_student",
     placeholder: "이름",
-    data: dataThree,
+    data: "students",
     dependsOn: "fld_class",
   },
 ]);
