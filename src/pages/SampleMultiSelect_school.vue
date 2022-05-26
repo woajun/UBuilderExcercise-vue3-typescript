@@ -135,6 +135,150 @@ const dataOne = [
       },
     ],
   },
+  {
+    name: "3학년",
+    grade: 3,
+    classes: [
+      {
+        name: "3-무지개반",
+        class: 1,
+        students: [
+          {
+            name: "30101-나가가",
+            id: 30101,
+          },
+        ],
+      },
+      {
+        name: "3-늘푸른반",
+        class: 2,
+        students: [
+          {
+            name: "30201-나나가",
+            id: 30201,
+          },
+        ],
+      },
+      {
+        name: "3-해돋이반",
+        class: 3,
+        students: [
+          {
+            name: "30301-나다가",
+            id: 30301,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: "4학년",
+    grade: 4,
+    classes: [
+      {
+        name: "4-무지개반",
+        class: 1,
+        students: [
+          {
+            name: "40101-나가가",
+            id: 40101,
+          },
+        ],
+      },
+      {
+        name: "4-늘푸른반",
+        class: 2,
+        students: [
+          {
+            name: "40201-나나가",
+            id: 40201,
+          },
+        ],
+      },
+      {
+        name: "4-해돋이반",
+        class: 3,
+        students: [
+          {
+            name: "40301-나다가",
+            id: 40301,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: "5학년",
+    grade: 5,
+    classes: [
+      {
+        name: "5-무지개반",
+        class: 1,
+        students: [
+          {
+            name: "50101-나가가",
+            id: 50101,
+          },
+        ],
+      },
+      {
+        name: "5-늘푸른반",
+        class: 2,
+        students: [
+          {
+            name: "50201-나나가",
+            id: 50201,
+          },
+        ],
+      },
+      {
+        name: "5-해돋이반",
+        class: 3,
+        students: [
+          {
+            name: "50301-나다가",
+            id: 50301,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: "6학년",
+    grade: 6,
+    classes: [
+      {
+        name: "6-무지개반",
+        class: 1,
+        students: [
+          {
+            name: "60101-나가가",
+            id: 60101,
+          },
+        ],
+      },
+      {
+        name: "6-늘푸른반",
+        class: 2,
+        students: [
+          {
+            name: "60201-나나가",
+            id: 60201,
+          },
+        ],
+      },
+      {
+        name: "6-해돋이반",
+        class: 3,
+        students: [
+          {
+            name: "60301-나다가",
+            id: 60301,
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 // const dataTwo = computed(() => {

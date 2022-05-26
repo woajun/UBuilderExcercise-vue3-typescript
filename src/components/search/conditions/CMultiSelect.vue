@@ -50,10 +50,11 @@ const selected = computed<Obj>(() => props.modelValue);
 
 async function dataFor(data: Data, dependsOn?: string): Promise<Obj[]> {
   if (typeof data !== "string") return data;
-  if (!dependsOn) throw new Error(`Data is string. But, don't have dependsOn`);
   try {
+    if (!dependsOn) throw new Error(`don't have dependsOn`);
     const prntSetting = settingFindBy(dependsOn);
     const prntSelectedObj = await selectedObjFor(prntSetting);
+    console.log(data, dependsOn, prntSelectedObj[data]);
     return prntSelectedObj[data];
   } catch (error) {
     console.log(error);
