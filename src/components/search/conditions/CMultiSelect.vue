@@ -30,8 +30,17 @@ interface SelectSetting {
   dependsOn?: string;
 }
 
+interface NormalSelectSetting extends SelectSetting {
+  data: Obj[] | Promise<Obj[]>;
+}
+
+interface NestedSelectSetting extends SelectSetting {
+  data: string;
+  dpentdsOn: string;
+}
+
 const props = defineProps<{
-  selects: Array<SelectSetting>;
+  selects: Array<NormalSelectSetting | NestedSelectSetting>;
   modelValue: Obj;
 }>();
 
@@ -42,8 +51,10 @@ const selected = computed<Obj>(() => props.modelValue);
 async function dataFor(data: Data, dependsOn?: string): Promise<Obj[]> {
   try {
     if (typeof data !== "string") return data;
+    if (!dependsOn)
+      throw new Error(`Data is string. But, don't have dependsOn`);
+
     const key = data;
-    if (!dependsOn) throw new Error(`don't have dependsOn`);
     const prntSetting = settingFindBy(dependsOn);
     const prntSelectedObj = await selectedObjFor(
       prntSetting,
