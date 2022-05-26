@@ -59,6 +59,14 @@ class ReceiveReturner extends DataReturner {}
 
 class ReferenceReturner extends DataReturner {}
 
+function createReturner(data: Data) {
+  switch (typeof data) {
+    case "string":
+      return new ReferenceReturner(data);
+    default:
+      return new ReceiveReturner(data);
+  }
+}
 async function dataFor(data: Data, dependsOn?: string): Promise<Obj[]> {
   const returner = new DataReturner(data);
   if (typeof data !== "string") return data;
