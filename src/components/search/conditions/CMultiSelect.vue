@@ -48,24 +48,32 @@ const emit = defineEmits(["update:modelValue"]);
 
 const selected = computed<Obj>(() => props.modelValue);
 
-class DataReturner {
-  data: Obj[] | Promise<Obj[]> | string;
-  constructor(aData: Obj[] | Promise<Obj[]> | string) {
-    this.data = aData;
-  }
-}
+class DataReturner {}
 
 class ReceiveReturner extends DataReturner {
+  aData: Obj[] | Promise<Obj[]>;
+
   constructor(aData: Obj[] | Promise<Obj[]>) {
-    super(aData);
+    super();
+    this.aData = aData;
+  }
+
+  get data(): Obj[] | Promise<Obj[]> {
+    return this.aData;
   }
 }
 
 class ReferenceReturner extends DataReturner {
+  aData: string;
   dependsOn: string;
   constructor(aData: string, dependsOn: string) {
-    super(aData);
+    super();
+    this.aData = aData;
     this.dependsOn = dependsOn;
+  }
+
+  get data(): Obj[] | Promise<Obj[]> {
+    return [];
   }
 }
 
@@ -83,7 +91,7 @@ function createReturner(data: Data, dependsOn?: string) {
 }
 async function dataFor(data: Data, dependsOn?: string): Promise<Obj[]> {
   const returner = createReturner(data, dependsOn);
-  if (typeof data !== "string") return data;
+  if (typeof data !== "string") return returner.data;
   try {
     if (!dependsOn)
       throw new Error(`Data is string. But, don't have dependsOn`);
