@@ -55,10 +55,7 @@ async function dataFor(data: Data, dependsOn?: string): Promise<Obj[]> {
       throw new Error(`Data is string. But, don't have dependsOn`);
 
     const prntSetting = settingFindBy(dependsOn);
-    const prntSelectedObj = await selectedObjFor(
-      prntSetting,
-      prntSetting.dependsOn
-    );
+    const prntSelectedObj = await selectedObjFor(prntSetting);
     return prntSelectedObj[data];
   } catch (error) {
     console.log(error);
@@ -72,11 +69,9 @@ async function dataFor(data: Data, dependsOn?: string): Promise<Obj[]> {
     return result;
   }
 
-  async function selectedObjFor(
-    setting: SelectSetting,
-    dpndOn?: string
-  ): Promise<Obj> {
-    const data = await dataFor(setting.data, dpndOn);
+  async function selectedObjFor(setting: SelectSetting): Promise<Obj> {
+    const dependsOn = setting.dependsOn;
+    const data = await dataFor(setting.data, dependsOn);
     const prntSltValue = selected.value[setting.field];
     if (!prntSltValue)
       throw new Error(`has not been chosen yet : ${setting.field}`);
