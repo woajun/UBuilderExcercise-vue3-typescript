@@ -20,7 +20,7 @@ import { defineProps, defineEmits, computed } from "vue";
 type Obj = Record<string, any>;
 type Data = Obj[] | Promise<Obj[]> | string;
 
-interface SelectItem {
+interface SelectSetting {
   label?: string;
   placeholder?: string;
   valueKey: string;
@@ -31,7 +31,7 @@ interface SelectItem {
 }
 
 const props = defineProps<{
-  selects: Array<SelectItem>;
+  selects: Array<SelectSetting>;
   modelValue: Obj;
 }>();
 
@@ -42,30 +42,37 @@ const selected = computed<Obj>(() => props.modelValue);
 async function dataFor(data: Data, dependsOn?: string): Promise<Obj[]> {
   try {
     if (typeof data !== "string") return data;
+    const key = data;
     if (!dependsOn) throw new Error(`don't have dependsOn`);
-    const prntSelectItem = selectItemFor(dependsOn);
-    const prntSelected = await selectedObjFor(
-      prntSelectItem,
-      prntSelectItem.dependsOn
+    const prntSetting = settingFindBy(dependsOn);
+    const prntSelectedObj = await selectedObjFor(
+      prntSetting,
+      prntSetting.dependsOn
     );
-    return prntSelected[data];
+    return prntSelectedObj[key];
   } catch (error) {
     console.log(error);
     return [];
   }
 
-  function selectItemFor(dependsOn: string): SelectItem {
+  function settingFindBy(dependsOn: string): SelectSetting {
     const result = props.selects.find((e) => e.field === dependsOn);
-    if (!result) throw new Error(`doesn't have SelectItem for : ${dependsOn}`);
+    if (!result)
+      throw new Error(`doesn't have SelectSetting for : ${dependsOn}`);
     return result;
   }
 
-  async function selectedObjFor(si: SelectItem, dpndOn?: string): Promise<Obj> {
-    const data = await dataFor(si.data, dpndOn); //여기서 classes를 리턴함......
-    const prntSltValue = selected.value[si.field];
-    if (!prntSltValue) throw new Error(`has not been chosen yet`);
-    const result = data.find((e) => e[si.valueKey] === prntSltValue);
-    if (!result) throw new Error(`doesn't have selected object for : ${si}`);
+  async function selectedObjFor(
+    setting: SelectSetting,
+    dpndOn?: string
+  ): Promise<Obj> {
+    const data = await dataFor(setting.data, dpndOn);
+    const prntSltValue = selected.value[setting.field];
+    if (!prntSltValue)
+      throw new Error(`has not been chosen yet : ${setting.field}`);
+    const result = data.find((e) => e[setting.valueKey] === prntSltValue);
+    if (!result)
+      throw new Error(`doesn't have selected object for : ${setting}`);
     return result;
   }
 }
