@@ -16,31 +16,30 @@
 <script setup lang="ts">
 import CSingleSelect from "./CSingleSelect.vue";
 import { defineProps, defineEmits, computed } from "vue";
-import { Data } from "./Condition";
+
+type Obj = Record<string, any>;
+type Data = Obj[] | Promise<Obj[]> | string;
 
 interface SelectItem {
   label?: string;
   placeholder?: string;
   valueKey: string;
   descriptionKey: string;
-  data: Data | Promise<Data> | string;
+  data: Data;
   field: string;
   dependsOn?: string;
 }
 
 const props = defineProps<{
   selects: Array<SelectItem>;
-  modelValue: Record<string, any>;
+  modelValue: Obj;
 }>();
 
 const emit = defineEmits(["update:modelValue"]);
 
-const selected = computed<Record<string, any>>(() => props.modelValue);
+const selected = computed<Obj>(() => props.modelValue);
 
-async function dataFor(
-  data: string | Data | Promise<Data>,
-  dependsOn?: string
-) {
+async function dataFor(data: Data, dependsOn?: string) {
   try {
     if (typeof data !== "string") return data;
     if (!dependsOn) throw new Error(`don't have dependsOn`);
@@ -60,11 +59,8 @@ async function dataFor(
     return result;
   }
 
-  async function selectedObjFor(
-    si: SelectItem,
-    dependsOn?: string
-  ): Promise<Record<string, any>> {
-    const data = await dataFor(si.data, dependsOn); //여기서 classes를 리턴함......
+  async function selectedObjFor(si: SelectItem, dpndOn?: string): Promise<Obj> {
+    const data = await dataFor(si.data, dpndOn); //여기서 classes를 리턴함......
     const prntSltValue = selected.value[si.field];
     if (!prntSltValue) throw new Error(`has not been chosen yet`);
     const result = data.find((e: any) => e[si.valueKey] === prntSltValue);
