@@ -7,8 +7,7 @@
       :valueKey="select.valueKey"
       :descriptionKey="select.descriptionKey"
       :data="dataFor(select)"
-      :modelValue="select.modelValue"
-      @update:modelValue="(v) => setModelValue(select, v)"
+      v-model="select.modelValue"
       :dependsOn="select.dependsOn"
     />
   </template>
@@ -98,6 +97,10 @@ class SelectSetting {
     return selected.value[this.field];
   }
 
+  set modelValue(v: any) {
+    selected.value[this.field] = v;
+  }
+
   get dependsOn() {
     return this.innerDependsOn
       ? selected.value[this.innerDependsOn]
@@ -169,9 +172,5 @@ async function dataFor(setting: ISelectSetting): Promise<Obj[]> {
       return result;
     }
   }
-}
-
-function setModelValue(setting: ISelectSetting, v: any) {
-  selected.value[setting.field] = v;
 }
 </script>
