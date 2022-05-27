@@ -6,9 +6,9 @@
       :placeholder="select.placeholder"
       :valueKey="select.valueKey"
       :descriptionKey="select.descriptionKey"
-      :data="select.data"
       v-model="select.modelValue"
-      :dependsOn="select.dependsOn"
+      :dependsOn="select.dependsOnValue"
+      :data="dataFor(select)"
     />
   </template>
 </template>
@@ -26,6 +26,7 @@ interface ISelectSetting {
   descriptionKey: string;
   field: string;
   dependsOn?: string;
+  data: Obj[] | Promise<Obj[]> | string;
 }
 
 interface IReceiveSelectSetting extends ISelectSetting {
@@ -33,7 +34,7 @@ interface IReceiveSelectSetting extends ISelectSetting {
 }
 
 interface IReferenceSelectSetting extends ISelectSetting {
-  dataKey: string;
+  data: string;
   dependsOn: string;
 }
 
@@ -42,37 +43,10 @@ const props = defineProps<{
   modelValue: Obj;
 }>();
 
-const selectSettings = computed(() => createSelectSetting(props.selects));
-
-function createSelectSetting(
-  selects: Array<ISelectSetting>
-): Array<ReceiveSetting | ReferenceSetting> {
-  return selects.map(whichSetting);
-
-  function whichSetting(
-    select: ISelectSetting
-  ): ReceiveSetting | ReferenceSetting {
-    if (isReceiveSetting(select as IReceiveSelectSetting)) {
-      return new ReceiveSetting(select as IReceiveSelectSetting);
-    } else if (isReferenceSetting(select as IReferenceSelectSetting)) {
-      return new ReferenceSetting(select as IReferenceSelectSetting);
-    }
-    throw new Error("SelectSetting만들기에 실패했습니다.");
-
-    function isReceiveSetting(select: IReceiveSelectSetting) {
-      if (select.data !== undefined) {
-        return true;
-      }
-      return false;
-    }
-    function isReferenceSetting(select: IReferenceSelectSetting) {
-      if (select.dataKey !== undefined && select.dependsOn !== undefined) {
-        return true;
-      }
-      return false;
-    }
-  }
-}
+const selectSettings = computed(() =>
+  props.selects.map((setting) => new SelectSetting(setting))
+);
+const selected = computed<Obj>(() => props.modelValue);
 
 defineEmits(["update:modelValue"]);
 
@@ -82,7 +56,8 @@ class SelectSetting {
   valueKey: string;
   descriptionKey: string;
   field: string;
-  innerDependsOn?: string;
+  dependsOn?: string;
+  data: Obj[] | Promise<Obj[]> | string;
 
   constructor(setting: ISelectSetting) {
     this.label = setting.label;
@@ -90,7 +65,8 @@ class SelectSetting {
     this.valueKey = setting.valueKey;
     this.descriptionKey = setting.descriptionKey;
     this.field = setting.field;
-    this.innerDependsOn = setting.dependsOn;
+    this.dependsOn = setting.dependsOn;
+    this.data = setting.data;
   }
 
   get modelValue() {
@@ -101,46 +77,12 @@ class SelectSetting {
     selected.value[this.field] = v;
   }
 
-  get dependsOn() {
-    return this.innerDependsOn
-      ? selected.value[this.innerDependsOn]
-      : undefined;
+  get dependsOnValue() {
+    return this.dependsOn ? selected.value[this.dependsOn] : undefined;
   }
 }
 
-class ReceiveSetting extends SelectSetting implements IReceiveSelectSetting {
-  innerData: Record<string, any>[] | Promise<Record<string, any>[]>;
-
-  constructor(setting: IReceiveSelectSetting) {
-    super(setting);
-    this.innerData = setting.data;
-  }
-  get data(): Record<string, any>[] | Promise<Record<string, any>[]> {
-    return this.innerData;
-  }
-}
-
-class ReferenceSetting
-  extends SelectSetting
-  implements IReferenceSelectSetting
-{
-  dataKey: string;
-  innerDependsOn: string;
-
-  constructor(setting: IReferenceSelectSetting) {
-    super(setting);
-    this.innerDependsOn = setting.dependsOn;
-    this.dataKey = setting.dataKey;
-  }
-
-  get data(): Record<string, any>[] | Promise<Record<string, any>[]> {
-    return [];
-  }
-}
-
-const selected = computed<Obj>(() => props.modelValue);
-
-async function dataFor(setting: ISelectSetting): Promise<Obj[]> {
+async function dataFor(setting: SelectSetting): Promise<Obj[]> {
   if (typeof setting.data !== "string") return setting.data;
   try {
     if (!setting.dependsOn) throw new Error(`don't have dependsOn`);
@@ -152,13 +94,13 @@ async function dataFor(setting: ISelectSetting): Promise<Obj[]> {
     return [];
   }
 
-  function settingFindBy(field: string): ISelectSetting {
-    const result = props.selects.find((e) => e.field === field);
-    if (!result) throw new Error(`doesn't have ISelectSetting for : ${field}`);
+  function settingFindBy(field: string): SelectSetting {
+    const result = selectSettings.value.find((e) => e.field === field);
+    if (!result) throw new Error(`doesn't have SelectSetting for : ${field}`);
     return result;
   }
 
-  async function selectedObjFor(setting: ISelectSetting): Promise<Obj> {
+  async function selectedObjFor(setting: SelectSetting): Promise<Obj> {
     const settingData = await dataFor(setting);
     const result = settingData.find(
       (e) => e[setting.valueKey] === selectedFor(setting)
@@ -167,7 +109,7 @@ async function dataFor(setting: ISelectSetting): Promise<Obj[]> {
       throw new Error(`doesn't have selected object for : ${setting.field}`);
     return result;
 
-    function selectedFor(setting: ISelectSetting) {
+    function selectedFor(setting: SelectSetting) {
       const result = selected.value[setting.field];
       if (!result)
         throw new Error(`has not been chosen yet : ${setting.field}`);
