@@ -8,10 +8,9 @@
       :descriptionKey="select.descriptionKey"
       v-model="select.modelValue"
       :dependsOn="select.dependsOnValue"
-      :data="dataFor(select)"
+      :data="select.dataList"
       @update:selectedObject="(v) => (select.selectedObject = v)"
     />
-    {{ select.selectedObject }}
   </template>
 </template>
 
@@ -84,39 +83,21 @@ class SelectSetting {
   get dependsOnValue() {
     return this.dependsOn ? selected.value[this.dependsOn] : undefined;
   }
-}
 
-async function dataFor(setting: SelectSetting): Promise<Obj[]> {
-  if (typeof setting.data !== "string") return setting.data;
-  try {
-    if (!setting.dependsOn) throw new Error(`don't have dependsOn`);
-    const parent = settingFindBy(setting.dependsOn);
-    const parentSelected = await selectedObjFor(parent);
-    return parentSelected[setting.data];
-  } catch (error) {
-    console.log(error);
-    return [];
-  }
+  get dataList() {
+    if (typeof this.data !== "string") return this.data;
+    try {
+      if (!this.dependsOn) throw new Error(`don't have dependsOn`);
+      const parent = settingFindBy(this.dependsOn);
+      return parent.selectedObject[this.data] ?? [];
+    } catch (error) {
+      console.log(error);
+      return [];
+    }
 
-  function settingFindBy(field: string): SelectSetting {
-    const result = selectSettings.value.find((e) => e.field === field);
-    if (!result) throw new Error(`doesn't have SelectSetting for : ${field}`);
-    return result;
-  }
-
-  async function selectedObjFor(setting: SelectSetting): Promise<Obj> {
-    const settingData = await dataFor(setting);
-    const result = settingData.find(
-      (e) => e[setting.valueKey] === selectedFor(setting)
-    );
-    if (!result)
-      throw new Error(`doesn't have selected object for : ${setting.field}`);
-    return result;
-
-    function selectedFor(setting: SelectSetting) {
-      const result = selected.value[setting.field];
-      if (!result)
-        throw new Error(`has not been chosen yet : ${setting.field}`);
+    function settingFindBy(field: string): SelectSetting {
+      const result = selectSettings.value.find((e) => e.field === field);
+      if (!result) throw new Error(`doens't have SelectSetting for : ${field}`);
       return result;
     }
   }
