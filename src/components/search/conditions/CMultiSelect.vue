@@ -6,7 +6,7 @@
       :placeholder="select.placeholder"
       :valueKey="select.valueKey"
       :descriptionKey="select.descriptionKey"
-      :data="dataFor(select)"
+      :data="select.data"
       v-model="select.modelValue"
       :dependsOn="select.dependsOn"
     />
@@ -57,7 +57,7 @@ function createSelectSetting(
     } else if (isReferenceSetting(select as IReferenceSelectSetting)) {
       return new ReferenceSetting(select as IReferenceSelectSetting);
     }
-    throw new Error("일치하는게 없어");
+    throw new Error("SelectSetting만들기에 실패했습니다.");
 
     function isReceiveSetting(select: IReceiveSelectSetting) {
       if (select.data !== undefined) {
@@ -125,9 +125,11 @@ class ReferenceSetting
   implements IReferenceSelectSetting
 {
   dataKey: string;
+  innerDependsOn: string;
 
   constructor(setting: IReferenceSelectSetting) {
     super(setting);
+    this.innerDependsOn = setting.dependsOn;
     this.dataKey = setting.dataKey;
   }
 
