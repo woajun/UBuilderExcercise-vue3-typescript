@@ -9,7 +9,7 @@
       :data="dataFor(select)"
       :modelValue="select.modelValue"
       @update:modelValue="(v) => setModelValue(select, v)"
-      :dependsOn="dependsOnFor(select)"
+      :dependsOn="select.dependsOn"
     />
   </template>
 </template>
@@ -83,7 +83,7 @@ class SelectSetting {
   valueKey: string;
   descriptionKey: string;
   field: string;
-  dependsOn?: string;
+  innerDependsOn?: string;
 
   constructor(setting: ISelectSetting) {
     this.label = setting.label;
@@ -91,11 +91,17 @@ class SelectSetting {
     this.valueKey = setting.valueKey;
     this.descriptionKey = setting.descriptionKey;
     this.field = setting.field;
-    this.dependsOn = setting.dependsOn;
+    this.innerDependsOn = setting.dependsOn;
   }
 
   get modelValue() {
     return selected.value[this.field];
+  }
+
+  get dependsOn() {
+    return this.innerDependsOn
+      ? selected.value[this.innerDependsOn]
+      : undefined;
   }
 }
 
@@ -116,11 +122,9 @@ class ReferenceSetting
   implements IReferenceSelectSetting
 {
   dataKey: string;
-  dependsOn: string;
 
   constructor(setting: IReferenceSelectSetting) {
     super(setting);
-    this.dependsOn = setting.dependsOn;
     this.dataKey = setting.dataKey;
   }
 
@@ -165,10 +169,6 @@ async function dataFor(setting: ISelectSetting): Promise<Obj[]> {
       return result;
     }
   }
-}
-
-function dependsOnFor(setting: ISelectSetting) {
-  return setting.dependsOn ? selected.value[setting.dependsOn] : undefined;
 }
 
 function setModelValue(setting: ISelectSetting, v: any) {
