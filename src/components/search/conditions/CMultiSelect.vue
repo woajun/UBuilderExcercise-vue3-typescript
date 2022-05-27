@@ -1,6 +1,6 @@
 <template>
   <hr />
-  <template v-for="select in selects" :key="select.field">
+  <template v-for="select in selectSettings" :key="select.field">
     <c-single-select
       :label="select.label"
       :placeholder="select.placeholder"
@@ -19,14 +19,12 @@ import CSingleSelect from "./CSingleSelect.vue";
 import { defineProps, defineEmits, computed } from "vue";
 
 type Obj = Record<string, any>;
-type Data = Obj[] | Promise<Obj[]> | string;
 
 interface ISelectSetting {
   label?: string;
   placeholder?: string;
   valueKey: string;
   descriptionKey: string;
-  data: Data;
   field: string;
   dependsOn?: string;
 }
@@ -36,7 +34,7 @@ interface IReceiveSelectSetting extends ISelectSetting {
 }
 
 interface IReferenceSelectSetting extends ISelectSetting {
-  data: string;
+  dataKey: string;
   dependsOn: string;
 }
 
@@ -44,6 +42,38 @@ const props = defineProps<{
   selects: Array<IReceiveSelectSetting | IReferenceSelectSetting>;
   modelValue: Obj;
 }>();
+
+const selectSettings = computed(() => createSelectSetting(props.selects));
+
+function createSelectSetting(
+  selects: Array<ISelectSetting>
+): Array<ReceiveSetting | ReferenceSetting> {
+  return selects.map(whichSetting);
+
+  function whichSetting(
+    select: ISelectSetting
+  ): ReceiveSetting | ReferenceSetting {
+    if (isReceiveSetting(select as IReceiveSelectSetting)) {
+      return new ReceiveSetting(select as IReceiveSelectSetting);
+    } else if (isReferenceSetting(select as IReferenceSelectSetting)) {
+      return new ReferenceSetting(select as IReferenceSelectSetting);
+    }
+    throw new Error("일치하는게 없어");
+
+    function isReceiveSetting(select: IReceiveSelectSetting) {
+      if (select.data !== undefined) {
+        return true;
+      }
+      return false;
+    }
+    function isReferenceSetting(select: IReferenceSelectSetting) {
+      if (select.dataKey !== undefined && select.dependsOn !== undefined) {
+        return true;
+      }
+      return false;
+    }
+  }
+}
 
 defineEmits(["update:modelValue"]);
 
@@ -55,40 +85,43 @@ class SelectSetting {
   field: string;
   dependsOn?: string;
 
-  constructor(
-    aLabel: string | undefined,
-    aPlaceholder: string | undefined,
-    aValueKey: string,
-    aDescriptionKey: string,
-    aField: string,
-    aDependsOn: string | undefined
-  ) {
-    this.label = aLabel;
-    this.placeholder = aPlaceholder;
-    this.valueKey = aValueKey;
-    this.descriptionKey = aDescriptionKey;
-    this.field = aField;
-    this.dependsOn = aDependsOn;
+  constructor(setting: ISelectSetting) {
+    this.label = setting.label;
+    this.placeholder = setting.placeholder;
+    this.valueKey = setting.valueKey;
+    this.descriptionKey = setting.descriptionKey;
+    this.field = setting.field;
+    this.dependsOn = setting.dependsOn;
   }
 }
 
 class ReceiveSetting extends SelectSetting implements IReceiveSelectSetting {
   innerData: Record<string, any>[] | Promise<Record<string, any>[]>;
 
-  constructor(
-    aData: Record<string, any>[] | Promise<Record<string, any>[]>,
-    aLabel: string | undefined,
-    aPlaceholder: string | undefined,
-    aValueKey: string,
-    aDescriptionKey: string,
-    aField: string,
-    aDependsOn: string | undefined
-  ) {
-    super(aLabel, aPlaceholder, aValueKey, aDescriptionKey, aField, aDependsOn);
-    this.innerData = aData;
+  constructor(setting: IReceiveSelectSetting) {
+    super(setting);
+    this.innerData = setting.data;
   }
   get data(): Record<string, any>[] | Promise<Record<string, any>[]> {
     return this.innerData;
+  }
+}
+
+class ReferenceSetting
+  extends SelectSetting
+  implements IReferenceSelectSetting
+{
+  dataKey: string;
+  dependsOn: string;
+
+  constructor(setting: IReferenceSelectSetting) {
+    super(setting);
+    this.dependsOn = setting.dependsOn;
+    this.dataKey = setting.dataKey;
+  }
+
+  get data(): Record<string, any>[] | Promise<Record<string, any>[]> {
+    return [];
   }
 }
 
