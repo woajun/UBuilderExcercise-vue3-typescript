@@ -9,6 +9,7 @@
       :data="dataFor(select)"
       v-model="selected[select.field]"
       :dependsOn="select.dependsOn ? selected[select.dependsOn] : undefined"
+      @update:selectedObject="selectedObject"
     />
   </template>
 </template>
@@ -56,7 +57,7 @@ async function dataFor(setting: SelectSetting): Promise<Obj[]> {
     const parentSelected = await selectedObjFor(parent);
     return parentSelected[setting.data];
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return [];
   }
 
@@ -82,5 +83,9 @@ async function dataFor(setting: SelectSetting): Promise<Obj[]> {
       return result;
     }
   }
+}
+
+function selectedObject(v: any) {
+  console.log(v);
 }
 </script>

@@ -55,6 +55,7 @@ const selected = computed({
   },
   set(value) {
     emit("update:modelValue", value);
+    emitSelectedObject(value);
   },
 });
 const options = ref<Data>([]);
@@ -62,13 +63,11 @@ const isLoading = ref(false);
 const isError = ref(false);
 const isDependsOnNull = ref(false);
 
-function emitSelectedObject() {
-  emit("update:selectedObject", getSltdObj());
+function emitSelectedObject(value: unknown) {
+  emit("update:selectedObject", getSltdObj(value));
 
-  function getSltdObj() {
-    return (
-      options.value.find((e) => e[props.valueKey] === props.modelValue) ?? {}
-    );
+  function getSltdObj(value: unknown) {
+    return options.value.find((e) => e[props.valueKey] === value) ?? {};
   }
 }
 
