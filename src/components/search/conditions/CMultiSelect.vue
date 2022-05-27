@@ -6,7 +6,7 @@
       :placeholder="select.placeholder"
       :valueKey="select.valueKey"
       :descriptionKey="select.descriptionKey"
-      :data="dataFor(select.data, select.dependsOn)"
+      :data="dataFor(select)"
       v-model="selected[select.field]"
       :dependsOn="select.dependsOn ? selected[select.dependsOn] : undefined"
     />
@@ -44,18 +44,17 @@ const props = defineProps<{
   modelValue: Obj;
 }>();
 
-const emit = defineEmits(["update:modelValue"]);
+defineEmits(["update:modelValue"]);
 
 const selected = computed<Obj>(() => props.modelValue);
 
-async function dataFor(data: Data, dependsOn?: string): Promise<Obj[]> {
-  if (typeof data !== "string") return data;
+async function dataFor(setting: SelectSetting): Promise<Obj[]> {
+  if (typeof setting.data !== "string") return setting.data;
   try {
-    if (!dependsOn) throw new Error(`don't have dependsOn`);
-    const prntSetting = settingFindBy(dependsOn);
-    const prntSelectedObj = await selectedObjFor(prntSetting);
-    console.log(data, dependsOn, prntSelectedObj[data]);
-    return prntSelectedObj[data];
+    if (!setting.dependsOn) throw new Error(`don't have dependsOn`);
+    const parent = settingFindBy(setting.dependsOn);
+    const parentSelected = await selectedObjFor(parent);
+    return parentSelected[setting.data];
   } catch (error) {
     console.log(error);
     return [];
@@ -68,7 +67,7 @@ async function dataFor(data: Data, dependsOn?: string): Promise<Obj[]> {
   }
 
   async function selectedObjFor(setting: SelectSetting): Promise<Obj> {
-    const settingData = await dataFor(setting.data, setting.dependsOn);
+    const settingData = await dataFor(setting);
     const result = settingData.find(
       (e) => e[setting.valueKey] === selectedFor(setting)
     );
