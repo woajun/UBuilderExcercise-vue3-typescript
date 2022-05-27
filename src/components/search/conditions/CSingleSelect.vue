@@ -44,7 +44,11 @@ const props = defineProps<{
   disabled?: boolean;
   dependsOn?: unknown;
 }>();
-const emit = defineEmits(["update:modelValue", "update:disabled"]);
+const emit = defineEmits([
+  "update:modelValue",
+  "update:disabled",
+  "update:selectedObject",
+]);
 const selected = computed({
   get() {
     return props.modelValue;
@@ -53,10 +57,20 @@ const selected = computed({
     emit("update:modelValue", value);
   },
 });
-const options = ref();
+const options = ref<Data>([]);
 const isLoading = ref(false);
 const isError = ref(false);
 const isDependsOnNull = ref(false);
+
+function emitSelectedObject() {
+  emit("update:selectedObject", getSltdObj());
+
+  function getSltdObj() {
+    return (
+      options.value.find((e) => e[props.valueKey] === props.modelValue) ?? {}
+    );
+  }
+}
 
 watch(() => props.data, updateData);
 watch(() => props.dependsOn, dependOnEvent);
