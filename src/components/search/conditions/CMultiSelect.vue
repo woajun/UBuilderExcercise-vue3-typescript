@@ -7,7 +7,7 @@
       :valueKey="select.valueKey"
       :descriptionKey="select.descriptionKey"
       :data="dataFor(select)"
-      :modelValue="modelValueFor(select)"
+      :modelValue="select.modelValue"
       @update:modelValue="(v) => setModelValue(select, v)"
       :dependsOn="dependsOnFor(select)"
     />
@@ -93,6 +93,10 @@ class SelectSetting {
     this.field = setting.field;
     this.dependsOn = setting.dependsOn;
   }
+
+  get modelValue() {
+    return selected.value[this.field];
+  }
 }
 
 class ReceiveSetting extends SelectSetting implements IReceiveSelectSetting {
@@ -161,10 +165,6 @@ async function dataFor(setting: ISelectSetting): Promise<Obj[]> {
       return result;
     }
   }
-}
-
-function modelValueFor(setting: ISelectSetting) {
-  return selected.value[setting.field];
 }
 
 function dependsOnFor(setting: ISelectSetting) {
