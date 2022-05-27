@@ -50,7 +50,7 @@ const selected = computed({
     return props.modelValue;
   },
   set(value) {
-    setSelected(value);
+    emit("update:modelValue", value);
   },
 });
 const options = ref();
@@ -61,16 +61,8 @@ const isDependsOnNull = ref(false);
 watch(() => props.data, updateData);
 watch(() => props.dependsOn, dependOnEvent);
 
-function setOptions(newOptions: Data) {
-  options.value = newOptions;
-}
-
-function setSelected(newValue: unknown) {
-  emit("update:modelValue", newValue);
-}
-
 function dependOnEvent(newValue: unknown) {
-  setSelected(undefined);
+  emit("update:modelValue", undefined);
   isDependsOnNull.value = newValue ? false : true;
 }
 
@@ -81,7 +73,7 @@ async function updateData(newData: Promise<Data> | Data) {
     updateOptions(await newData);
   } catch (error) {
     console.log(error);
-    setSelected(undefined);
+    emit("update:modelValue", undefined);
     updateOptions([]);
     isError.value = true;
   } finally {
@@ -90,7 +82,7 @@ async function updateData(newData: Promise<Data> | Data) {
 
   function updateOptions(newOptions: Data) {
     if (!isArray(newOptions)) throw new Error("Is not Array : " + newOptions);
-    setOptions(newOptions);
+    options.value = newOptions;
   }
 }
 
