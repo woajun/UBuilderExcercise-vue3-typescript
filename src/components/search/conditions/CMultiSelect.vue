@@ -1,5 +1,4 @@
 <template>
-  <hr />
   <template v-for="select in selectSettings" :key="select.field">
     <c-single-select
       :label="select.label"

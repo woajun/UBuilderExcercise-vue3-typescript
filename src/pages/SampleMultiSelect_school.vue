@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{ searchItem }}
+    {{ searchItem }}<br />
     <c-multi-select :selects="selects" v-model="searchItem" />
   </div>
 </template>
