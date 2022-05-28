@@ -1,10 +1,7 @@
 <template>
   <label>
     <template v-if="label"> {{ label }} : </template>
-    <select
-      v-model="selected"
-      :disabled="isError || disabled || isDependsOnNull || isEmpty"
-    >
+    <select v-model="selected" :disabled="isError || disabled || isEmpty">
       <option v-if="isError" disabled :value="undefined">
         데이터를 불러오지 못했습니다.
       </option>
@@ -61,7 +58,6 @@ const selected = computed({
 const options = ref<Data>([]);
 const isLoading = ref(false);
 const isError = ref(false);
-const isDependsOnNull = ref(false);
 const isEmpty = ref(false);
 
 function checkEmpty(options: Data) {
@@ -80,9 +76,9 @@ watch(() => options.value, checkEmpty);
 watch(() => props.data, updateData);
 watch(() => props.dependsOnValue, dependsOnChanged);
 
-function dependsOnChanged(newValue: unknown) {
+function dependsOnChanged(dependsOnValue: unknown) {
   emit("update:modelValue", undefined);
-  isDependsOnNull.value = newValue ? false : true;
+  dependsOnValue ? "nothing to do" : updateData([]);
 }
 
 async function updateData(newData: Promise<Data> | Data) {
