@@ -6,10 +6,10 @@
       :placeholder="select.placeholder"
       :valueKey="select.valueKey"
       :descriptionKey="select.descriptionKey"
-      v-model="select.modelValue"
       :dependsOn="select.dependsOnValue"
       :data="select.dataList"
-      @update:selectedObject="(v) => (select.selectedObject = v)"
+      v-model="select.modelValue"
+      v-model:selectedObject="select.selectedObject"
     />
   </template>
 </template>
@@ -64,7 +64,6 @@ class SelectSetting {
   descriptionKey: string;
   field: string;
   dependsOn?: string;
-  data: Obj[] | Promise<Obj[]> | string;
   selectedObject: Record<string, any>;
 
   constructor(setting: ISelectSetting) {
@@ -74,7 +73,6 @@ class SelectSetting {
     this.descriptionKey = setting.descriptionKey;
     this.field = setting.field;
     this.dependsOn = setting.dependsOn;
-    this.data = setting.data;
     this.selectedObject = {};
   }
 
@@ -89,10 +87,17 @@ class SelectSetting {
   get dependsOnValue() {
     return this.dependsOn ? selected.value[this.dependsOn] : undefined;
   }
+}
+
+class StringDataSetting extends SelectSetting {
+  data: string;
+
+  constructor(setting: IStringDataSelectSetting) {
+    super(setting);
+    this.data = setting.data;
+  }
 
   get dataList() {
-    console.log(`실행:${this.field} `);
-    if (typeof this.data !== "string") return this.data;
     try {
       if (!this.dependsOn) throw new Error(`don't have dependsOn`);
       const parent = settingFindBy(this.dependsOn);
@@ -110,21 +115,16 @@ class SelectSetting {
   }
 }
 
-class StringDataSetting extends SelectSetting {
-  data: string;
-
-  constructor(setting: IStringDataSelectSetting) {
-    super(setting);
-    this.data = setting.data;
-  }
-}
-
 class ArrayDataSetting extends SelectSetting {
   data: Obj[] | Promise<Obj[]>;
 
   constructor(setting: IArrayDataSelectSetting) {
     super(setting);
     this.data = setting.data;
+  }
+
+  get dataList() {
+    return this.data;
   }
 }
 </script>
