@@ -5,7 +5,7 @@
     <br />
     <br />
     <br />
-    <sample2 />
+    <!-- <sample2 /> -->
   </div>
 </template>
 

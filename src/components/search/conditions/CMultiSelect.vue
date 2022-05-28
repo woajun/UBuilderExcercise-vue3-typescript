@@ -44,10 +44,18 @@ const props = defineProps<{
   modelValue: Obj;
 }>();
 
+const selected = computed<Obj>(() => props.modelValue);
 const selectSettings = computed(() =>
   props.selects.map((setting) => new SelectSetting(setting))
 );
-const selected = computed<Obj>(() => props.modelValue);
+
+function createSelectSetting(setting: ISelectSetting) {
+  if (typeof setting.data === "string") {
+    return new StringDataSetting(setting);
+  } else {
+    return new ArrayDataSetting(setting);
+  }
+}
 
 defineEmits(["update:modelValue"]);
 
@@ -85,6 +93,7 @@ class SelectSetting {
   }
 
   get dataList() {
+    console.log(`실행:${this.field} `);
     if (typeof this.data !== "string") return this.data;
     try {
       if (!this.dependsOn) throw new Error(`don't have dependsOn`);
@@ -102,4 +111,8 @@ class SelectSetting {
     }
   }
 }
+
+class StringDataSetting extends SelectSetting {}
+
+class ArrayDataSetting extends SelectSetting {}
 </script>

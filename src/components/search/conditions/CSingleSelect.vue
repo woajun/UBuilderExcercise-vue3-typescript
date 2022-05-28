@@ -72,9 +72,9 @@ function emitSelectedObject(value: unknown) {
 }
 
 watch(() => props.data, updateData);
-watch(() => props.dependsOn, dependOnEvent);
+watch(() => props.dependsOn, dependsOnChanged);
 
-function dependOnEvent(newValue: unknown) {
+function dependsOnChanged(newValue: unknown) {
   emit("update:modelValue", undefined);
   isDependsOnNull.value = newValue ? false : true;
 }
@@ -102,5 +102,5 @@ async function updateData(newData: Promise<Data> | Data) {
 updateData(props.data);
 // 부모가 있고, 초기값이 없으면 실행.
 if (props.dependsOn !== undefined && !props.modelValue)
-  dependOnEvent(props.dependsOn);
+  dependsOnChanged(props.dependsOn);
 </script>
