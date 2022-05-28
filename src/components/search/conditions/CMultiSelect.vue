@@ -33,16 +33,16 @@ interface ISelectSetting {
     | ((searchItem: Obj) => Obj[] | Promise<Obj[]>);
 }
 
-interface IArrayDataSelectSetting extends ISelectSetting {
+interface IArrayDataSetting extends ISelectSetting {
   data: Obj[] | Promise<Obj[]>;
 }
 
-interface IStringDataSelectSetting extends ISelectSetting {
+interface IStringDataSetting extends ISelectSetting {
   data: string;
   dependsOnField: string;
 }
 
-interface IFunctionDataSelectSetting extends ISelectSetting {
+interface IFunctionDataSetting extends ISelectSetting {
   data: (searchItem: Obj) => Obj[] | Promise<Obj[]>;
 }
 
@@ -51,16 +51,16 @@ const props = defineProps<{
   modelValue: Obj;
 }>();
 
-const selected = computed<Obj>(() => props.modelValue);
+const selected = computed(() => props.modelValue);
 const selectSettings = computed(() => props.selects.map(createSelectSetting));
 
 function createSelectSetting(setting: ISelectSetting) {
   if (typeof setting.data === "string") {
-    return new StringDataSetting(setting as IStringDataSelectSetting);
+    return new StringDataSetting(setting as IStringDataSetting);
   } else if (typeof setting.data === "function") {
-    return new FunctionDataSetting(setting as IFunctionDataSelectSetting);
+    return new FunctionDataSetting(setting as IFunctionDataSetting);
   } else {
-    return new ArrayDataSetting(setting as IArrayDataSelectSetting);
+    return new ArrayDataSetting(setting as IArrayDataSetting);
   }
 }
 
@@ -103,7 +103,7 @@ class SelectSetting {
 class StringDataSetting extends SelectSetting {
   data: string;
 
-  constructor(setting: IStringDataSelectSetting) {
+  constructor(setting: IStringDataSetting) {
     super(setting);
     this.data = setting.data;
   }
@@ -129,7 +129,7 @@ class StringDataSetting extends SelectSetting {
 class ArrayDataSetting extends SelectSetting {
   data: Obj[] | Promise<Obj[]>;
 
-  constructor(setting: IArrayDataSelectSetting) {
+  constructor(setting: IArrayDataSetting) {
     super(setting);
     this.data = setting.data;
   }
@@ -142,7 +142,7 @@ class ArrayDataSetting extends SelectSetting {
 class FunctionDataSetting extends SelectSetting {
   data: (searchItem: Obj) => Obj[] | Promise<Obj[]>;
 
-  constructor(setting: IFunctionDataSelectSetting) {
+  constructor(setting: IFunctionDataSetting) {
     super(setting);
     this.data = setting.data;
   }
