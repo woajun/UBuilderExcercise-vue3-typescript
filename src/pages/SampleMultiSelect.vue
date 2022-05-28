@@ -21,7 +21,10 @@ const dataOne = [
 ];
 
 const dataTwo = computed(() => {
-  return searchFor(`https://jsonplaceholder.typicode.com/${searchItem.slt1}`);
+  const result = searchItem.slt1
+    ? searchFor(`https://jsonplaceholder.typicode.com/${searchItem.slt1}`)
+    : [];
+  return result;
 
   async function searchFor(url: string) {
     const resp = await fetch(url);

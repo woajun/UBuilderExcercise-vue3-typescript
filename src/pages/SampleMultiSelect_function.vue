@@ -16,12 +16,11 @@ const dataOne = [
   { description: "error", value: "error" },
 ];
 
-function dataTwo(
-  searchItem: Record<string, any>
-): Promise<Record<string, any>[]> {
-  return searchFor(
-    `https://jsonplaceholder.typicode.com/${searchItem["slt1"]}`
-  );
+function dataTwo(searchItem: Record<string, any>) {
+  const result = searchItem["slt1"]
+    ? searchFor(`https://jsonplaceholder.typicode.com/${searchItem["slt1"]}`)
+    : [];
+  return result;
 
   async function searchFor(url: string) {
     const resp = await fetch(url);
@@ -29,7 +28,8 @@ function dataTwo(
   }
 }
 
-function dataThree(searchItem: Record<string, any>): Record<string, any>[] {
+function dataThree(searchItem: Record<string, any>) {
+  if (!searchItem["slt2"]) return [];
   switch (searchItem["slt1"]) {
     case "users":
       return [{ value: "male" }, { value: "female" }];

@@ -31,7 +31,7 @@ interface ISelectSetting {
     | Obj[]
     | Promise<Obj[]>
     | string
-    | ((searchItem: Record<string, any>) => Obj[] | Promise<Obj[]>);
+    | ((searchItem: Obj) => Obj[] | Promise<Obj[]>);
 }
 
 interface IArrayDataSelectSetting extends ISelectSetting {
@@ -44,7 +44,7 @@ interface IStringDataSelectSetting extends ISelectSetting {
 }
 
 interface IFunctionDataSelectSetting extends ISelectSetting {
-  data: (searchItem: Record<string, any>) => Obj[] | Promise<Obj[]>;
+  data: (searchItem: Obj) => Obj[] | Promise<Obj[]>;
 }
 
 const props = defineProps<{
@@ -74,7 +74,7 @@ class SelectSetting {
   descriptionKey: string;
   field: string;
   dependsOn?: string;
-  selectedObject: Record<string, any>;
+  selectedObject: Obj;
 
   constructor(setting: ISelectSetting) {
     this.label = setting.label;
@@ -139,7 +139,7 @@ class ArrayDataSetting extends SelectSetting {
 }
 
 class FunctionDataSetting extends SelectSetting {
-  data: (searchItem: Record<string, any>) => Obj[] | Promise<Obj[]>;
+  data: (searchItem: Obj) => Obj[] | Promise<Obj[]>;
 
   constructor(setting: IFunctionDataSelectSetting) {
     super(setting);
