@@ -6,13 +6,9 @@
 </template>
 <script setup lang="ts">
 import CMultiSelect from "@/components/search/conditions/CMultiSelect.vue";
-import { computed, reactive } from "vue";
+import { reactive } from "vue";
 
-const searchItem = reactive({
-  fld_grade: null,
-  fld_class: null,
-  fld_student: null,
-});
+const searchItem = reactive({});
 
 const dataOne = [
   {
@@ -301,7 +297,7 @@ const dataOne = [
 //   return prntSltObj ? prntSltObj[dataKey] : [];
 // }
 
-const selects = reactive([
+const selects = [
   {
     valueKey: "grade",
     descriptionKey: "name",
@@ -326,5 +322,5 @@ const selects = reactive([
     data: "students",
     dependsOn: "fld_class",
   },
-]);
+];
 </script>

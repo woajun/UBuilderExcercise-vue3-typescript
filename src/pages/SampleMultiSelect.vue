@@ -33,6 +33,7 @@ const dataTwo = computed(() => {
 });
 
 const dataThree = computed(() => {
+  if (!searchItem.slt2) return [];
   switch (searchItem.slt1) {
     case "users":
       return [{ value: "male" }, { value: "female" }];
