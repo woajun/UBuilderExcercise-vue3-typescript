@@ -30,30 +30,28 @@ interface ISelectSetting {
   data: Obj[] | Promise<Obj[]> | string;
 }
 
-interface IReceiveSelectSetting extends ISelectSetting {
+interface IArrayDataSelectSetting extends ISelectSetting {
   data: Obj[] | Promise<Obj[]>;
 }
 
-interface IReferenceSelectSetting extends ISelectSetting {
+interface IStringDataSelectSetting extends ISelectSetting {
   data: string;
   dependsOn: string;
 }
 
 const props = defineProps<{
-  selects: Array<IReceiveSelectSetting | IReferenceSelectSetting>;
+  selects: Array<IArrayDataSelectSetting | IStringDataSelectSetting>;
   modelValue: Obj;
 }>();
 
 const selected = computed<Obj>(() => props.modelValue);
-const selectSettings = computed(() =>
-  props.selects.map((setting) => new SelectSetting(setting))
-);
+const selectSettings = computed(() => props.selects.map(createSelectSetting));
 
 function createSelectSetting(setting: ISelectSetting) {
   if (typeof setting.data === "string") {
-    return new StringDataSetting(setting);
+    return new StringDataSetting(setting as IStringDataSelectSetting);
   } else {
-    return new ArrayDataSetting(setting);
+    return new ArrayDataSetting(setting as IArrayDataSelectSetting);
   }
 }
 
@@ -112,7 +110,21 @@ class SelectSetting {
   }
 }
 
-class StringDataSetting extends SelectSetting {}
+class StringDataSetting extends SelectSetting {
+  data: string;
 
-class ArrayDataSetting extends SelectSetting {}
+  constructor(setting: IStringDataSelectSetting) {
+    super(setting);
+    this.data = setting.data;
+  }
+}
+
+class ArrayDataSetting extends SelectSetting {
+  data: Obj[] | Promise<Obj[]>;
+
+  constructor(setting: IArrayDataSelectSetting) {
+    super(setting);
+    this.data = setting.data;
+  }
+}
 </script>
