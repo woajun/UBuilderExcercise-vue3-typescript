@@ -78,7 +78,7 @@ const selects = reactive([
     field: "slt2",
     data: "address",
     placeholder: "선택2",
-    dependsOn: "slt1",
+    dependsOnField: "slt1",
   },
   {
     valueKey: "lat",
@@ -86,7 +86,7 @@ const selects = reactive([
     field: "slt3",
     data: "geo",
     placeholder: "선택3",
-    dependsOn: "slt2",
+    dependsOnField: "slt2",
   },
 ]);
 </script>

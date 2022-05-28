@@ -42,7 +42,7 @@ const props = defineProps<{
   descriptionKey: string;
   modelValue: unknown;
   disabled?: boolean;
-  dependsOn?: unknown;
+  dependsOnValue?: unknown;
 }>();
 const emit = defineEmits([
   "update:modelValue",
@@ -78,7 +78,7 @@ function emitSelectedObject(value: unknown) {
 
 watch(() => options.value, checkEmpty);
 watch(() => props.data, updateData);
-watch(() => props.dependsOn, dependsOnChanged);
+watch(() => props.dependsOnValue, dependsOnChanged);
 
 function dependsOnChanged(newValue: unknown) {
   emit("update:modelValue", undefined);
@@ -107,7 +107,7 @@ async function updateData(newData: Promise<Data> | Data) {
 
 updateData(props.data);
 // 부모가 있고, 초기값이 없으면 실행.
-if (props.dependsOn !== undefined && !props.modelValue)
-  dependsOnChanged(props.dependsOn);
+if (props.dependsOnValue !== undefined && !props.modelValue)
+  dependsOnChanged(props.dependsOnValue);
 checkEmpty(options.value);
 </script>

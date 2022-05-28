@@ -10,7 +10,7 @@ import { reactive } from "vue";
 
 const searchItem = reactive({});
 
-const dataOne = [
+const data = [
   {
     name: "1학년",
     grade: 1,
@@ -277,32 +277,12 @@ const dataOne = [
   },
 ];
 
-// const dataTwo = computed(() => {
-//   return dataFor(dataOne, "grade", "fld_grade", "classes");
-// });
-
-// const dataThree = computed(() => {
-//   return dataFor(dataTwo.value, "class", "fld_class", "students");
-// });
-
-// function dataFor(
-//   parentData: any[],
-//   parentKey: string,
-//   parentField: "fld_grade" | "fld_class" | "fld_student",
-//   dataKey: string
-// ) {
-//   const prntSltObj = parentData.find(
-//     (e) => e[parentKey] === searchItem[parentField]
-//   );
-//   return prntSltObj ? prntSltObj[dataKey] : [];
-// }
-
 const selects = [
   {
     valueKey: "grade",
     descriptionKey: "name",
     field: "fld_grade",
-    data: dataOne,
+    data: data,
     label: "학생선택",
     placeholder: "학년",
   },
@@ -312,7 +292,7 @@ const selects = [
     field: "fld_class",
     placeholder: "반",
     data: "classes",
-    dependsOn: "fld_grade",
+    dependsOnField: "fld_grade",
   },
   {
     valueKey: "id",
@@ -320,7 +300,7 @@ const selects = [
     field: "fld_student",
     placeholder: "이름",
     data: "students",
-    dependsOn: "fld_class",
+    dependsOnField: "fld_class",
   },
 ];
 </script>

@@ -6,7 +6,7 @@
       :placeholder="select.placeholder"
       :valueKey="select.valueKey"
       :descriptionKey="select.descriptionKey"
-      :dependsOn="select.dependsOnValue"
+      :dependsOnValue="select.dependsOnValue"
       :data="select.dataList"
       v-model="select.modelValue"
       v-model:selectedObject="select.selectedObject"
@@ -26,7 +26,7 @@ interface ISelectSetting {
   valueKey: string;
   descriptionKey: string;
   field: string;
-  dependsOn?: string;
+  dependsOnField?: string;
   data:
     | Obj[]
     | Promise<Obj[]>
@@ -40,7 +40,7 @@ interface IArrayDataSelectSetting extends ISelectSetting {
 
 interface IStringDataSelectSetting extends ISelectSetting {
   data: string;
-  dependsOn: string;
+  dependsOnField: string;
 }
 
 interface IFunctionDataSelectSetting extends ISelectSetting {
@@ -73,7 +73,7 @@ class SelectSetting {
   valueKey: string;
   descriptionKey: string;
   field: string;
-  dependsOn?: string;
+  dependsOnField?: string;
   selectedObject: Obj;
 
   constructor(setting: ISelectSetting) {
@@ -82,7 +82,7 @@ class SelectSetting {
     this.valueKey = setting.valueKey;
     this.descriptionKey = setting.descriptionKey;
     this.field = setting.field;
-    this.dependsOn = setting.dependsOn;
+    this.dependsOnField = setting.dependsOnField;
     this.selectedObject = {};
   }
 
@@ -95,7 +95,9 @@ class SelectSetting {
   }
 
   get dependsOnValue() {
-    return this.dependsOn ? selected.value[this.dependsOn] : undefined;
+    return this.dependsOnField
+      ? selected.value[this.dependsOnField]
+      : undefined;
   }
 }
 
@@ -109,8 +111,8 @@ class StringDataSetting extends SelectSetting {
 
   get dataList() {
     try {
-      if (!this.dependsOn) throw new Error(`don't have dependsOn`);
-      const parent = settingFindBy(this.dependsOn);
+      if (!this.dependsOnField) throw new Error(`don't have dependsOnField`);
+      const parent = settingFindBy(this.dependsOnField);
       return parent.selectedObject[this.data] ?? [];
     } catch (error) {
       console.log(error);

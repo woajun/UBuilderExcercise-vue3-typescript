@@ -59,7 +59,7 @@ const selects = [
     field: "slt2",
     data: dataTwo,
     placeholder: "선택2",
-    dependsOn: "slt1",
+    dependsOnField: "slt1",
   },
   {
     valueKey: "value",
@@ -67,7 +67,7 @@ const selects = [
     field: "slt3",
     data: dataThree,
     placeholder: "선택3",
-    dependsOn: "slt2",
+    dependsOnField: "slt2",
   },
 ];
 </script>
