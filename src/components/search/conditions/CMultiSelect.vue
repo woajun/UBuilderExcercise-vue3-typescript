@@ -27,7 +27,11 @@ interface ISelectSetting {
   descriptionKey: string;
   field: string;
   dependsOn?: string;
-  data: Obj[] | Promise<Obj[]> | string;
+  data:
+    | Obj[]
+    | Promise<Obj[]>
+    | string
+    | ((searchItem: Record<string, any>) => Obj[] | Promise<Obj[]>);
 }
 
 interface IArrayDataSelectSetting extends ISelectSetting {
@@ -39,8 +43,12 @@ interface IStringDataSelectSetting extends ISelectSetting {
   dependsOn: string;
 }
 
+interface IFunctionDataSelectSetting extends ISelectSetting {
+  data: (searchItem: Record<string, any>) => Obj[] | Promise<Obj[]>;
+}
+
 const props = defineProps<{
-  selects: Array<IArrayDataSelectSetting | IStringDataSelectSetting>;
+  selects: Array<ISelectSetting>;
   modelValue: Obj;
 }>();
 
@@ -50,6 +58,8 @@ const selectSettings = computed(() => props.selects.map(createSelectSetting));
 function createSelectSetting(setting: ISelectSetting) {
   if (typeof setting.data === "string") {
     return new StringDataSetting(setting as IStringDataSelectSetting);
+  } else if (typeof setting.data === "function") {
+    return new FunctionDataSetting(setting as IFunctionDataSelectSetting);
   } else {
     return new ArrayDataSetting(setting as IArrayDataSelectSetting);
   }
@@ -125,6 +135,19 @@ class ArrayDataSetting extends SelectSetting {
 
   get dataList() {
     return this.data;
+  }
+}
+
+class FunctionDataSetting extends SelectSetting {
+  data: (searchItem: Record<string, any>) => Obj[] | Promise<Obj[]>;
+
+  constructor(setting: IFunctionDataSelectSetting) {
+    super(setting);
+    this.data = setting.data;
+  }
+
+  get dataList() {
+    return this.data(selected.value);
   }
 }
 </script>
