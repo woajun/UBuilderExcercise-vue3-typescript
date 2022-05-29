@@ -47,7 +47,7 @@ interface IFunctionDataSetting extends ISelectSetting {
 }
 
 const props = defineProps<{
-  selects: Array<ISelectSetting>;
+  selects: Array<IArrayDataSetting | IStringDataSetting | IFunctionDataSetting>;
   modelValue: Obj;
 }>();
 
@@ -73,7 +73,7 @@ class SelectSetting {
   descriptionKey: string;
   field: string;
   dependsOnField?: string;
-  selectedObject: Obj;
+  selectedObject: Obj = {};
 
   constructor(setting: ISelectSetting) {
     this.label = setting.label;
@@ -82,7 +82,6 @@ class SelectSetting {
     this.descriptionKey = setting.descriptionKey;
     this.field = setting.field;
     this.dependsOnField = setting.dependsOnField;
-    this.selectedObject = {};
   }
 
   get modelValue() {
