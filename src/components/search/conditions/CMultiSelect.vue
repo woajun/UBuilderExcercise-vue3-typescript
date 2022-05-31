@@ -22,8 +22,8 @@ type Obj = Record<string, any>;
 interface ISelectSetting {
   label?: string;
   placeholder?: string;
-  valueKey: string;
-  descriptionKey: string;
+  valueKey?: string;
+  descriptionKey?: string;
   field: string;
   dependsOnField?: string;
   data:
@@ -78,8 +78,8 @@ class SelectSetting {
   constructor(setting: ISelectSetting) {
     this.label = setting.label;
     this.placeholder = setting.placeholder;
-    this.valueKey = setting.valueKey;
-    this.descriptionKey = setting.descriptionKey;
+    this.valueKey = setting.valueKey??"value";
+    this.descriptionKey = setting.descriptionKey??"description";
     this.field = setting.field;
     this.dependsOnField = setting.dependsOnField;
   }
