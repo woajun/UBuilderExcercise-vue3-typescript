@@ -20,11 +20,11 @@ import { defineProps, defineEmits, computed } from "vue";
 type Obj = Record<string, any>;
 
 interface ISelectSetting {
+  field: string;
   label?: string;
   placeholder?: string;
   valueKey?: string;
   descriptionKey?: string;
-  field: string;
   dependsOnField?: string;
 }
 
@@ -48,7 +48,7 @@ const props = defineProps<{
 
 const selected = computed(() => props.modelValue);
 const selectSettings = computed(() =>
-  props.selects.map((e) => new SelectSetting(e))
+  props.selects.map((s) => new SelectSetting(s))
 );
 
 defineEmits(["update:modelValue"]);
@@ -61,7 +61,7 @@ class SelectSetting {
   field: string;
   dependsOnField?: string;
   selectedObject: Obj = {};
-  dataCalculator: DataCalculator;
+  dataCalculator?: DataCalculator;
 
   constructor(setting: ISelectSetting) {
     this.label = setting.label;
@@ -72,22 +72,26 @@ class SelectSetting {
     this.dependsOnField = setting.dependsOnField;
     this.dataCalculator = createDataCalculator(setting);
 
-    function createDataCalculator(setting: ISelectSetting) {
-      if (typeof (setting as IStringDataSetting).dataKey === "string") {
-        return new StringCalculator(
-          (setting as IStringDataSetting).dataKey,
-          setting.dependsOnField
-        );
-      } else if (typeof (setting as IFunctionDataSetting).data === "function") {
-        return new FunctionCalculator((setting as IFunctionDataSetting).data);
-      } else {
-        return new ArrayCalculator((setting as IArrayDataSetting).data);
-      }
+    function createDataCalculator(
+      setting:
+        | ISelectSetting
+        | IArrayDataSetting
+        | IStringDataSetting
+        | IFunctionDataSetting
+    ) {
+      if ("dataKey" in setting)
+        return new StringCalculator(setting.dataKey, setting.dependsOnField);
+      if (!("data" in setting)) return undefined;
+      if (typeof setting.data === "function")
+        return new FunctionCalculator(setting.data);
+      if (typeof setting.data === "object")
+        return new ArrayCalculator(setting.data);
     }
   }
 
   get data() {
-    return this.dataCalculator.dataList;
+    if (!this.dataCalculator) return [];
+    return this.dataCalculator.calculateData;
   }
 
   get modelValue() {
@@ -106,7 +110,7 @@ class SelectSetting {
 }
 
 interface DataCalculator {
-  dataList: Obj[] | Promise<Obj[]>;
+  calculateData: Obj[] | Promise<Obj[]>;
 }
 
 class ArrayCalculator implements DataCalculator {
@@ -116,7 +120,7 @@ class ArrayCalculator implements DataCalculator {
     this.data = aData;
   }
 
-  get dataList() {
+  get calculateData() {
     return this.data;
   }
 }
@@ -130,7 +134,7 @@ class StringCalculator implements DataCalculator {
     this.dependsOnField = aDependsOnField;
   }
 
-  get dataList() {
+  get calculateData() {
     try {
       if (!this.dependsOnField) throw new Error(`don't have dependsOnField`);
       const parent = settingFindBy(this.dependsOnField);
@@ -155,7 +159,7 @@ class FunctionCalculator implements DataCalculator {
     this.data = aData;
   }
 
-  get dataList() {
+  get calculateData() {
     return this.data(selected.value);
   }
 }
