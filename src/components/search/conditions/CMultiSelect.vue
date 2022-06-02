@@ -79,11 +79,11 @@ class SelectSetting {
 
     function createDataCalculator(setting: ISelectSetting) {
       if (typeof setting.data === "string") {
-        return new StringCalculator(setting as IStringDataSetting);
+        return new StringCalculator(setting.data, setting.dependsOnField);
       } else if (typeof setting.data === "function") {
-        return new FunctionCalculator(setting as IFunctionDataSetting);
+        return new FunctionCalculator(setting.data);
       } else {
-        return new arrayCalculator(setting as IArrayDataSetting);
+        return new ArrayCalculator(setting.data);
       }
     }
   }
@@ -111,11 +111,11 @@ interface DataCalculator {
   dataList: Obj[] | Promise<Obj[]>;
 }
 
-class arrayCalculator implements DataCalculator {
+class ArrayCalculator implements DataCalculator {
   data: Obj[] | Promise<Obj[]>;
 
-  constructor(setting: IArrayDataSetting) {
-    this.data = setting.data;
+  constructor(aData: Obj[] | Promise<Obj[]>) {
+    this.data = aData;
   }
 
   get dataList() {
@@ -127,9 +127,9 @@ class StringCalculator implements DataCalculator {
   data: string;
   dependsOnField?: string;
 
-  constructor(setting: IStringDataSetting) {
-    this.data = setting.data;
-    this.dependsOnField = setting.dependsOnField;
+  constructor(aData: string, aDependsOnField?: string) {
+    this.data = aData;
+    this.dependsOnField = aDependsOnField;
   }
 
   get dataList() {
@@ -153,8 +153,8 @@ class StringCalculator implements DataCalculator {
 class FunctionCalculator implements DataCalculator {
   data: (searchItem: Obj) => Obj[] | Promise<Obj[]>;
 
-  constructor(setting: IFunctionDataSetting) {
-    this.data = setting.data;
+  constructor(aData: (searchItem: Obj) => Obj[] | Promise<Obj[]>) {
+    this.data = aData;
   }
 
   get dataList() {
