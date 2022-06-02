@@ -26,11 +26,6 @@ interface ISelectSetting {
   descriptionKey?: string;
   field: string;
   dependsOnField?: string;
-  data:
-    | Obj[]
-    | Promise<Obj[]>
-    | string
-    | ((searchItem: Obj) => Obj[] | Promise<Obj[]>);
 }
 
 interface IArrayDataSetting extends ISelectSetting {
@@ -38,7 +33,7 @@ interface IArrayDataSetting extends ISelectSetting {
 }
 
 interface IStringDataSetting extends ISelectSetting {
-  data: string;
+  dataKey: string;
   dependsOnField: string;
 }
 
@@ -78,12 +73,15 @@ class SelectSetting {
     this.dataCalculator = createDataCalculator(setting);
 
     function createDataCalculator(setting: ISelectSetting) {
-      if (typeof setting.data === "string") {
-        return new StringCalculator(setting.data, setting.dependsOnField);
-      } else if (typeof setting.data === "function") {
-        return new FunctionCalculator(setting.data);
+      if (typeof (setting as IStringDataSetting).dataKey === "string") {
+        return new StringCalculator(
+          (setting as IStringDataSetting).dataKey,
+          setting.dependsOnField
+        );
+      } else if (typeof (setting as IFunctionDataSetting).data === "function") {
+        return new FunctionCalculator((setting as IFunctionDataSetting).data);
       } else {
-        return new ArrayCalculator(setting.data);
+        return new ArrayCalculator((setting as IArrayDataSetting).data);
       }
     }
   }
@@ -124,11 +122,11 @@ class ArrayCalculator implements DataCalculator {
 }
 
 class StringCalculator implements DataCalculator {
-  data: string;
+  dataKey: string;
   dependsOnField?: string;
 
-  constructor(aData: string, aDependsOnField?: string) {
-    this.data = aData;
+  constructor(aDataKey: string, aDependsOnField?: string) {
+    this.dataKey = aDataKey;
     this.dependsOnField = aDependsOnField;
   }
 
@@ -136,7 +134,7 @@ class StringCalculator implements DataCalculator {
     try {
       if (!this.dependsOnField) throw new Error(`don't have dependsOnField`);
       const parent = settingFindBy(this.dependsOnField);
-      return parent.selectedObject[this.data] ?? [];
+      return parent.selectedObject[this.dataKey] ?? [];
     } catch (error) {
       console.log(error);
       return [];

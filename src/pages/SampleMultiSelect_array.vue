@@ -36,12 +36,15 @@ const dataThree = computed(() => {
   if (!searchItem.slt2) return [];
   switch (searchItem.slt1) {
     case "users":
-      return [{ value: "male" }, { value: "female" }];
+      return [
+        { value: "male", description: "male" },
+        { value: "female", description: "female" },
+      ];
     case "comments":
       return [
-        { value: "전체공개" },
-        { value: "주인공개" },
-        { value: "비공개" },
+        { value: "전체공개", description: "전체공개" },
+        { value: "주인공개", description: "주인공개" },
+        { value: "비공개", description: "비공개" },
       ];
     default:
       return [];
@@ -50,8 +53,6 @@ const dataThree = computed(() => {
 
 const selects = reactive([
   {
-    valueKey: "value",
-    descriptionKey: "value",
     field: "slt1",
     data: dataOne,
     label: "선택",
@@ -66,8 +67,6 @@ const selects = reactive([
     dependsOnField: "slt1",
   },
   {
-    valueKey: "value",
-    descriptionKey: "value",
     field: "slt3",
     data: dataThree,
     placeholder: "선택3",

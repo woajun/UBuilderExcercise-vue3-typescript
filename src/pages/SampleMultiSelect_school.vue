@@ -291,7 +291,7 @@ const selects = [
     descriptionKey: "name",
     field: "fld_class",
     placeholder: "반",
-    data: "classes",
+    dataKey: "classes",
     dependsOnField: "fld_grade",
   },
   {
@@ -299,7 +299,7 @@ const selects = [
     descriptionKey: "name",
     field: "fld_student",
     placeholder: "이름",
-    data: "students",
+    dataKey: "students",
     dependsOnField: "fld_class",
   },
 ];
