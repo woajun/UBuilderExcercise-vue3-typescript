@@ -6,7 +6,7 @@
       :valueKey="select.valueKey"
       :descriptionKey="select.descriptionKey"
       :dependsOnValue="select.dependsOnValue"
-      :data="select.dataList"
+      :data="select.data"
       v-model="select.modelValue"
       v-model:selectedObject="select.selectedObject"
     />
@@ -52,17 +52,9 @@ const props = defineProps<{
 }>();
 
 const selected = computed(() => props.modelValue);
-const selectSettings = computed(() => props.selects.map(createSelectSetting));
-
-function createSelectSetting(setting: ISelectSetting) {
-  if (typeof setting.data === "string") {
-    return new StringDataSetting(setting as IStringDataSetting);
-  } else if (typeof setting.data === "function") {
-    return new FunctionDataSetting(setting as IFunctionDataSetting);
-  } else {
-    return new ArrayDataSetting(setting as IArrayDataSetting);
-  }
-}
+const selectSettings = computed(() =>
+  props.selects.map((e) => new SelectSetting(e))
+);
 
 defineEmits(["update:modelValue"]);
 
@@ -74,14 +66,30 @@ class SelectSetting {
   field: string;
   dependsOnField?: string;
   selectedObject: Obj = {};
+  dataCalculator: DataCalculator;
 
   constructor(setting: ISelectSetting) {
     this.label = setting.label;
     this.placeholder = setting.placeholder;
-    this.valueKey = setting.valueKey??"value";
-    this.descriptionKey = setting.descriptionKey??"description";
+    this.valueKey = setting.valueKey ?? "value";
+    this.descriptionKey = setting.descriptionKey ?? "description";
     this.field = setting.field;
     this.dependsOnField = setting.dependsOnField;
+    this.dataCalculator = createDataCalculator(setting);
+
+    function createDataCalculator(setting: ISelectSetting) {
+      if (typeof setting.data === "string") {
+        return new StringCalculator(setting as IStringDataSetting);
+      } else if (typeof setting.data === "function") {
+        return new FunctionCalculator(setting as IFunctionDataSetting);
+      } else {
+        return new arrayCalculator(setting as IArrayDataSetting);
+      }
+    }
+  }
+
+  get data() {
+    return this.dataCalculator.dataList;
   }
 
   get modelValue() {
@@ -99,12 +107,29 @@ class SelectSetting {
   }
 }
 
-class StringDataSetting extends SelectSetting {
+interface DataCalculator {
+  dataList: Obj[] | Promise<Obj[]>;
+}
+
+class arrayCalculator implements DataCalculator {
+  data: Obj[] | Promise<Obj[]>;
+
+  constructor(setting: IArrayDataSetting) {
+    this.data = setting.data;
+  }
+
+  get dataList() {
+    return this.data;
+  }
+}
+
+class StringCalculator implements DataCalculator {
   data: string;
+  dependsOnField?: string;
 
   constructor(setting: IStringDataSetting) {
-    super(setting);
     this.data = setting.data;
+    this.dependsOnField = setting.dependsOnField;
   }
 
   get dataList() {
@@ -119,30 +144,16 @@ class StringDataSetting extends SelectSetting {
 
     function settingFindBy(field: string): SelectSetting {
       const result = selectSettings.value.find((e) => e.field === field);
-      if (!result) throw new Error(`doens't have SelectSetting for : ${field}`);
+      if (!result) throw new Error(`doesn't have SelectSetting for : ${field}`);
       return result;
     }
   }
 }
 
-class ArrayDataSetting extends SelectSetting {
-  data: Obj[] | Promise<Obj[]>;
-
-  constructor(setting: IArrayDataSetting) {
-    super(setting);
-    this.data = setting.data;
-  }
-
-  get dataList() {
-    return this.data;
-  }
-}
-
-class FunctionDataSetting extends SelectSetting {
+class FunctionCalculator implements DataCalculator {
   data: (searchItem: Obj) => Obj[] | Promise<Obj[]>;
 
   constructor(setting: IFunctionDataSetting) {
-    super(setting);
     this.data = setting.data;
   }
 
